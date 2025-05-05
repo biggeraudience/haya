@@ -9,7 +9,7 @@ import {
 } from "react-icons/fi";
 import axios from "axios";
 import { useUser } from "../context/UserContext";
-import "../styles/composeBox.scss";
+import "../styles/composebox.scss";
 
 const ComposeBox = ({ onClose, onMinimize, onMessageSent }) => {
   const { user, loading } = useUser();
