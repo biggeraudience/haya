@@ -14,7 +14,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'react-map-gl': 'react-map-gl/dist/esm'
-    }
-  }
+      'react-map-gl': 'react-map-gl/dist/esm',
+    },
+  },
+  build: {
+    outDir: 'dist', // Ensure the build output is in the 'dist' directory
+  },
 });
