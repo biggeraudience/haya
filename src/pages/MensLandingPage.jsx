@@ -1,5 +1,7 @@
 // src/pages/MensLandingPage.jsx
 import React, { useState } from 'react';
+// Removed useNavigate as it's not strictly needed for this approach of modifying the data prop
+// import { useNavigate } from 'react-router-dom';
 import '../styles/menslandingpage.scss';
 import AnnouncementBar from '../components/AnnouncementBar.jsx';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -42,268 +44,288 @@ const ITEM_MARGIN = 16;
 const EXTRA_MARGIN = 48;
 
 // Define categories data for Men's Landing Page
+// NOTE: The shopLink values here are the *original* links.
+// We will modify them before passing to CategoryDisplaySection.
 const categoriesData = [
-  {
-    name: 'Clothing',
-    imageLeft: imgClothing, // Using imported image directly
-    heading: 'Explore Our Clothing Collection',
-    content:
-      'Discover impeccably tailored Kaftans, comfortable Kandooras, and majestic Agbadas...',
-    shopLink: '/clothing',
-    boxItems: [
-      {
-        image: imgKaftan,
-        title: 'Kaftan',
-        content:
-          'Elegant and modern kaftans crafted from premium fabric.',
-        shopLink: '/clothing/kaftans',
-      },
-      {
-        image: imgKandoor,
-        title: 'Kandoor',
-        content:
-          'Traditional Kandooras with a contemporary twist.',
-        shopLink: '/clothing/kandooras',
-      },
-      {
-        image: imgAgbada,
-        title: 'Agbada',
-        content: 'Majestic Agbadas for your most special ceremonies.',
-        shopLink: '/clothing/agbadas',
-      },
-    ],
+  {
+    name: 'Clothing',
+    imageLeft: imgClothing, // Using imported image directly
+    heading: 'Explore Our Clothing Collection',
+    content:
+      'Discover impeccably tailored Kaftans, comfortable Kandooras, and majestic Agbadas...',
+    shopLink: '/clothing', // Original link
+    boxItems: [
+      {
+        image: imgKaftan,
+        title: 'Kaftan',
+        content:
+          'Elegant and modern kaftans crafted from premium fabric.',
+        shopLink: '/clothing/kaftans', // Original link
+      },
+      {
+        image: imgKandoor,
+        title: 'Kandoor',
+        content:
+          'Traditional Kandooras with a contemporary twist.',
+        shopLink: '/clothing/kandooras', // Original link
+      },
+      {
+        image: imgAgbada,
+        title: 'Agbada',
+        content: 'Majestic Agbadas for your most special ceremonies.',
+        shopLink: '/clothing/agbadas', // Original link
+      },
+    ],
+  },
+  {
+    name: 'Bags',
+    imageLeft: imgBags, // Using imported image directly
+    heading: 'Discover Our Stylish Bags',
+    content:
+      'Carry your essentials in style with our range of sophisticated bags...',
+    shopLink: '/bags', // Original link
+    boxItems: [
+      {
+        image: imgLuxury,
+        title: 'Luxury Bags',
+        content: 'Handcrafted leather bags for the discerning gentleman.',
+        shopLink: '/bags/luxury', // Original link
+      },
+      {
+        image: imgTravel,
+        title: 'Travel Bags',
+        content: 'Spacious, durable travel bags for every adventure.',
+        shopLink: '/bags/travel', // Original link
+      },
+    ],
+  },
+  {
+    name: 'Shoes',
+    imageLeft: imgShoes, // Using imported image directly
+    heading: 'Step Out in Our Quality Footwear',
+    content: 'Find the perfect pair of shoes for every occasion...',
+    shopLink: '/shoes', // Original link
+    boxItems: [
+      {
+        image: imgFormal,
+        title: 'Formal Shoes',
+        content: 'Polished leather oxfords and loafers.',
+        shopLink: '/shoes/formal', // Original link
+      },
+      {
+        image: imgCasual,
+        title: 'Casual Shoes',
+        content: 'Comfort meets style in our casual collection.',
+        shopLink: '/shoes/casual', // Original link
+      },
+    ],
+  },
+  {
+    name: 'Perfumes',
+    imageLeft: imgPerfumes, // Using imported image directly
+    heading: 'Indulge in Exquisite Fragrances',
+    content: 'Discover our collection of captivating perfumes for men...',
+    shopLink: '/perfumes', // Original link
+    boxItems: [
+      {
+        image: imgOriental,
+        title: 'Oriental Scents',
+        content: 'Rich, spicy, and long-lasting.',
+        shopLink: '/perfumes/oriental', // Original link
+      },
+      {
+        image: imgWoody,
+        title: 'Woody Notes',
+        content: 'Earthy, warm, and sophisticated.',
+        shopLink: '/perfumes/woody', // Original link
+      },
+    ],
+  },
+  {
+    name: 'Accessories',
+    imageLeft: imgAccessories, // Using imported image directly
+    heading: 'Elevate Your Look with Accessories',
+    content:
+      'Complete your style with our range of premium accessories...',
+    shopLink: '/accessories', // Original link
+    boxItems: [
+      {
+        image: imgCufflinks,
+        title: 'Cufflinks',
+        content: 'Distinctive designs in sterling silver and enamel.',
+        shopLink: '/accessories/cufflinks', // Original link
+      },
+      {
+        image: imgWatches,
+        title: 'Watches',
+        content: 'Stand out in our eye-catching time pieces',
+        shopLink: '/accessories/watches', // Original link
+      },
+    ],
+  },
+  {
+    name: 'Caps',
+    imageLeft: imgCaps, // Using imported image directly
+    heading: 'Top Off Your Style with Our Caps',
+    content: 'Explore our collection of stylish and comfortable caps...',
+    shopLink: '/caps', // Original link
+    boxItems: [
+      {
+        image: imgTraditional,
+        title: 'Traditional Caps',
+        content: 'Classic embroidered designs.',
+        shopLink: '/caps/traditional', // Original link
+      },
+      {
+        image: imgModern,
+        title: 'Modern Caps',
+        content: 'Sleek silhouettes in contemporary fabrics.',
+        shopLink: '/caps/modern', // Original link
+      },
+    ],
+  },
+  {
+    name: 'Fabrics',
+    imageLeft: imgFabrics,
+    heading: 'Discover Our Premium Fabrics',
+    content:
+      'Hand-picked textiles in classic plains and bold patterns—perfect for bespoke tailoring or ready-made looks.',
+    shopLink: '/fabrics', // Original link
+    boxItems: [
+      {
+        image: imgPlain,
+        title: 'Plain Wool & Cotton',
+        content:
+          'Sumptuous pure-wool serges, crisp Egyptian cottons, and breathable linens in timeless solids.',
+        shopLink: '/fabrics/plain', // Original link
+      },
+      {
+        image: imgPattern,
+        title: 'Patterned Weaves',
+        content:
+          'From herringbone and checks to pinstripes and jacquards—bring a dash of character to every suit or shirt.',
+        shopLink: '/fabrics/pattern', // Original link
+      },
+    ],
   },
-  {
-    name: 'Bags',
-    imageLeft: imgBags, // Using imported image directly
-    heading: 'Discover Our Stylish Bags',
-    content:
-      'Carry your essentials in style with our range of sophisticated bags...',
-    shopLink: '/bags',
-    boxItems: [
-      {
-        image: imgLuxury,
-        title: 'Luxury Bags',
-        content: 'Handcrafted leather bags for the discerning gentleman.',
-        shopLink: '/bags/luxury',
-      },
-      {
-        image: imgTravel,
-        title: 'Travel Bags',
-        content: 'Spacious, durable travel bags for every adventure.',
-        shopLink: '/bags/travel',
-      },
-    ],
-  },
-  {
-    name: 'Shoes',
-    imageLeft: imgShoes, // Using imported image directly
-    heading: 'Step Out in Our Quality Footwear',
-    content: 'Find the perfect pair of shoes for every occasion...',
-    shopLink: '/shoes',
-    boxItems: [
-      {
-        image: imgFormal,
-        title: 'Formal Shoes',
-        content: 'Polished leather oxfords and loafers.',
-        shopLink: '/shoes/formal',
-      },
-      {
-        image: imgCasual,
-        title: 'Casual Shoes',
-        content: 'Comfort meets style in our casual collection.',
-        shopLink: '/shoes/casual',
-      },
-    ],
-  },
-  {
-    name: 'Perfumes',
-    imageLeft: imgPerfumes, // Using imported image directly
-    heading: 'Indulge in Exquisite Fragrances',
-    content: 'Discover our collection of captivating perfumes for men...',
-    shopLink: '/perfumes',
-    boxItems: [
-      {
-        image: imgOriental,
-        title: 'Oriental Scents',
-        content: 'Rich, spicy, and long-lasting.',
-        shopLink: '/perfumes/oriental',
-      },
-      {
-        image: imgWoody,
-        title: 'Woody Notes',
-        content: 'Earthy, warm, and sophisticated.',
-        shopLink: '/perfumes/woody',
-      },
-    ],
-  },
-  {
-    name: 'Accessories',
-    imageLeft: imgAccessories, // Using imported image directly
-    heading: 'Elevate Your Look with Accessories',
-    content:
-      'Complete your style with our range of premium accessories...',
-    shopLink: '/accessories',
-    boxItems: [
-      {
-        image: imgCufflinks,
-        title: 'Cufflinks',
-        content: 'Distinctive designs in sterling silver and enamel.',
-        shopLink: '/accessories/cufflinks',
-      },
-      {
-        image: imgWatches,
-        title: 'Watches',
-        content: 'Stand out in our eye-catching time pieces',
-        shopLink: '/accessories/watches',
-      },
-    ],
-  },
-  {
-    name: 'Caps',
-    imageLeft: imgCaps, // Using imported image directly
-    heading: 'Top Off Your Style with Our Caps',
-    content: 'Explore our collection of stylish and comfortable caps...',
-    shopLink: '/caps',
-    boxItems: [
-      {
-        image: imgTraditional,
-        title: 'Traditional Caps',
-        content: 'Classic embroidered designs.',
-        shopLink: '/caps/traditional',
-      },
-      {
-        image: imgModern,
-        title: 'Modern Caps',
-        content: 'Sleek silhouettes in contemporary fabrics.',
-        shopLink: '/caps/modern',
-      },
-    ],
-  },
-  {
-    name: 'Fabrics',
-  imageLeft: imgFabrics,  
-  heading: 'Discover Our Premium Fabrics',
-  content:
-    'Hand-picked textiles in classic plains and bold patterns—perfect for bespoke tailoring or ready-made looks.',
-  shopLink: '/fabrics',
-  boxItems: [
-    {
-      image: imgPlain,
-      title: 'Plain Wool & Cotton',
-      content:
-        'Sumptuous pure-wool serges, crisp Egyptian cottons, and breathable linens in timeless solids.',
-      shopLink: '/fabrics/plain',
-    },
-    {
-      image: imgPattern,
-      title: 'Patterned Weaves',
-      content:
-        'From herringbone and checks to pinstripes and jacquards—bring a dash of character to every suit or shirt.',
-      shopLink: '/fabrics/pattern',
-    },
-  ],
-},
 ];
 
 // Map hero images to categories for the carousel
 const originalItems = categoriesData.map((cat, i) => ({
-  ...cat,
-  heroImage: [imgClothing, imgBags, imgShoes, imgPerfumes, imgAccessories, imgCaps, imgFabrics][i],
+  ...cat,
+  heroImage: [imgClothing, imgBags, imgShoes, imgPerfumes, imgAccessories, imgCaps, imgFabrics][i],
 }));
 
 export default function MensLandingPage() {
-  const [items, setItems] = useState(originalItems);
-  const activeItem = items[0]; // The currently active category for display
+  // We don't need useNavigate here if we modify the shopLink prop
+  // const navigate = useNavigate();
 
-  // Function to move to the next slide in the carousel
-  const nextSlide = () => {
-    setItems(prev => {
-      const [first, ...rest] = prev;
-      return [...rest, first]; // Move the first item to the end
-    });
+  const [items, setItems] = useState(originalItems);
+  const activeItem = items[0]; // The currently active category for display
+
+  // Create a modified version of the activeItem
+  // This object will have all its shopLinks pointing to '/shop'
+  const modifiedActiveItem = {
+    ...activeItem,
+    shopLink: '/shop', // Change the main shopLink to /shop
+    // Also change the shopLink for each box item
+    boxItems: activeItem.boxItems.map(boxItem => ({
+      ...boxItem,
+      shopLink: '/shop', // Change sub-category shopLinks to /shop
+    })),
   };
 
-  // Function to move to the previous slide in the carousel
-  const prevSlide = () => {
-    setItems(prev => {
-      const arr = [...prev];
-      const last = arr.pop(); // Remove the last item
-      return [last, ...arr]; // Add the last item to the beginning
-    });
-  };
+  // Function to move to the next slide in the carousel
+  const nextSlide = () => {
+    setItems(prev => {
+      const [first, ...rest] = prev;
+      return [...rest, first]; // Move the first item to the end
+    });
+  };
 
-  return (
-    <>
-      {/* Announcement bar and Navbar */}
-      <AnnouncementBar />
-      <Navbar />
+  // Function to move to the previous slide in the carousel
+  const prevSlide = () => {
+    setItems(prev => {
+      const arr = [...prev];
+      const last = arr.pop(); // Remove the last item
+      return [last, ...arr]; // Add the last item to the beginning
+    });
+  };
 
-      {/* Main container for the men's landing page */}
-      <div className="mens-landing-page">
-        {/* Carousel section */}
-        <div className="carousel-wrapper">
-          <section className="carousel-section">
-            {/* Fixed decorative bulbs */}
-            <div className="fixed-bulb top" />
-            <div className="fixed-bulb bottom" />
+  return (
+    <>
+      {/* Announcement bar and Navbar */}
+      <AnnouncementBar />
+      <Navbar />
 
-            {/* Previous slide button */}
-            <button className="carousel-arrow left" onClick={prevSlide} aria-label="Previous category">
-              <FaChevronLeft />
-            </button>
+      {/* Main container for the men's landing page */}
+      <div className="mens-landing-page">
+        {/* Carousel section */}
+        <div className="carousel-wrapper">
+          <section className="carousel-section">
+            {/* Fixed decorative bulbs */}
+            <div className="fixed-bulb top" />
+            <div className="fixed-bulb bottom" />
 
-            {/* Carousel track displaying category items */}
-            <div className="carousel-track">
-              {items.map((item, idx) => {
-                const isActive = idx === 0; // Check if this is the active item
-                const distance = idx; // Distance from the active item
-                const scale = isActive ? 1 : 1 - distance * 0.1; // Scale based on distance
-                const opacity = isActive ? 1 : 1 - distance * 0.15; // Opacity based on distance
+            {/* Previous slide button */}
+            <button className="carousel-arrow left" onClick={prevSlide} aria-label="Previous category">
+              <FaChevronLeft />
+            </button>
 
-                return (
-                  <div
-                    key={item.name}
-                    className={`carousel-item ${isActive ? 'active' : ''}`}
-                    style={{
-                      transform: `scale(${scale})`,
-                      opacity,
-                      width: `${ITEM_WIDTH}px`,
-                      marginRight: isActive
-                        ? `calc(${ITEM_MARGIN}px + ${EXTRA_MARGIN}px)` // Extra margin for active item
-                        : `${ITEM_MARGIN}px`, // Standard margin for other items
-                    }}
-                  >
-                    {/* Display the hero image for the category */}
-                    <img src={item.heroImage} alt={item.name} />
-                  </div>
-                );
-              })}
-            </div>
+            {/* Carousel track displaying category items */}
+            <div className="carousel-track">
+              {items.map((item, idx) => {
+                const isActive = idx === 0; // Check if this is the active item
+                const distance = idx; // Distance from the active item
+                const scale = isActive ? 1 : 1 - distance * 0.1; // Scale based on distance
+                const opacity = isActive ? 1 : 1 - distance * 0.15; // Opacity based on distance
 
-            {/* Next slide button */}
-            <button className="carousel-arrow right" onClick={nextSlide} aria-label="Next category">
-              <FaChevronRight />
-            </button>
-          </section>
-        </div>
+                return (
+                  <div
+                    key={item.name}
+                    className={`carousel-item ${isActive ? 'active' : ''}`}
+                    style={{
+                      transform: `scale(${scale})`,
+                      opacity,
+                      width: `${ITEM_WIDTH}px`,
+                      marginRight: isActive
+                        ? `calc(${ITEM_MARGIN}px + ${EXTRA_MARGIN}px)` // Extra margin for active item
+                        : `${ITEM_MARGIN}px`, // Standard margin for other items
+                    }}
+                  >
+                    {/* Display the hero image for the category */}
+                    <img src={item.heroImage} alt={item.name} />
+                  </div>
+                );
+              })}
+            </div>
 
-        {/* Category display section - shows details of the active category */}
-        <div className="category-wrapper">
-          {/* Pass the active category data and the specific background image for men */}
-          {/* Also pass the gender prop */}
-          <CategoryDisplaySection categoryData={activeItem} backgroundImage={menBgImage} gender="men" />
-        </div>
+            {/* Next slide button */}
+            <button className="carousel-arrow right" onClick={nextSlide} aria-label="Next category">
+              <FaChevronRight />
+            </button>
+          </section>
+        </div>
 
-        {/* Feed section */}
-        <div className="feed-wrapper">
-          {/* Assuming FeedSection component is used here */}
-          <FeedSection />
-        </div>
-      </div>
+        {/* Category display section - shows details of the active category */}
+        <div className="category-wrapper">
+          {/* Pass the modified active category data with updated shopLinks */}
+          <CategoryDisplaySection
+              categoryData={modifiedActiveItem} // Use the modified data here
+              backgroundImage={menBgImage}
+              gender="men"
+          />
+        </div>
 
-      {/* Product Footer */}
-      <ProductFooter />
-    </>
-  );
+        {/* Feed section */}
+        <div className="feed-wrapper">
+          {/* Assuming FeedSection component is used here */}
+          <FeedSection />
+        </div>
+      </div>
+
+      {/* Product Footer */}
+      <ProductFooter />
+    </>
+  );
 }
