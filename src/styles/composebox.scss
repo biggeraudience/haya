@@ -1,0 +1,132 @@
+/* Mobile-first Compose Box Modal */
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+.compose-box {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 400px;
+  max-width: 90%;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1500;
+  font-family: "Overpass Mono";
+}
+
+.compose-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #c04b37;
+  color: #fff;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.compose-header-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.compose-header-icons .icon {
+  cursor: pointer;
+}
+
+.compose-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.compose-content input,
+.compose-content textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.compose-content textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+.compose-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: #f1f3f4;
+  border-top: 1px solid #ddd;
+}
+
+.compose-actions .action-icon {
+  font-size: 20px;
+  cursor: pointer;
+  color: #5f6368;
+}
+
+.compose-actions .send {
+  color: #1967d2;
+}
+
+.send-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  bottom: 45px;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-menu button {
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-menu button:hover {
+  background: #f1f3f4;
+}
+
+.loading {
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: #1967d2;
+}
+
+.error {
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  color: red;
+}

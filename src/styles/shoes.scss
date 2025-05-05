@@ -1,0 +1,104 @@
+
+/* Main box for Shoes page */
+.shoes-main-box {
+    width: 80%;
+    margin: 100px auto; /* Centering with ample space above and below */
+    border: 5px solid black; /* Thick black border for main box */
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 0;
+    margin-bottom: 100px;
+  }
+  
+  /* Grid container for shoes products */
+  .shoes-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust minmax for the product box width */
+    gap: 20px; /* Adjust gap between items */
+    padding: 20px;
+  }
+  
+  /* Shoes product image styling */
+  .shoes-product-image {
+    width: 100%; /* Ensure image spans the width of the product box */
+    height: 100%; /* Ensure image spans the height of the product box */
+    object-fit: cover; /* Make the image cover the product box while maintaining aspect ratio */
+    position: absolute; /* Position image inside the product box */
+    top: 0;
+    left: 0;
+    z-index: 1; /* Place the image behind other content */
+  }
+  
+  /* Shoes product box styling */
+  .shoes-product-box {
+    border: 3px solid black; /* Border for product boxes */
+    padding: 0; /* Remove padding to avoid extra space */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Align contents to the bottom */
+    height: 200px; /* Adjust as needed */
+    box-sizing: border-box;
+    position: relative; /* For absolute positioning of child elements */
+    overflow: hidden; /* Ensure content doesn't overflow the box */
+  }
+  
+  /* Shoes product details styling */
+  .shoes-product-details {
+    display: flex;
+    justify-content: space-between; /* Space between the price and the buttons */
+    align-items: center;
+    border: 2px solid black; /* Black border */
+    background-color: #FFFFF0; /* Light yellow background */
+    padding: 5px 10px; /* Add some padding for spacing */
+    z-index: 10;
+    position: absolute; /* Place it at the bottom */
+    bottom: 0; /* Align to the bottom of the box */
+    left: 0; /* Stretch to the left edge */
+    right: 0; /* Stretch to the right edge */
+  }
+  
+  /* Styling for price text */
+  .shoes-price {
+    font-weight: bold;
+    margin-right: auto; /* Push the price to the left */
+    z-index: 100;
+  }
+  
+  /* Favorite and Add to Cart button container */
+  .shoes-actions {
+    display: flex; /* Align buttons horizontally */
+    gap: 10px; /* Space between the buttons */
+    z-index: 100;
+  }
+  
+  /* Placeholder for Favorites button styling */
+  .shoes-favorites-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 100;
+  }
+  
+  /* Styling for BUY button */
+  .shoes-buy-button {
+    background-color: #FE5829;
+    color: black;
+    border: 2px solid black; /* Black border */
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    z-index: 100;
+    font-family: 'caveat', cursive, sans-serif;
+    font-weight: bold;
+    font-size: medium;
+    
+  }
+  
+  .clothing-buy-button:hover {
+    background-color: #c94a23; /* Change background on hover */
+  }
+  /* Hover effect for Add to Cart button */
+  .shoes-buy-button:hover {
+    background-color: #c94a23; /* Change background on hover */
+  }
+  

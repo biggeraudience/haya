@@ -1,0 +1,349 @@
+/* src/styles/profile.scss */
+
+/* Styles for the main container within the Feed Section's content area */
+.profile-content-container {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center content horizontally */
+  width: 100%; /* Take full width of the content area */
+  padding: 1rem; /* Add some padding */
+  box-sizing: border-box; /* Include padding in width */
+  min-height: 100%; /* Ensure it takes at least the height of its parent (content-area) */
+  font-family: 'Overpass Mono', sans-serif; /* Apply font here */
+  color: black; /* Default text color */
+ 
+  position: relative; /* Needed for absolute positioning of toggle buttons */
+}
+
+/* Styles for the navigation arrows */
+.profile-nav-arrows {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem; /* Space below arrows */
+  max-width: 540px; /* Slightly larger max-width to accommodate buttons and gap */
+  padding: 0 10px; /* Add horizontal padding to prevent touching edges on small screens */
+  box-sizing: border-box; /* Include padding in width */
+  position: relative; /* Ensure arrows are positioned normally in the flow */
+  z-index: 2; /* Ensure arrows are above the inner box if needed */
+}
+
+.nav-arrow {
+  background-color: #fe5829; /* Orange background */
+  color: white; /* White text */
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  font-family: 'Overpass Mono', sans-serif; /* Apply font */
+
+  &:hover:not(:disabled) {
+    background-color: #e23d10; /* Darker orange on hover */
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+
+/* Styles for the main box (Login/Register/Profile Wrapper) */
+/* This class is no longer used as a wrapper, but keeping it in case it's referenced elsewhere */
+.main-box {
+  /* Removed styles related to the outer box */
+  width: 100%; /* Ensure it doesn't restrict inner content width */
+  max-width: none; /* Remove max-width */
+  padding: 0; /* Remove padding */
+  border: none; /* Remove border */
+  background-color: transparent; /* Remove background */
+  box-shadow: none; /* Remove box-shadow */
+  overflow: visible; /* Allow content to overflow if needed */
+  display: block; /* Change display to block */
+  position: static; /* Remove positioning */
+  left: auto; /* Reset left */
+  flex-grow: 0; /* Reset flex-grow */
+}
+
+/* Styles for the toggle buttons (Login/Register) */
+.toggle-buttons {
+  position: relative;
+  /* Position relative to profile-content-container */
+  top: 0; /* Position at the top of the container */
+  left: 80px !important;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 1; /* Ensure they are above the inner-box and overlay */
+  font-family: 'Overpass Mono', sans-serif; /* Apply font */
+  margin-top: 10px; /* Add some space from the very top */
+}
+
+
+
+/* Styles for the inner content box (forms, details, options) */
+.inner-box {
+  width: 100%; 
+  max-width: 540px;
+  font-family: 'Overpass Mono', sans-serif; /* Apply font */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content to top */
+  align-items: center;
+  box-sizing: border-box; /* Include padding in dimensions */
+  height: 600px !important; /* Add scrolling if content overflows */
+  background-color: rgb(22, 11, 8); /* Dark background */
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); /* Add shadow */
+  position: relative; /* Needed for z-index */
+  top: 340px !important;
+  z-index: 1; /* Ensure inner-box is below toggle buttons */
+  margin-top: 40px; /* Add margin to make space for toggle buttons */
+}
+
+
+
+.form-heading {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: white; /* Heading color changed to white to contrast with dark background */
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  font-family: 'Overpass Mono', sans-serif; /* Apply font */
+
+  .input-field {
+    width: 90%; /* Adjusted width */
+    max-width: 300px; /* Keep max width */
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-family: 'Overpass Mono', sans-serif; /* Apply font */
+    font-size: 16px;
+    color: black; /* Ensure input text is black */
+    border-radius: 4px; /* Added border-radius */
+  }
+
+  .action-button {
+    width: 90%; /* Adjusted width */
+    max-width: 322px; /* Keep max width */
+    padding: 10px;
+    background-color: #fe5829; /* Orange background */
+    color: white; /* White text */
+    border: none;
+    font-family: 'Overpass Mono', sans-serif; /* Apply font */
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 4px; /* Added border-radius */
+
+    &:hover {
+      background-color: #e23d10; /* Darker orange on hover */
+    }
+  }
+}
+
+
+.profile-image-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px; /* Add space below image */
+
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fe5829; /* Orange border */
+    box-shadow: 0 0 0 2px #000; /* Thicker black inner ring */
+  }
+
+  .profile-image-actions {
+    position: absolute;
+    bottom: 0;
+    right: calc(50% - 50px + 30px); /* Adjust positioning relative to image center */
+    display: flex;
+    gap: 5px;
+  }
+
+  .icon {
+    font-size: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.8); /* Less transparent on hover */
+    }
+  }
+
+  .delete-icon {
+    background-color: rgba(255, 0, 0, 0.5); /* Semi-transparent red */
+    &:hover {
+      background-color: rgba(255, 0, 0, 0.8); /* Less transparent red on hover */
+    }
+  }
+}
+
+.profile-info {
+  text-align: center;
+  margin-bottom: 20px; /* Space below info */
+  p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: white; /* Text color changed to white */
+  }
+}
+
+
+.profile-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  width: 100%;
+  font-family: 'Overpass Mono', sans-serif; /* Apply font */
+}
+
+.account-options {
+  width: 90%; /* Adjusted width */
+  max-width: 322px; /* Keep max width */
+  padding: 10px;
+  background-color: #fe5829; /* Orange background */
+  color: black; /* Ensure text is black as in original */
+  border: none;
+  font-family: 'Overpass Mono', sans-serif; /* Apply font */
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-radius: 4px; /* Added border-radius */
+
+  &:hover {
+    color: #fff; /* White text on hover */
+    background-color: #e23d10; /* Darker orange on hover */
+    transform: scale(1.02); /* Slightly reduced scale effect */
+  }
+}
+
+.account-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+  font-family: 'Overpass Mono', sans-serif; /* Apply font */
+
+  .account-action {
+    padding: 10px 20px;
+    background-color: #fe5829; /* Orange background */
+    color: white; /* White text */
+    border: none;
+    font-family: 'Overpass Mono', sans-serif; /* Apply font */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 4px; /* Added border-radius */
+
+    &:hover {
+      background-color: #e23d10; /* Darker orange on hover */
+    }
+
+    &.delete {
+      background-color: red; /* Red background for delete */
+      &:hover {
+        background-color: rgb(211, 0, 0); /* Darker red on hover */
+      }
+    }
+  }
+}
+
+/* Styles for Welcome Message */
+.welcome-message {
+  text-align: center;
+  padding: 20px;
+  color: white; /* Text color changed to white */
+  h2 { color: white; margin-bottom: 10px; } /* Heading color changed to white */
+  p { color: white; margin-top: 5px;} /* Paragraph color changed to white */
+}
+
+/* Basic Placeholder style */
+.tab-content {
+  padding: 20px;
+  text-align: center;
+  color: white; /* Text color changed to white */
+  font-size: 18px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .profile-content-container {
+    padding: 0.5rem; /* Reduce padding on smaller screens */
+  }
+
+  .profile-nav-arrows {
+     max-width: 100%; /* Allow arrows to take full width */
+     padding: 0 5px; /* Reduce padding */
+  }
+
+  .nav-arrow {
+    padding: 6px 10px; /* Adjust padding */
+    font-size: 12px; /* Adjust font size */
+  }
+
+  .inner-box {
+    padding: 15px; /* Reduce padding inside inner box */
+    margin-top: 30px; /* Adjust margin top */
+  }
+
+  .form-heading {
+    font-size: 18px; /* Adjust heading size */
+    margin-bottom: 15px; /* Adjust margin */
+  }
+
+  .login-form .input-field,
+  .login-form .action-button,
+  .profile-options .account-options {
+    width: 100%; /* Make form elements take full width */
+    max-width: none; /* Remove max-width constraint */
+  }
+
+  .profile-image-container .profile-image-actions {
+     right: calc(50% - 50px + 20px); /* Adjust icon position */
+  }
+
+  .profile-image-container .icon {
+    font-size: 18px; /* Adjust icon size */
+    padding: 4px; /* Adjust padding */
+  }
+
+  .profile-info p {
+    font-size: 14px; /* Adjust font size */
+  }
+
+  .account-actions {
+    flex-direction: column; /* Stack action buttons vertically */
+    gap: 8px; /* Adjust gap */
+
+    .account-action {
+      width: 100%; /* Make buttons take full width */
+      text-align: center; /* Center button text */
+      font-size: 14px; /* Adjust font size */
+      padding: 8px 15px; /* Adjust padding */
+    }
+  }
+}

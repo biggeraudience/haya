@@ -1,0 +1,87 @@
+/* src/styles/bespokeordercontent.scss */
+
+.bespoke-order-container {
+    padding: 1rem;
+    background-color: #fff; /* White background */
+    border: 1px solid #ccc; /* Light border */
+    color: black; /* Ensure text is visible */
+    font-family: 'Overpass Mono', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 400px;
+    z-index: 2;
+
+    h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: black;
+    }
+
+    .fabric-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive 3x3 like behavior */
+        gap: 1rem; /* Space between grid items */
+        width: 100%;
+        max-width: 800px; /* Limit grid width if needed */
+        justify-content: center; /* Center the grid */
+    }
+
+    .fabric-item {
+        border: 1px solid #eee;
+        padding: 0.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        background-color: #f9f9f9; /* Light background for items */
+
+        &:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            max-width: 100%;
+            height: 150px; /* Fixed height for images */
+            object-fit: cover; /* Cover the area */
+            margin-bottom: 0.5rem;
+            border: 1px solid #ddd; /* Subtle image border */
+        }
+
+        .fabric-name {
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 0.2rem 0;
+            color: black; /* Ensure text color is black */
+        }
+         .fabric-price {
+             font-size: 0.9rem;
+             color: #555; /* Slightly muted color for price */
+         }
+    }
+
+    .bespoke-message {
+        text-align: center;
+        padding: 20px;
+        font-size: 1.1rem;
+        color: #555;
+         &.error {
+             color: red;
+         }
+    }
+}
+
+@media (max-width: 600px) {
+    .bespoke-order-container {
+        padding: 0.5rem;
+    }
+    .fabric-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjust for smaller screens */
+        gap: 0.8rem;
+    }
+    .fabric-item img {
+         height: 120px; /* Adjust image height */
+    }
+}

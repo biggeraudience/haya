@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+
+.admin-approval-page {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .pending-admins-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .pending-admin-item {
+    border: 1px solid #ccc;
+    margin: 10px auto;
+    padding: 10px;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .pending-admin-item button {
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .pending-admin-item button:hover {
+    background-color: #218838;
+  }
+  

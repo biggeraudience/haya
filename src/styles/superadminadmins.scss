@@ -1,0 +1,90 @@
+// src/styles/superadminadmins.scss
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+.superadmin-admins {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: "Overpass Mono";
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+  
+    .error {
+      color: #d9534f;
+      font-weight: bold;
+      text-align: center;
+      margin: 10px 0;
+    }
+  
+    .admins-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+  
+      thead {
+        background: #007bff;
+        color: white;
+        
+        th {
+          font-weight: bold;
+        }
+      }
+  
+      tbody {
+        tr {
+          transition: background 0.2s ease-in-out;
+  
+          &:hover {
+            background: #f1f1f1;
+          }
+        }
+  
+        td {
+          button {
+            background: transparent;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            font-weight: bold;
+  
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  
+    p {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+    }
+  }
+  

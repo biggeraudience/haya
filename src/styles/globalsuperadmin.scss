@@ -1,0 +1,1422 @@
+// globalsuperadmin.scss
+:root {
+  --sup-admin-primary-color: #fe5829;
+  --sup-admin-secondary-color: #f5f5f5;
+  --sup-admin-bg-color: #ffffff;
+  --sup-admin-text-color: #333333;
+  --sup-admin-border-radius: 4px;
+}
+
+/* Main container with fixed gradient background */
+.sup-admin-main-container {
+  position: relative;
+  background: var(--sup-admin-bg-color);
+  min-height: 100vh;
+}
+
+.sup-admin-main-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 10px 10px;
+  z-index: -1;
+}
+
+/* Sup-admin container holds the page content */
+.sup-admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--sup-admin-text-color);
+}
+
+/* Inner wrapper for shifting content down on large screens */
+.sup-admin-content-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+/* === Page-specific styles === */
+
+/* Product Page Main Section */
+.sup-admin-products-page {
+  width: 100%;
+}
+
+/* Tab Toggle Buttons */
+.sup-admin-toggle-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sup-admin-toggle-button {
+  background-color: var(--sup-admin-primary-color);
+  color: var(--sup-admin-bg-color);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: var(--sup-admin-border-radius);
+  transition: background-color 0.2s ease;
+}
+
+.sup-admin-toggle-button.active,
+.sup-admin-toggle-button:hover {
+  background-color: #e04e1f;
+}
+
+/* Upload Form Styles */
+.sup-admin-form-container {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.sup-admin-form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sup-admin-form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.sup-admin-form-group input,
+.sup-admin-form-group select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: var(--sup-admin-border-radius);
+}
+
+/* Selected Images Preview */
+.sup-admin-selected-images-wrapper {
+  margin-bottom: 15px;
+}
+
+.sup-admin-selected-images-preview {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sup-admin-selected-image-box {
+  position: relative;
+}
+
+.sup-admin-selected-image-box img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+
+.sup-admin-remove-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(255, 0, 0, 0.7);
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 2px 5px;
+}
+
+/* === Products Grid Styles === */
+.sup-admin-products-container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.sup-admin-products-wrapper {
+  width: 100%;
+}
+
+.sup-admin-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Product Card */
+.sup-admin-product-card {
+  border: 2px solid #ccc;
+  border-radius: var(--sup-admin-border-radius);
+  overflow: hidden;
+  background: var(--sup-admin-bg-color);
+  position: relative;
+}
+
+.sup-admin-image-container {
+  position: relative;
+}
+
+.sup-admin-slider img {
+  width: 100%;
+  display: block;
+}
+
+/* Action Buttons on Card */
+.sup-admin-edit-btn,
+.sup-admin-delete-btn,
+.sup-admin-info-btn {
+  position: absolute;
+  top: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.sup-admin-edit-btn {
+  left: 5px;
+}
+
+.sup-admin-delete-btn {
+  left: 45px;
+}
+
+.sup-admin-info-btn {
+  right: 5px;
+}
+
+/* Product Overlay for More Info */
+.sup-admin-product-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sup-admin-close-overlay {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Product Details */
+.sup-admin-product-details {
+  padding: 10px;
+  text-align: center;
+}
+
+.sup-admin-product-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.sup-admin-product-price {
+  color: var(--sup-admin-primary-color);
+  margin-bottom: 5px;
+}
+
+.sup-admin-product-stock {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* === Responsive Styles === */
+@media (max-width: 785px) {
+  .sup-admin-content-wrapper {
+    padding-top: 150px;
+    padding-bottom: 100px;
+  }
+  
+  .sup-admin-products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .sup-admin-content-wrapper {
+    padding-top: 250px;
+    position: relative;
+  }
+}
+
+
+/* globalsuperadmin.scss */
+.superadmin-invite-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.superadmin-invite-main-box {
+  position: relative;
+  background-color: #fe5829;
+  border: 2px solid black;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  padding: 40px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  width: 600px;
+}
+
+/* Generate Invite Code Button */
+.superadmin-generate-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color:rgb(179, 46, 9);
+  }
+}
+
+/* Toggle Buttons Container */
+.superadmin-toggle-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Toggle Button Styles */
+.superadmin-toggle-button {
+  background-color: black;
+  color: white;
+  padding: 5px 15px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 16px;
+  &.active {
+    background-color: #fe5829;
+    color: white;
+    border-bottom: 2px solid white;
+  }
+  &:hover {
+    background-color: #e24f22;
+  }
+}
+
+/* Superadmin Users Page Styling */
+.superadmin-users-page {
+  margin-top: 200px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #fe5829;
+  border: 2px solid black;
+  border-radius: 10px;
+  
+
+  .superadmin-users-header {
+    text-align: center;
+    margin-bottom: 20px;
+
+    h1 {
+      margin-bottom: 5px;
+      font-size: 2em;
+    }
+
+    p {
+      color: #666;
+    }
+  }
+}
+
+.superadmin-registered-users-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+}
+
+.superadmin-registered-user-tile {
+  border: 2px solid black;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .superadmin-user-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .superadmin-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .superadmin-profile-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .superadmin-user-basic-info {
+      display: flex;
+      flex-direction: column;
+
+      h2 {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      p {
+        margin: 2px 0;
+        font-size: 14px;
+        color: #555;
+      }
+    }
+  }
+
+  .superadmin-user-id-section {
+    margin: 0 15px;
+
+    .superadmin-user-id-button {
+      background: transparent;
+      border: none;
+      color: #007bff;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: underline;
+    }
+  }
+
+  .superadmin-user-joined-date {
+    font-size: 14px;
+    color: #333;
+  }
+
+  .superadmin-user-details {
+    margin-top: 10px;
+    animation: expand 0.3s ease;
+
+    .superadmin-detail-row {
+      margin-bottom: 8px;
+      font-size: 14px;
+
+      strong {
+        margin-right: 5px;
+      }
+    }
+
+    .superadmin-user-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+
+      button {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+      }
+
+      .superadmin-suspend-button {
+        background-color: #000;
+        color: #fff;
+        width: 40px;
+
+        &:hover {
+          background-color: #e0a800;
+        }
+      }
+
+      .superadmin-delete-button {
+        background-color: #000;
+        color: #fff;
+        width: 40px;
+
+        &:hover {
+          background-color: red;
+        }
+      }
+    }
+  }
+}
+
+.superadmin-guests-container {
+  text-align: center;
+  padding: 20px;
+  background: #fff;
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+}
+
+/* Container Wrappers (if needed) */
+.superadmin-main-container {
+  width: 100%;
+  padding: 20px;
+}
+
+.superadmin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.superadmin-content-wrapper {
+  padding: 20px;
+}
+
+/* Toggle Buttons Styling */
+.superadmin-toggle-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  .superadmin-toggle-button {
+    background-color: black;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 16px;
+
+    &.active {
+      background-color: #fe5829;
+      color: white;
+      border-bottom: 2px solid white;
+    }
+
+    &:hover {
+      background-color: #e24f22;
+    }
+  }
+}
+
+/* Responsive Styles */
+
+/* Small screens (mobile) */
+@media (max-width: 600px) {
+  .superadmin-users-page {
+    margin-top: 0;
+    padding: 10px;
+    width: 280px;
+    position: relative;
+    left: 4px;
+  }
+
+  .superadmin-toggle-buttons {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .superadmin-registered-user-tile {
+    padding: 8px;
+
+    .superadmin-user-summary {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .superadmin-user-profile {
+      gap: 5px;
+
+      .superadmin-profile-image {
+        width: 50px;
+        height: 50px;
+      }
+
+      .superadmin-user-basic-info {
+        h2 {
+          font-size: 16px;
+        }
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .superadmin-user-id-section {
+      margin: 5px 0;
+    }
+
+    .superadmin-user-joined-date {
+      font-size: 12px;
+    }
+  }
+}
+
+/* Medium screens (tablet) */
+@media (min-width: 601px) and (max-width: 992px) {
+  .superadmin-users-page {
+    margin-top: 50px;
+    padding: 15px;
+    width: 500px;
+  }
+
+  .superadmin-registered-user-tile {
+    padding: 10px;
+
+    .superadmin-user-profile {
+      .superadmin-profile-image {
+        width: 55px;
+        height: 55px;
+      }
+
+      .superadmin-user-basic-info {
+        h2 {
+          font-size: 17px;
+        }
+        p {
+          font-size: 13px;
+        }
+      }
+    }
+
+    .superadmin-user-joined-date {
+      font-size: 13px;
+    }
+  }
+}
+
+/* Large screens (desktop) */
+@media (min-width: 993px) {
+  .superadmin-users-page {
+    margin-top: 50px;
+    padding: 20px;
+    width: 1000px;
+    position: relative;
+    left: 100px;
+  }
+
+  .superadmin-registered-user-tile {
+    padding: 10px;
+
+    .superadmin-user-profile {
+      .superadmin-profile-image {
+        width: 60px;
+        height: 60px;
+      }
+
+      .superadmin-user-basic-info {
+        h2 {
+          font-size: 18px;
+        }
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .superadmin-user-joined-date {
+      font-size: 14px;
+    }
+  }
+}
+
+/* Animation */
+@keyframes expand {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+// src/styles/globalsuperadmin.scss
+
+.superadmin-orders-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; // Full viewport height
+  margin: 0; // Remove default margin
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.superadmin-main-box {
+  position: relative;
+  width: 800px;
+  height: 700px;
+  background-color: #fe5829;
+  border: 2px solid black;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  padding: 40px 20px 20px; // Add padding to avoid content overlap
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center; // Center content inside the main box
+  border-radius: 10px;
+}
+
+.superadmin-toggle-buttons {
+  position: relative; /* Enable relative positioning of the container */
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px; // Increased spacing
+  font-family: 'Caveat', cursive;
+  top: 0;  /* Adjust vertical positioning */
+  left: 0; /* Adjust horizontal positioning */
+}
+
+.superadmin-toggle-button {
+  position: relative; /* Enable relative positioning for individual buttons */
+  background-color: black;
+  color: white;
+  padding: 5px 15px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  top: 0;  /* Adjust vertical positioning of the button */
+  left: 25px; /* Adjust horizontal positioning of the button */
+
+  &.active {
+    background-color: #fe5829;
+    color: white;
+    border-bottom: 2px solid white;
+  }
+
+  &:hover {
+    background-color: #e24f22; // Hover effect
+    color: white;
+  }
+}
+
+.superadmin-inner-box {
+  width: 100%;
+  height: 100%; // Ensure the container takes up the full available height
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  // Vertically center the content
+  align-items: center;      // Horizontally center the content
+  gap: 20px;
+  overflow: visible;
+  // If you have a custom scrollbar mixin, include it here:
+  // @include custom-scrollbar(#fffff0, #fffff0, #fe5829);
+}
+
+.superadmin-order-tab {
+  width: 80%;
+  background-color: white;
+  border: 2px solid #000;
+  height: 110px;
+  margin-bottom: 20px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  font-family: 'Caveat', cursive;
+
+  .status {
+    font-size: 18px;
+    color: #000; // Status text color
+    font-weight: bold;
+  }
+
+  .order-details {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+
+    .order-number {
+      color: #333;
+    }
+
+    .order-date {
+      color: #888;
+    }
+
+    .order-total {
+      color: #fe5829;
+    }
+  }
+
+  .superadmin-see-details-button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: #fe5829;
+    color: white;
+    border: none;
+    height: 30px;
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    top: -10px;
+    display: flex;                // Enable flexbox layout
+    justify-content: center;      // Horizontally center the text
+    align-items: center;          // Vertically center the text
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #e24f22; // Hover effect
+    }
+  }
+}
+
+.superadmin-order-full-details {
+  width: 80%;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 10px;
+  font-family: 'Caveat', cursive;
+
+  h4 {
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin: 5px 0;
+  }
+}
+
+.superadmin-order-items {
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin: 5px 0;
+    }
+  }
+}
+
+/* Responsive Styles */
+
+/* Small screens (up to 600px) */
+@media (max-width: 600px) {
+  .superadmin-main-box {
+    width: 95%;
+    height: auto;
+    padding: 20px 10px;
+  }
+
+  .superadmin-toggle-button {
+    font-size: 14px;
+    padding: 5px 10px;
+    left: 0;
+  }
+
+  .superadmin-inner-box {
+    padding: 10px;
+  }
+
+  .superadmin-order-tab {
+    width: 100%;
+    padding: 10px;
+    height: auto;
+  }
+
+  .superadmin-order-full-details {
+    width: 100%;
+  }
+}
+
+/* Medium screens (601px to 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .superadmin-main-box {
+    width: 500px;
+    height: auto;
+    padding: 30px 15px;
+    position: relative;
+    margin-top: -50px;
+  }
+
+  .superadmin-toggle-button {
+    font-size: 15px;
+    padding: 5px 12px;
+  }
+
+  .superadmin-order-tab {
+    width: 90%;
+    height: auto;
+  }
+
+  .superadmin-order-full-details {
+    width: 90%;
+  }
+}
+
+/* Large screens (min-width: 958px) */
+@media (min-width: 958px) {
+  .superadmin-main-box {
+    width: 1000px;
+    height: auto;
+    padding: 30px 15px;
+    position: relative;
+    left: -63px;
+    margin-top: -350px;
+  }
+
+  .superadmin-toggle-button {
+    font-size: 15px;
+    padding: 5px 12px;
+  }
+
+  .superadmin-order-tab {
+    width: 90%;
+    height: auto;
+  }
+
+  .superadmin-order-full-details {
+    width: 90%;
+  }
+}
+
+// src/styles/globalsuperadmin.scss
+
+.superadmin-main-container {
+  width: 100%;
+  padding: 20px;
+  margin-top:100px;
+}
+
+.superadmin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.superadmin-analytics-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.superadmin-main-box {
+  position: relative;
+  width: 800px;
+  height: 700px;
+  background-color: #fe5829;
+  border: 2px solid black;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  padding: 40px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.superadmin-toggle-buttons {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-family: 'Caveat', cursive;
+  top: 0;
+  left: 0;
+}
+
+.superadmin-toggle-button {
+  position: relative;
+  background-color: black;
+  color: white;
+  padding: 5px 15px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  top: 0;
+  left: 25px;
+
+  &.active {
+    background-color: #fe5829;
+    color: white;
+    border-bottom: 2px solid white;
+  }
+
+  &:hover {
+    background-color: #e24f22;
+    color: white;
+  }
+}
+
+.superadmin-top-bar {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.content {
+  width: 100%;
+}
+
+/* Card Styles */
+.card {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.chart-card {
+  /* Additional chart card specific styles if needed */
+}
+
+.date-picker {
+  float: right;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Responsive Styles */
+
+/* Small screens (up to 600px) */
+@media (max-width: 600px) {
+  .superadmin-main-box {
+    width: 95%;
+    height: auto;
+    padding: 20px 10px;
+  }
+
+  .superadmin-toggle-button {
+    font-size: 14px;
+    padding: 5px 10px;
+    left: 0;
+  }
+}
+
+/* Medium screens (601px to 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .superadmin-main-box {
+    width: 90%;
+    height: auto;
+    padding: 30px 15px;
+    
+  }
+
+  .superadmin-toggle-button {
+    font-size: 15px;
+    padding: 5px 12px;
+  }
+}
+
+/* Large screens (min-width: 958px) */
+@media (min-width: 958px) {
+  .superadmin-main-box {
+    width: 1000px;
+    height: auto;
+    padding: 30px 15px;
+    
+  }
+
+  .superadmin-toggle-button {
+    font-size: 15px;
+    padding: 5px 12px;
+  }
+}
+
+.superadmin-settings-page { 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; // Full viewport height
+  margin: 0; // Remove default margin
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.superadmin-main-box {
+  position: relative;
+  width: 800px;
+  height: 700px;
+  background-color: #fe5829;
+  border: 2px solid black;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  padding: 40px 20px 20px; // Add padding to avoid content overlap
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center; // Center content inside the main box
+  border-radius: 10px;
+}
+
+/* Renamed Tabs Wrapper with side padding for arrows */
+.superadmin-settings-tabs-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 0 40px;
+}
+
+/* Renamed toggle buttons container */
+.superadmin-settings-toggle-buttons {
+  display: flex;
+  gap: 10px;
+  font-family: 'Caveat', cursive;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 0;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Renamed individual toggle button */
+.superadmin-settings-toggle-button {
+  position: relative;
+  background-color: black;
+  color: white;
+  padding: 5px 15px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  
+  &.active {
+    background-color: #fe5829;
+    color: white;
+    border-bottom: 2px solid white;
+  }
+  
+  &:hover {
+    background-color: #e24f22;
+    color: white;
+  }
+}
+
+/* Inner content box styling */
+.superadmin-inner-box {
+  width: 100%;
+  height: 100%; // Ensure the container takes up the full available height
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  // Vertically center the content
+  align-items: center;      // Horizontally center the content
+  gap: 20px;
+  overflow: visible;
+
+  /* Ensure text is black */
+  h3, p, label, li {
+    color: black;
+  }
+}
+
+/* Responsive Scaling */
+/* Large screens: keep dimensions as is */
+@media (max-width: 1200px) {
+  .superadmin-main-box {
+    width: 750px;
+    height: 650px;
+    padding: 35px 18px 18px;
+  }
+  .superadmin-settings-toggle-button {
+    padding: 5px 13px;
+    font-size: 15px;
+  }
+}
+
+/* Medium screens */
+@media (max-width: 992px) {
+  .superadmin-main-box {
+    width: 600px;
+    height: 550px;
+    padding: 30px 15px 15px;
+    position: relative;
+    left: 9px !important;
+    top: 150px;
+  }
+  .superadmin-settings-toggle-button {
+    padding: 4px 12px;
+    font-size: 14px;
+  }
+}
+
+/* Small screens */
+@media (max-width: 600px) {
+  .superadmin-main-box {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    padding: 20px 10px 10px;
+  }
+  .superadmin-settings-toggle-buttons {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .superadmin-settings-toggle-button {
+    padding: 3px 8px;
+    font-size: 12px;
+  }
+}
+
+/* Global container for Admins Page */
+.superadmin-admin-container {
+  
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.superadmin-container {
+  width: 500px !important;
+  margin: 0 auto;
+}
+
+.superadmin-analytics-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; // Start from the top
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-top: 900px; // Always 150px below the top (or navbar)
+  min-height: calc(100vh - 150px); // Ensure full viewport minus the top margin
+}
+
+
+/* Main Box for Admins Page */
+.superadmin-main-box {
+  position: relative;
+  width: 800px;
+  height: 800px;
+  background-color: #fe5829;
+  border: 2px solid black;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  padding: 40px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 10px;
+}
+
+/* Renamed Tabs Wrapper for Admins Page */
+.superadmin-admins-tabs-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-family: 'Caveat', cursive;
+}
+
+/* Renamed Toggle Buttons Container for Admins Page - no overflow */
+.superadmin-admins-toggle-buttons {
+  display: flex;
+  gap: 10px;
+  font-family: 'Caveat', cursive;
+  padding: 0;
+}
+
+/* Renamed individual Toggle Button for Admins Page */
+.superadmin-admins-toggle-button {
+  background-color: black;
+  color: white;
+  padding: 5px 15px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  
+  &.active {
+    background-color: #fe5829;
+    color: white;
+    border-bottom: 2px solid white;
+  }
+  
+  &:hover {
+    background-color: #e24f22;
+    color: white;
+  }
+}
+
+/* Other styles remain unchanged for the Admins page */
+.superadmin-admins-page {
+  width: 550px !important;/* Your existing styles for the admins page */
+}
+
+.superadmin-admin-tile {
+  border: 2px solid black;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 10px;
+  
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.superadmin-admin-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.superadmin-admin-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.superadmin-profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.superadmin-admin-basic-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.superadmin-admin-id-section {
+  margin: 0 15px;
+}
+
+.superadmin-admin-id-button {
+  background: transparent;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.superadmin-admin-created-date {
+  font-size: 14px;
+  color: #333;
+}
+
+.superadmin-admin-details {
+  margin-top: 10px;
+  animation: expand 0.3s ease;
+}
+
+.superadmin-detail-row {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.superadmin-admin-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Responsive Styles */
+
+/* Small screens (up to 600px) */
+@media (max-width: 600px) {
+  .superadmin-main-box {
+    width: 95%;
+    height: auto;
+    padding: 20px 10px;
+  }
+  
+  .superadmin-admins-toggle-button {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+}
+
+/* Medium screens (601px to 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .superadmin-main-box {
+    width: 500px !important;
+    height: auto;
+    padding: 30px 15px;
+  }
+  
+  .superadmin-admins-toggle-button {
+    font-size: 15px;
+    padding: 5px 12px;
+  }
+}
+
+/* Large screens (min-width: 958px) */
+@media (min-width: 958px) {
+  .superadmin-main-box {
+    width: 1000px;
+    height: auto;
+    padding: 30px 15px;
+  }
+  
+  .superadmin-admins-toggle-button {
+    font-size: 15px;
+    padding: 5px 12px;
+  }
+}
+
+/* Keyframes */
+@keyframes expand {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}

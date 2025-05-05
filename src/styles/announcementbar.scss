@@ -1,0 +1,116 @@
+/* src/styles/announcementbar.scss */
+.announcement-bar {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  /* let height grow as text wraps */
+  height: auto;
+  min-height: 4rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  z-index: 5;
+  overflow: hidden;
+  margin-top: 100px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: white;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .men-button,
+  .shop-button {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 auto;
+    border: 1px solid black;
+    background-color: white;
+    color: orange;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+
+  .text-container {
+    position: relative;
+    z-index: 2;
+    flex: 1 1 auto;
+    min-width: 0;             /* allows flex to shrink */
+    text-align: center;
+    padding: 0 1rem;
+
+    .heading {
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-decoration: underline;
+      margin-bottom: 0.2rem;
+    }
+
+    .content {
+      font-size: 0.9rem;
+      /* now wrap instead of nowrap */
+      white-space: normal;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      display: inline-block;
+      text-align: left;
+      max-width: 100%;
+    }
+
+    .cursor {
+      display: inline-block;
+      background-color: black;
+      width: 0.1rem;
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+  }
+
+  /* ==== Breakpoints ==== */
+  @media (max-width: 320px) {
+    padding: 0 0.5rem;
+    .men-button, .shop-button { font-size: 0.7rem; padding: 0.2rem 0.4rem; }
+    .text-container { padding: 0 0.5rem; }
+    .heading { font-size: 1rem; }
+    .content { font-size: 0.8rem; }
+  }
+
+  @media (min-width: 321px) and (max-width: 480px) {
+    .men-button, .shop-button { font-size: 0.75rem; padding: 0.2rem 0.45rem; }
+    .heading { font-size: 1.05rem; }
+    .content { font-size: 0.85rem; }
+  }
+
+  @media (min-width: 481px) and (max-width: 782px) {
+    .heading { font-size: 1.2rem; }
+    .content { font-size: 0.9rem; }
+  }
+
+  @media (min-width: 783px) and (max-width: 969px) {
+    .heading { font-size: 1.3rem; }
+    .content { font-size: 1rem; }
+  }
+
+  @media (min-width: 970px) and (max-width: 1199px) {
+    .heading { font-size: 1.4rem; }
+    .content { font-size: 1.1rem; }
+  }
+
+  @media (min-width: 1200px) {
+    .heading { font-size: 1.5rem; }
+    .content { font-size: 1.2rem; }
+  }
+}

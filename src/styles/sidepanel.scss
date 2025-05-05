@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+.side-panel {
+  position: fixed;
+  left: 0; /* Locked to the edge */
+  top: 310px; /* Adjust as needed */
+  transform: translateY(-50%);
+  width: 15px;
+  height: 300px;
+  background-color: black;
+  border: 1px solid white;
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+  padding: 5px; /* Internal spacing */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between icons */
+  z-index: 3000;
+  font-family:"Overpass Mono";
+}
+
+.side-panel:hover {
+  opacity: 1;
+}
+
+.side-panel .icon {
+  width: 100%;
+  fill: white;
+}
+
+/* Toggle Button Styling as a Semi-Circle */
+.sidepanel-toggle {
+  background-color: transparent;
+  border: 2px solid white;
+  /* Create a half-circle: flat on the left, rounded on the right */
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  width: 20px;   /* Half of the full circle’s diameter */
+  height: 40px;  /* Full circle's diameter */
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;  /* Flush to the edge */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3001;
+}
+
+.sidepanel-toggle:hover {
+  opacity: 1;
+}
+
+/* Adjust the arrow size inside the toggle button */
+.sidepanel-toggle .toggle-icon {
+  width: 16px;
+  height: 16px;
+  /* The arrow orientation and fill come directly from the SVG */
+}

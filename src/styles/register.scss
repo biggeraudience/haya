@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Ensure no scrollbars appear */
+}
+
+.adminregister-page {
+  position: fixed; /* Sticks to the viewport */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fffff0;
+  font-family: 'Overpass Mono';
+}
+
+.adminregister-main-box {
+  position: relative;
+  width: 500px;
+  height: 520px;
+  background-color: #fe5829;
+  border: 2px solid black;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  margin-top: 100px !important;
+  
+  // Toggle Buttons
+  .adminregister-toggle-buttons {
+    position: absolute;
+    top: 10px;
+    left: 105px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    font-family: 'Overpass Mono';
+  }
+
+  .adminregister-toggle-button {
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Overpass Mono';
+    font-size: 15px;
+
+    &.active {
+      background-color: #fe5829;
+      color: white;
+      border-bottom: 2px solid white;
+    }
+
+    &:hover {
+      background-color: #e24f22;
+      color: white;
+    }
+  }
+
+  .adminregister-inner-box {
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 85%;
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Overpass Mono'
+  }
+
+  .adminregister-welcome-message {
+    text-align: center;
+    font-family: 'Overpass Mono'
+  }
+}
+
+.adminregister-form-heading {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.adminregister-login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+
+  .adminregister-input-field {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+  }
+}
+
+.adminregister-action-button {
+  width: 322px;
+  padding: 10px;
+  background-color: #fe5829;
+  color: white;
+  border: none;
+  font-family: 'Overpass Mono';
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* New styles for options row */
+.adminregister-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  color: black;
+  font-family: 'Overpass Mono';
+  font-size: 14px;
+}
+
+.adminregister-remember-me {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: black;
+  font-size: 13px;
+  font-family: 'Overpass Mono';
+}
+
+.adminregister-forgot-password {
+  color: black;
+  text-decoration: none;
+  font-size: 13px;
+  font-family: 'Overpass Mono';
+}
+
+.adminregister-login-form{
+  font-family: 'Overpass Mono';
+
+}
+
+.adminregister-form-heading{
+  font-family: 'Overpass Mono';
+}
+
+/* Password container to align toggle icon */
+.adminregister-password-container {
+  width: 320px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-family: 'Overpass Mono';
+  
+  .adminregister-input-field {
+    width: 100%;
+    padding-right: 40px; /* Space for the toggle icon */
+    font-family: 'Overpass Mono';
+  }
+  
+  .adminregister-password-toggle {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'Overpass Mono';
+  }
+}
+
+/* Google button styles with extra spacing */
+.adminregister-google-button {
+  margin-top: 30px;
+  width: 322px;
+  padding: 10px;
+  background-color: white;
+  color: black;
+  border: 2px solid #fe5829;
+  font-family: 'Overpass Mono';
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background-color: #fe5829;
+    color: white;
+    transform: scale(1.05);
+  }
+}
+
+.adminregister-google-icon {
+  font-size: 24px;
+}
+
+/* Styles for the consent container before registration form appears */
+.consent-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-message {
+  margin-bottom: 10px;
+  text-align: center;
+  color: #333;
+}
+
+.terms-container {
+  width: 320px;
+  height: 100px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.terms-checkbox {
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Animate the register form when consent is given */
+.form-animation {
+  animation: slideIn 0.6s ease-out;
+  width: 100%;
+}
+
+/* Keyframes for sliding in the register form */
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

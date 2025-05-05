@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+.invite-codes {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-family:"Overpass Mono";
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    .generate-form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      label {
+        margin-right: 10px;
+        font-weight: bold;
+      }
+      input {
+        padding: 5px;
+        width: 60px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        padding: 5px 15px;
+        background: #27ae60;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.3s;
+        &:hover {
+          background: #1e8449;
+        }
+      }
+    }
+    .error {
+      color: red;
+      text-align: center;
+    }
+    .invite-codes-table {
+      width: 100%;
+      border-collapse: collapse;
+      th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+      }
+      th {
+        background: #f7f9fa;
+        color: #2c3e50;
+      }
+      tbody tr:nth-child(even) {
+        background: #f9f9f9;
+      }
+    }
+  }
+  

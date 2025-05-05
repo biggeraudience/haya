@@ -1,0 +1,192 @@
+/* src/styles/settings.scss */
+@use "sass:color";
+// Assuming _mixins.scss exists and is correctly imported
+@use "../src/styles/_mixins.scss" as *;
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  padding-top: 50px; /* Add padding to account for fixed header if any */
+  padding-bottom: 50px; /* Add padding to account for fixed footer if any */
+  font-family: "Overpass Mono", sans-serif; /* Use the font */
+   /* Ensure it takes full width */
+  position: relative;
+  left: 600px;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.main-box {
+  position: relative;
+  width: 100%; /* Make it responsive */
+  max-width: 1000px; /* Limit max width on larger screens */
+  background-color: #fe5829; /* Orange background */
+  border: 1px solid #ccc !important;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2); /* Add shadow */
+  padding: 40px 20px 20px; /* Padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box; /* Include padding and border */
+}
+
+.inner-container {
+  width: 100%; /* Take full width of parent */
+  background-color: white; /* White background */
+  padding: 20px; /* Padding */
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between setting tabs */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  max-height: calc(100vh - 100px); /* Example: Adjust max height based on viewport height, considering header/footer */
+  box-sizing: border-box; /* Include padding */
+
+  // Apply custom scrollbar mixin
+  @include custom-scrollbar(#fffff0, #fffff0, #fe5829);
+}
+
+.setting-tab {
+  width: 100%; /* Take full width of inner container */
+  border: 1px solid black; /* Black border */
+  padding: 15px; /* Padding inside each setting tab */
+  box-sizing: border-box; /* Include padding and border */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between title and options */
+}
+
+.setting-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  background-color: black; /* Black background for title */
+  color: #fffff0; /* Light text color */
+  width: fit-content; /* Ensures width adapts to content size */
+  padding: 5px 10px; /* Adds padding to the title */
+  border-radius: 4px; /* Rounded corners for the title background */
+}
+
+.overflow-container {
+  max-height: 150px; /* Adjust height as needed for options list */
+  overflow-y: auto; /* Enable vertical scrolling if options overflow */
+  margin-bottom: 10px; /* Space below the options list */
+  padding-right: 10px; /* Add padding for scrollbar space */
+
+  // Apply custom scrollbar mixin
+  @include custom-scrollbar(#fffff0, #fffff0, #fe5829);
+}
+
+.option {
+  margin-bottom: 10px; /* Space between individual options */
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    font-size: 1rem; /* Use relative font size */
+    gap: 8px; /* Space between elements in the label */
+    cursor: pointer; /* Indicate it's clickable */
+
+    input[type="radio"] {
+      margin-right: 5px; /* Adjust margin */
+      cursor: pointer;
+    }
+
+    svg {
+      flex-shrink: 0; /* Prevent SVG from shrinking */
+      width: 20px; /* Adjust SVG size */
+      height: 20px; /* Adjust SVG size */
+    }
+  }
+}
+
+.message {
+  font-size: 0.9rem; /* Use relative font size */
+  color: #fe5829; /* Orange color */
+  margin-top: 10px;
+}
+
+.nav-bar {
+  width: 100%; /* Take full width */
+  display: flex;
+  justify-content: center; /* Center the save button */
+  margin-top: 20px; /* Space above the nav bar */
+
+  .save-btn {
+    padding: 10px 20px;
+    background-color: #fe5829; /* Orange background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem; /* Use relative font size */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-family: 'Overpass Mono', sans-serif;
+
+    &:hover {
+      background-color: #e24f22; /* Darker orange on hover */
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .settings-page {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .main-box {
+    padding: 20px 10px 10px;
+    position: relative;
+    left: -600px;
+    width: 500px !important;
+  }
+
+  .inner-container {
+    padding: 10px;
+    max-height: calc(100vh - 60px); /* Adjust max height */
+  }
+
+  .setting-tab {
+    padding: 10px;
+  }
+
+  .setting-title {
+    font-size: 1.1rem;
+  }
+
+  .option .checkbox-label {
+    font-size: 0.9rem;
+    gap: 5px;
+  }
+
+   .option .checkbox-label svg {
+    width: 18px;
+    height: 18px;
+   }
+
+
+  .message {
+    font-size: 0.8rem;
+  }
+
+  .nav-bar .save-btn {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+}

@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fffff0;
+  border: 2px solid black;
+  width: 1200px !important; /* Fixed width */
+  margin: 0 auto;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  gap: 5px;
+  margin-top: 230px;
+  position: relative; /* For arrow positioning */
+  overflow: visible; /* Allow dropdowns to render outside the bar */
+  
+  /* Typography settings using variables */
+  font-size: var(--font-size-default);
+  font-weight: var(--font-weight-default);
+  line-height: var(--line-height-default);
+  font-family: var(--m3-ui-family);
+  letter-spacing: var(--letter-spacing-default);
+}
+
+.filter-buttons-container {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: visible; /* Allow vertical overflow for dropdowns */
+  flex: 1;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.filter-buttons-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Responsive Width Alignment */
+@media screen and (max-width: 1200px) {
+  .filter-bar {
+    width: 80%; /* Adjust as per design */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .filter-bar {
+    justify-content: flex-end;
+    width: 650px !important;
+  }
+}
+
+@media screen and (max-width: 767px){
+  .filter-bar{width: 690px !important;
+  }
+}
+
+/* Dropdown styles using CSS variables for positioning */
+.filter-dropdown {
+  display: none;
+  position: absolute;
+  top: var(--dropdown-top, calc(100% + 5px)); /* Uses variable if available */
+  left: var(--dropdown-left, 0); /* Uses variable if available */
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid black;
+  z-index: 99999; /* Higher than parent containers */
+  padding: 10px;
+  flex-direction: column;
+  gap: 10px;
+  width: 150px;
+  box-sizing: border-box;
+}
+
+.filter-dropdown.open {
+  display: flex;
+}
+
+/* Wrapper for each filter button and dropdown */
+.filter-wrapper {
+  position: relative; /* Allows dropdown to be positioned relative to this element */
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
+  overflow: visible; /* Ensure dropdown isn't clipped */
+}
+
+/* Filter button styles */
+.filter-button {
+  background: #fffff0;
+  border: 1px solid black;
+  color: black;
+  font-family: var(--m3-ui-family);
+  font-weight: bold;
+  font-size: small;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, border 0.3s ease;
+}
+
+.filter-button:hover {
+  background-color: black;
+  border: 1px solid #fe5829;
+  color: #fffff0;
+}
+
+/* Arrow button styles */
+.arrow-button {
+  transition: transform 0.3s ease;
+  z-index: 100;
+}
+
+.carousel-toggle {
+  border: none;
+  background: transparent;
+  color: black;
+  cursor: pointer;
+  padding: 8px;
+  font-size: 1.2rem;
+  z-index: 100;
+}
+
+.carousel-toggle:hover {
+  color: #fe5829;
+}
+
+/* Filter option styles */
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 9999;
+}
+
+.filter-option input[type='checkbox'] {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.filter-option label {
+  flex: 1;
+  color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Clear filters button */
+.clear-filters {
+  margin-top: 20px;
+}
+
+.clear-filters-button {
+  background-color: #fe5829;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.clear-filters-button:hover {
+  background-color: #e14d1f;
+}
+@media screen and (max-width: 480px) {
+  .filter-bar {
+    width: 402px !important;
+  }
+}
+
+@media screen and (max-width: 767px){
+  .filter-bar {
+    width: 661px !important;
+  }
+}

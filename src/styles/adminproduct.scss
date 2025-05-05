@@ -1,0 +1,220 @@
+@use "sass:color";
+@use "../src/styles/_mixins.scss" as *;
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  --primary-color: #1e88e5;
+  --secondary-color: #fe5829;
+  --background-color: #000;
+  --card-bg: #ffffff;
+  --border-color: #e0e0e0;
+  --text-color: #fff;
+  --text-light: #777;
+  --shadow-light: 0px 2px 5px rgba(255, 255, 255, 0.1);
+  --radius-small: 6px;
+  --radius-medium: 12px;
+  --radius-large: 18px;
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+/* Basic resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  font-family: var(--m3-ui-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Navbar and Footer (if needed) */
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 10001;
+}
+.product-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 10000;
+}
+
+/* Container for the admin page */
+.admin-contain {
+  padding: 20px;
+  margin-top: 60px; // space for navbar
+  margin-bottom: 60px; // space for footer
+}
+
+/* Grid layout for the content: two columns on larger screens, stacked on small screens */
+.admin-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  min-height: calc(100vh - 120px);
+}
+
+/* Left Column: Form Container */
+.left-column {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: var(--radius-small);
+  box-shadow: var(--shadow-light);
+}
+
+.form-container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.form-group label {
+  margin-bottom: 4px;
+  display: block;
+  color: #000;
+}
+
+.form-group input,
+.form-group select,
+.form-group button {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-small);
+  font-size: 14px;
+}
+
+/* Custom Color Picker */
+.custom-color-picker {
+  display: inline-block;
+  position: relative;
+  margin-right: 1rem;
+  .color-picker-button {
+    display: flex;
+    align-items: center;
+    background-color: black !important;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .color-picker-button:hover {
+    background: red !important;
+  }
+  .hidden-color-input {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+}
+.selected-colors {
+  display: flex;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+.color-box {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: var(--box-color);
+  margin-right: 8px;
+  cursor: pointer;
+}
+.delete-color-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: none;
+  color: red;
+  font-size: 10px;
+  line-height: 14px;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Right Column: Products Grid */
+.right-column {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: var(--radius-small);
+  box-shadow: var(--shadow-light);
+}
+.products-container h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+.product-card {
+  background-color: var(--background-color);
+  padding: 10px;
+  border-radius: var(--radius-small);
+  text-align: center;
+  color: var(--text-color);
+  position: relative;
+}
+.image-container {
+  position: relative;
+}
+.slider img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.edit-btn,
+.delete-btn,
+.info-btn {
+  margin: 5px;
+  cursor: pointer;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 786px) {
+  .admin-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .admin-contain {
+    padding: 10px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group button {
+    font-size: 14px;
+    padding: 8px;
+  }
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}

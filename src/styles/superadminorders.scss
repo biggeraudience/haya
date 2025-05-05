@@ -1,0 +1,60 @@
+/* src/styles/superadminorders.scss */
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+.superadmin-orders {
+    padding: 20px;
+    font-family:"Overpass Mono";
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+    .orders-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 auto;
+      thead {
+        background-color: #f0f0f0;
+        tr {
+          th {
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            text-align: center;
+          }
+        }
+      }
+      tbody {
+        tr {
+          &:nth-child(even) {
+            background-color: #fafafa;
+          }
+          td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 20px;
+    }
+    p {
+      text-align: center;
+    }
+  }
+  

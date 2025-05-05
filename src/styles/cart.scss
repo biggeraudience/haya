@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables (if these should be globally available you can keep them outside
+     Otherwise, move them inside .cart-page if you want to use them only on the cart page) */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+.cart-page {
+  background-image: url('/src/assets/images/cartpagebackground1.webp');
+  background-size: cover;    /* Ensures image fully covers the page */
+  background-position: center; /* Centers the image */
+  min-height: 100vh;         /* Full viewport height */
+  width: 100%;
+  position: relative;        /* Keeps navbar/footer on top of the background */
+  display: flex;
+  flex-direction: column;    /* Stack navbar, content, and footer */
+  font-family: 'Overpass Mono';
+
+  .bespoke-icon {
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle; /* aligns nicely with text */
+  }
+
+  .cart-container {
+    margin-top: 300px;
+    margin-bottom: 200px;
+    padding: 10px;
+    border: 2px solid black;
+    background: #fe5829;
+    position: relative;
+    z-index: 1;
+    flex-grow: 1;
+    display: flex;           /* Allow flex children */
+    flex-direction: column;
+    align-items: center;     /* Center content horizontally */
+  }
+
+  .tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+    justify-content: flex-start; /* Align tabs to the left */
+    width: 100%;                 /* Ensure tabs span the container width */
+    font-family: 'Overpass Mono';
+
+    .tab {
+      background: black;
+      color: white;
+      padding: 5px 10px;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Overpass Mono';
+
+      &.active {
+        border-bottom: 2px solid white;
+        background-color: #fe5829; /* Highlight active tab */
+        color: white;             /* Keep text readable */
+      }
+
+      &:hover {
+        background-color: #e24f22; /* Hover effect */
+        color: white;
+      }
+    }
+  }
+
+  /* Bag and Favorites Sections */
+  .bag-section,
+  .favorites-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;            /* Full width */
+    max-width: 1200px;      /* Limit container width */
+    position: relative;
+
+    .products-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      width: 100%;           /* Matches parent width */
+      margin-bottom: 20px;   /* Space below the grid */
+      justify-items: center;
+
+      .product-card {
+        border: 2px solid black;
+        padding: 10px;
+        text-align: center;
+        background: white;
+
+        img {
+          max-width: 100%;
+          height: 150px;
+          object-fit: contain;
+          border: 1px solid #000;
+        }
+
+        .product-name,
+        .favorite-details {
+          margin-top: 5px;
+          position: relative;
+          border: 1px solid black;
+          padding: 5px;
+          font-size: 14px;
+          font-weight: bold;
+          color: black !important;
+
+          .remove-btn {
+            position: absolute;
+            top: 3px;         /* ensure unit is specified */
+            right: 5px;
+            border: 1px solid black;
+            background: white;
+            color: black;     /* to make sure the X is visible */
+            cursor: pointer;
+            font-size: 12px;
+            padding: 3px 5px;
+
+            &:hover {
+              background: red;
+              color: black;
+            }
+          }
+        }
+
+        .product-details {
+          margin-top: 5px;
+          display: flex;
+          gap: 10px;
+          padding: 5px;
+          border: 1px solid black;
+          background: #fff;
+          justify-content: space-between;
+          font-size: 12.5px;  /* Reduced text size */
+          line-height: 1.2;    /* Adjusted line height */
+          font-weight: bold;
+          color: black;
+
+          input {
+            width: 20px;
+            text-align: center;
+            border: 1px solid black;
+            height: 16px;
+            font-size: 12px;  /* Match input font size with text */
+          }
+        }
+
+        .buy-btn {
+          background: #fe5829;
+          color: black;
+          border: 1px solid black;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .pay-section {
+      width: 100%;             /* Matches grid width */
+      max-width: 1200px;       /* Same max width as the grid */
+      padding: 8px;
+      border: 2px solid black;
+      background: white;
+      margin-top: auto;        /* Stays below the products */
+      flex-shrink: 0;          /* Prevent shrinkage */
+      display: flex;
+      flex-direction: column;
+
+      .terms {
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+
+      .total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+        font-size: 16px;
+
+        .pay-btn {
+          background: green;
+          color: white;
+          padding: 5px 10px;
+          border: 2px solid black;
+          cursor: pointer;
+          height: 30px;
+          width: 100px;
+          font-family: 'Overpass Mono';
+        }
+
+        .pay-btn:hover {
+          background: rgb(2, 71, 2);
+        }
+      }
+    }
+  }
+
+  .favorites-grid {
+    grid-template-columns: repeat(4, 1fr);
+
+    .favorite-card {
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+
+  .empty-bag {
+    display: flex;
+    justify-content: space-between; /* Items aligned to opposite sides */
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+    top: -37px;
+    right: -608px;
+    background-color: #000;
+    height: 20px;
+    padding: 4px;
+
+    &:hover {
+      border: 1px solid #fffff0;
+      cursor: pointer;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+    }
+  }
+
+  .clear-all-btn {
+    margin-left: 10px;       /* Gap between text and X button */
+    color: red;
+    border: none;
+    font-size: 13px;
+    padding: 3px 5px;
+    background-color: #000;
+    cursor: pointer;
+    align-items: center;
+
+    &:hover {
+      color: darkred;
+    }
+  }
+
+  .quantity-selector {
+    display: flex;
+  }
+
+  .increment-btn,
+  .decrement-btn {
+    background-color: #fffff0;
+    position: relative;
+    top: 0px;
+    cursor: pointer;
+    height: 20px;
+    width: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    color: black; /* Ensures the + and - are visible */
+  }
+
+  @media (min-width: 786px) {
+    .products-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(4, minmax(100px, 1fr));
+      width: 100%;           /* Full container width */
+      margin-bottom: 20px;
+      justify-items: center; /* Center cards in their grid cells */
+    }
+
+    .product-card {
+      border: 2px solid black;
+      padding: 10px;
+      text-align: center;
+      background: white;
+      width: 100%;
+      max-width: 300px;      /* Cards grow until 300px, then fixed */
+    }
+  }
+}

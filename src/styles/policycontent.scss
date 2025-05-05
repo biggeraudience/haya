@@ -1,0 +1,99 @@
+/* src/styles/policycontent.scss */
+
+.policy-container {
+    padding: 1rem;
+    background-color: #fe5829; // Orange background as requested
+    color: black; // Black text color as requested
+    font-family: 'Overpass Mono', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 400px; // Give it some minimum height
+    border: 1px solid black; // Add a black border for definition
+  
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: black; // Ensure heading is black
+    }
+  
+    .policy-text {
+      flex-grow: 1; // Allow text area to take up available space
+      margin-bottom: 1.5rem;
+      max-width: 800px; // Limit width for readability
+      text-align: justify; // Justify text for a cleaner look
+  
+      p {
+        font-size: 1rem;
+        line-height: 1.6; // Improve readability with more line spacing
+        color: black; // Ensure paragraph text is black
+      }
+    }
+  
+    .pagination-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 400px; // Limit pagination control width
+      margin-top: auto; // Push controls to the bottom
+  
+      button {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 0.5rem 1rem;
+        background-color: black; // Black buttons
+        color: white; // White text on buttons
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        font-family: 'Overpass Mono', sans-serif;
+  
+        &:disabled {
+          background-color: #444; // Darker grey when disabled
+          cursor: not-allowed;
+        }
+  
+        &:hover:not(:disabled) {
+          background-color: #333; // Slightly lighter black on hover
+        }
+  
+        svg {
+          fill: white; // Ensure icon is white
+        }
+      }
+  
+      span {
+        font-size: 1rem;
+        font-weight: bold;
+        color: black; // Ensure page number text is black
+      }
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .policy-container {
+      padding: 0.5rem;
+    }
+  
+    .policy-text {
+      max-width: 100%; // Allow text to take full width
+      text-align: left; // Left align text on small screens
+    }
+  
+    .pagination-controls {
+      max-width: 100%; // Allow controls to take full width
+      padding: 0 0.5rem; // Add some padding
+    }
+  
+    .pagination-controls button {
+      padding: 0.4rem 0.8rem; // Adjust button padding
+      font-size: 0.9rem;
+    }
+  }
+  

@@ -1,0 +1,136 @@
+// src/styles/superadminanalytics.scss
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+// Variables for colors, spacing, etc.
+$primary-color: #4a90e2;
+$secondary-color: #f5f7fa;
+$background-color: #ffffff;
+$text-color: #333;
+$card-bg: #ffffff;
+$card-border: #e0e0e0;
+$animation-duration: 0.3s;
+
+// Global styles for the analytics container
+.analytics {
+  padding: 2rem;
+  background-color: $secondary-color;
+  color: $text-color;
+  font-family: 'Overpass Mono';
+
+  .analytics-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeIn $animation-duration ease-in;
+  }
+
+  .analytics-section {
+    margin-bottom: 3rem;
+    background: $background-color;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn $animation-duration ease-in;
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid $primary-color;
+      padding-bottom: 0.5rem;
+    }
+
+    // Card container styles
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      .card {
+        flex: 1 1 calc(20% - 1rem);
+        background: $card-bg;
+        border: 1px solid $card-border;
+        border-radius: 6px;
+        padding: 1rem;
+        text-align: center;
+        transition: transform $animation-duration ease-in-out, box-shadow $animation-duration ease-in-out;
+
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        h4 {
+          margin-bottom: 0.5rem;
+          font-size: 1.2rem;
+          color: $primary-color;
+        }
+
+        p {
+          font-size: 1.4rem;
+          margin: 0;
+        }
+      }
+    }
+
+    // Chart container styles
+    .chart {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: $card-bg;
+      border: 1px solid $card-border;
+      border-radius: 6px;
+
+      h4 {
+        margin-bottom: 0.5rem;
+        font-size: 1.4rem;
+        color: $primary-color;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          font-size: 1.2rem;
+          margin: 0.3rem 0;
+        }
+      }
+    }
+
+    // Funnel chart placeholder styling
+    .funnel-chart {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background: $card-bg;
+      border: 1px solid $card-border;
+      border-radius: 6px;
+      text-align: center;
+
+      p {
+        margin: 0;
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
+
+// Fade in animation
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

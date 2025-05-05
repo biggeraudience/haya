@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+
+.profile-page {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  min-height: 100vh; 
+  background-color: #fffff0; 
+  margin: 0; 
+  padding: 0; 
+  font-family: 'Overpass Mono';
+}
+
+.main-box {
+  position: relative;
+  width: 500px;
+  height: 600px;
+  background-color: #fe5829;
+  border: 2px solid black;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+
+  .toggle-buttons {
+    position: absolute;
+    top: 10px;
+    left: 105px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    font-family: 'Caveat', cursive;
+  }
+
+  .toggle-button {
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Caveat', cursive;
+    font-size: 15px;
+
+    &.active {
+      background-color: #fe5829;
+      color: white;
+      border-bottom: 2px solid white;
+    }
+
+    &:hover {
+      background-color: #e24f22;
+      color: white;
+    }
+  }
+
+  .inner-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 70%;
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.form-heading {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-field {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.password-container {
+  position: relative;
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.action-button {
+  background-color: #fe5829;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #e24f22;
+  }
+}
+
+.forgot-password {
+  color: #fe5829;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: #e24f22;
+  }
+}
+
+.saved-info {
+  text-align: center;
+  color: black;
+
+  p {
+    margin: 5px 0;
+    font-size: 16px;
+  }
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.delete-button,
+.action-button {
+  background-color: #fe5829;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 45%;
+
+  &:hover {
+    background-color: #e24f22;
+  }
+}
+
+.delete-button {
+  background-color: #d9534f;
+}
+
+.delete-button:hover {
+  background-color: #c9302c;
+}
+

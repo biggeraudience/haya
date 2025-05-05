@@ -1,0 +1,167 @@
+// src/styles/chatbot.scss
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+.chatbot-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+
+  &.closed {
+    .chatbot-container {
+      display: none;
+    }
+  }
+}
+
+.chatbot-toggle {
+  background-color: #00d2ff; // Pastel blue
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #00b0d2;
+  }
+}
+
+.chatbot-container {
+  width: 300px;
+  height: 400px;
+  background-color: #121212;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.chatbot-header {
+  background-color: #1e1e1e;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #333;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    
+    h3 {
+      margin: 0;
+      font-size: 18px;  // Bigger text for "Business Genie"
+      color: #fff;      // White text
+      margin-right: 5px;
+    }
+    
+    .insights-icon {
+      font-size: 30px;
+      display: inline-block;
+      color: #fe5829;
+    }
+  }
+
+  .close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;  // Red close icon
+    font-size: 20px;
+  }
+  .close-button :hover{
+    color: red; 
+  }
+}
+
+.chatbot-log {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #121212;
+  
+  /* Hide scrollbar for all browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  &::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+
+  .chat-message {
+    margin-bottom: 10px;
+    
+    .message-text {
+      display: inline-block;
+      background-color: #fff; // White message container
+      color: #000; // Dark text for readability
+      padding: 8px 12px;
+      border-radius: 15px;
+    }
+    
+    .message-time {
+      font-size: 10px;
+      color: #888;
+      margin-top: 2px;
+    }
+    
+    &.user {
+      text-align: right;
+    }
+    
+    &.bot {
+      text-align: left;
+    }
+  }
+}
+
+.chatbot-input-form {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #333;
+  background-color: #1e1e1e;
+
+  input {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+  }
+
+  .send-button {
+    background: none;  // No background
+    border: 1px solid #fff;  // White 1px border
+    margin-left: 10px;
+    padding: 8px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #fff;  // White icon color
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}

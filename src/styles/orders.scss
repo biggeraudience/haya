@@ -1,0 +1,147 @@
+@use "sass:color"; // External Sass library for color functions
+@use "../src/styles/_mixins.scss" as *; // Import custom mixins
+
+.orders-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; // Full viewport height
+    background-color: #fffff0; // Light yellow background
+    margin: 0; // Remove default margin
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+  }
+  
+  .main-box {
+    position: relative;
+    width: 800px;
+    height: 700px;
+    background-color: #fe5829;
+    border: 2px solid black;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    padding: 40px 20px 20px; // Add padding to avoid overlap of content
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; // Center content inside the main box
+  }
+  
+  .toggle-buttons {
+    position: relative; /* Enable relative positioning of the container */
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px; // Increased spacing
+    font-family: 'Caveat', cursive;
+  
+    /* Add some positioning for the buttons if necessary */
+    top: 0;  /* Adjust vertical positioning */
+    left: 0; /* Adjust horizontal positioning */
+  }
+  
+  .toggle-button {
+    position: relative; /* Enable relative positioning for individual buttons */
+    background-color: black;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+  
+    /* Adjust the button's position within the container */
+    top: 0;  /* Adjust vertical positioning of the button */
+    left: 25px; /* Adjust horizontal positioning of the button */
+  
+    &.active {
+      background-color: #fe5829;
+      color: white;
+      border-bottom: 2px solid white;
+    }
+  
+    &:hover {
+      background-color: #e24f22;
+      color: white;
+    }
+  }
+  
+  .inner-box {
+    width: 100%;
+    height: 100%; // Ensure the container takes up the full available height
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  // Vertically center the content
+    align-items: center;      // Horizontally center the content
+    gap: 20px;
+    overflow: visible;
+    
+    @include custom-scrollbar(#fffff0, #fffff0, #fe5829);
+  }
+  
+  
+  .order-tab {
+    width: 80%;
+    background-color: white;
+    border: 2px solid #000;
+    height: 110px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    font-family: 'Caveat', cursive;
+  
+    .status {
+      font-size: 18px;
+      color: #000; // Status text color
+      font-weight: bold;
+    }
+  
+    .order-details {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+  
+      .order-number {
+        color: #333;
+      }
+  
+      .order-date {
+        color: #888;
+      }
+  
+      .order-total {
+        color: #fe5829;
+      }
+    }
+  
+    .see-details-button {
+        margin-top: 15px;
+        padding: 10px 15px;
+        background-color: #fe5829;
+        color: white;
+        border: none;
+        height: 30px;
+        font-family: 'Caveat', cursive;
+        font-size: 16px;
+        cursor: pointer;
+        position: relative;
+        top: -10px;
+      
+        display: flex;                // Enable flexbox layout
+        justify-content: center;      // Horizontally center the text
+        align-items: center;          // Vertically center the text
+      
+        transition: background-color 0.3s ease;
+      
+        &:hover {
+          background-color: #e24f22; // Hover effect
+        }
+      }
+    }      
+  

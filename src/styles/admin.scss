@@ -1,0 +1,941 @@
+/* =======================================
+Global Variables & Mixins
+============================================ */
+@use "sass:color";
+@use "../src/styles/_mixins.scss" as *;
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+
+:root {
+  --primary-color: #1e88e5;         /* Primary theme color */
+  --secondary-color: #fe5829;       /* Secondary accent (orange) */
+  --background-color: #000;         /* Global admin background (black) */
+  --card-bg: #ffffff;               /* Card background (default white) */
+  --border-color: #e0e0e0;
+  --text-color: #fff;               /* White text for dark background */
+  --text-light: #777;
+  --shadow-light: 0px 2px 5px rgba(255, 255, 255, 0.1);
+  --shadow-medium: 0px 4px 10px rgba(255, 255, 255, 0.15);
+  --radius-small: 6px;
+  --radius-medium: 12px;
+  --radius-large: 18px;
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+@mixin admin-transition($property: all, $duration: 0.2s, $ease: ease-in-out) {
+  transition: $property $duration $ease;
+}
+
+/* =======================================
+   Global Base Styles
+============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  font-family: 'Overpass Mono';
+  background-color: var(--background-color);
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 10px 10px;
+  color: var(--text-color);
+  height: 100%;
+}
+
+/* =======================================
+   Global Background with Graph Grid Design
+============================================ */
+.admin-container {
+  background-color: var(--background-color);
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 10px 10px;
+  color: var(--text-color);
+  font-family: 'Overpass Mono';
+  min-height: 100vh;
+  min-width: 100vw;
+  padding: 20px;
+}
+
+/* =======================================
+   Buttons
+============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--radius-small);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  @include admin-transition(all, 0.2s);
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: white;
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.btn-secondary {
+  background: var(--secondary-color);
+  color: white;
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  &:hover {
+    background: var(--primary-color);
+    color: white;
+  }
+}
+
+.btn-danger {
+  background: #d32f2f;
+  color: white;
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+/* =======================================
+   Cards & Containers
+============================================ */
+.card {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  @include admin-transition(border-bottom, 0.3s, ease-in-out);
+  text-align: center;
+  color: var(--text-color);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Overpass Mono';
+
+}
+
+.card-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.icon-overlay {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  gap: 5px;
+  z-index: 4;
+  
+  button {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* =======================================
+   Forms & Inputs
+============================================ */
+.input-field {
+  width: 500px;
+  font-family: 'Overpass Mono';
+  height: 40px;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-small);
+  font-size: 14px;
+  background-color: #fff;
+  color: #000;
+  @include admin-transition(border-color, 0.2s);
+
+  &:focus {
+    border-color: var(--secondary-color);
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 4px;
+  }
+  
+  &::placeholder {
+    color: #000;
+    opacity: 1;
+  }
+}
+
+textarea.input-field {
+  resize: vertical;
+}
+
+.ad-upload-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.date-inputs {
+  display: flex;
+  gap: 1rem;
+}
+
+.label {
+  display: none;
+}
+
+/* =======================================
+   Sidebar & Navigation
+============================================ */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: var(--card-bg);
+  box-shadow: var(--shadow-light);
+  padding: 20px;
+  font-family: 'Overpass Mono';
+
+}
+
+.sidebar-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: var(--radius-small);
+  cursor: pointer;
+  @include admin-transition(background, 0.2s);
+  color: var(--text-color);
+  &:hover {
+    background: #fe5829;
+    color: white;
+  }
+}
+
+.sidebar-item.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* =======================================
+   Global Tab Bar Styling (Reusable)
+============================================ */
+.admin-tabs {
+  background-color: #121212;
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: 'Overpass Mono';
+  border-bottom: 1px solid var(--border-color);
+
+  .admin-tab-item {
+    padding: 12px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--text-light);
+    border-bottom: 2px solid transparent;
+    position: relative;
+    @include admin-transition(border-bottom, 0.3s, ease-in-out);
+
+    &:hover {
+      color: var(--primary-color);
+    }
+
+    &.active {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary-color);
+        animation: underlineGrow 0.3s ease-in-out;
+      }
+    }
+  }
+}
+
+@keyframes underlineGrow {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* =======================================
+   Animations
+============================================ */
+@keyframes admin-expand {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+.admin-expandable {
+  animation: admin-expand 0.3s ease;
+}
+
+/* =======================================
+   Admin Analytics Page Specific Styles
+   (Migrated from adminanalytics.scss)
+============================================ */
+.admin-analytics-page {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 200px;
+  font-family: 'Overpass Mono';
+
+}
+
+.top-bar {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: var(--background-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .tabs {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .tab-item {
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: color 0.3s, border-bottom 0.3s;
+      border-bottom: 2px solid transparent;
+
+      &:hover {
+        color: var(--primary-color);
+      }
+
+      &.active {
+        color: var(--text-color);
+        border-bottom: 2px solid var(--accent-color);
+      }
+    }
+  }
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+/* Full-width card defaults for analytics */
+.live-metrics-row,
+.kpi-row,
+.charts-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+
+  .live-metric,
+  .card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0.5rem;
+    flex: 1 1 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+    color: var(--text-color);
+  }
+
+  .chart-card {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  .date-picker {
+    font-size: 0.8rem;
+    color: var(--text-light);
+  }
+
+  .metric-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+  }
+  .metric-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .metric-change {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    &.positive {
+      color: var(--accent-color);
+    }
+    &.negative {
+      color: #FF6347;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .top-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+      margin-bottom: 0;
+    }
+  }
+
+  .content {
+    padding: 2rem;
+  }
+
+  .live-metrics-row {
+    .live-metric {
+      flex: 1 1 calc(20% - 1rem);
+      min-width: 150px;
+    }
+  }
+
+  .kpi-row {
+    .card {
+      flex: 1 1 calc(20% - 1rem);
+      min-width: 150px;
+    }
+  }
+
+  .charts-row {
+    .chart-card {
+      flex: 1 1 calc(33.33% - 1rem);
+      min-width: 250px;
+    }
+  }
+}
+
+/* GeoMap container */
+.geo-map-container {
+  width: 100%;
+  height: 300px;
+}
+
+/* Location Analytics Slide Styles */
+.location-analytics-slide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.region-dots {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  .region-dot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0.5rem;
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-bottom: 0.2rem;
+    }
+    .region-name {
+      font-size: 0.8rem;
+      color: #FFFFFF;
+    }
+  }
+}
+
+.circular-chart {
+  margin-bottom: 0.5rem;
+}
+
+.region-trends {
+  display: flex;
+  justify-content: center;
+  .trend {
+    display: flex;
+    align-items: center;
+    margin: 0 0.5rem;
+    .up-arrow {
+      color: green;
+    }
+    .down-arrow {
+      color: red;
+    }
+    .trend-percentage {
+      margin-left: 0.2rem;
+      font-size: 0.9rem;
+      color: #FFFFFF;
+    }
+  }
+}
+
+/* Prediction Widget */
+.prediction-widget {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: var(--text-color);
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+  }
+}
+
+/* Report Widget */
+.report-widget {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: left;
+  margin: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  color: var(--text-color);
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    li {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+  }
+}
+
+/* Responsive Map Container */
+.responsive-map-container {
+  width: 100%;
+  height: 300px;
+
+  @media (max-width: 768px) {
+    height: 200px;
+  }
+}
+
+/* Slider Styles */
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #121212;
+}
+
+.slider-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 200%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 210, 255, 0.8);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  z-index: 10;
+  &:hover {
+    background-color: rgba(0, 210, 255, 1);
+  }
+}
+
+.slider-button.prev {
+  left: 10px;
+}
+
+.slider-button.next {
+  right: 10px;
+}
+
+/* Sales Metrics Slider */
+.sales-metrics-slider {
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+
+  .slider-container {
+    margin: 0 auto;
+    max-width: 600px;
+  }
+
+  .slider-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .story-metric-card {
+    @extend .card;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    text-align: left;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .card-header {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+    .metric-value {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    .metric-change {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .info-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0.3rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+      z-index: 50;
+    }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      border-radius: 4px;
+      z-index: 40;
+    }
+  }
+}
+
+/* ChatBot Toggle Icon */
+.chatbot-toggle-icon {
+  margin-left: 1rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: background 0.3s, -webkit-background-clip 0.3s, -webkit-text-fill-color 0.3s;
+  &:hover {
+    background: linear-gradient(45deg, #9b59b6, #8e44ad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* =======================================
+   Image Preview (for Upload/Edit)
+============================================ */
+.image-preview {
+  min-width: 300px;
+  max-width: 400px;
+  width: 100%;
+  min-height: 300px;
+  max-height: 300px;
+  border: 2px solid black;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+
+}
+.admin-footer {
+  font-family: "Overpass Mono";
+}
+
+// Custom Color Picker styles
+.custom-color-picker { 
+  display: inline-block;
+  position: relative;
+  margin-right: 1rem;
+
+  .color-picker-button {
+    display: flex;
+    align-items: center;
+    background-color: black !important;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .color-picker-button:hover {
+    background: red !important;
+  }
+  
+  // When the button is hovered, scale up the icon and change its color
+  .color-picker-button:hover .color-picker-icon {
+    color: red;
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
+  }
+  
+  .hidden-color-input {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+}
+
+// Selected colors container and children
+.selected-colors {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: nowrap;  // Keep them in one row
+}
+
+.color-box {
+  position: relative;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  background-color: var(--box-color); // Dynamic color from the custom property
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.delete-color-btn {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  line-height: 14px;
+  padding: 0;
+  cursor: pointer;
+  color: red;
+  box-sizing: border-box;
+}
+
+// 480px styles
+@media screen and (max-width: 480px) {
+  .main-container {
+    padding: 0 6px;
+  }
+  
+  .admin-products-page {
+    width: 100%;
+  }
+  
+  .form-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; // Center contents
+  }
+  
+  .form-container form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-group {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    margin-bottom: 4px;
+    display: block;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group button {
+    font-size: 14px;
+    padding: 8px;
+    width: 300px !important;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+  
+  .color-picker-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .selected-colors {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .admin-toggle-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .admin-toggle-button {
+    width: 90%;
+    font-size: 14px;
+    padding: 8px;
+  }
+  
+  .products-container {
+    padding: 10px;
+  }
+  
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .product-card {
+    padding: 5px;
+    font-size: 12px;
+  }
+  .delete-color-btn{
+    width: 2px !important;
+  }
+}
+
+

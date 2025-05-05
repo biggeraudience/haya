@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+.nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: "Overpass Mono";
+  }
+  
+  .nav__logo-link {
+    /* Logo link styling */
+  }
+  
+  .nav__logo {
+    height: 100px;
+    width: 100px;
+    background: url('/src/assets/icons/hayalogo1.svg') no-repeat center;
+    background-size: contain;
+    flex-shrink: 0;
+    z-index: 900000;
+  }
+  
+  .nav__admin-link {
+    color: #fffff0;
+    background-color: black;
+    border: 1px solid #fffff0;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin-top: 70px;
+  }
+  
+  .nav__icons {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-right: 30px;
+  }
+  
+  .nav__search {
+    display: flex;
+    align-items: center;
+    background-color: #FFFFF0; /* Light yellow background */
+    border: 1px solid black; /* Black border */
+    height: 30px;
+    padding: 0 8px; /* Add padding inside the search bar */
+    box-sizing: border-box;
+    border-radius: 4px; /* Optional: Add rounded corners */
+    width: 200px; /* Adjust as needed */
+    transition: box-shadow 0.3s ease; /* Add hover effect transition */
+    position: relative;
+    left: -100px;
+  }
+  
+  .nav__search input {
+    flex-grow: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: black;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  
+  .nav__search input::placeholder {
+    color: gray;
+    font-size: 12px;
+  }
+  
+  .nav__search:hover,
+  .nav__search:focus-within {
+    box-shadow: 0 0 4px black;
+  }
+  
+  /* Blip and Widget Icons */
+  .nav__blip-container {
+    position: relative;
+    display: inline-block;
+    right: 40px;
+    top: 23px;
+  }
+  
+  .nav__blip-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .nav__blip-button img {
+    height: 40px;
+    width: 40px;
+  }
+  
+  .nav__widget-icons {
+    position: absolute;
+    top: 50%;
+    left: 100%; // anchors at the right edge of the blip
+    transform: translate(0, -50%);
+    pointer-events: none;
+  }
+  
+  .nav__widget-icons .nav__icon {
+    position: absolute;
+    pointer-events: auto;
+    transition: all 0.3s ease;
+  }
+  
+  /* Ensure widget icons have consistent size, padding, and border */
+  .nav__widget-icons .nav__icon svg {
+    width: 24px;
+    height: 24px;
+    padding: 4px; 
+    box-sizing: border-box;
+    background-color: #000;
+    border: 2px solid #000;
+    border-radius: 50%;
+    fill: #fe5829;
+    transition: transform 0.3s ease, fill 0.3s ease;
+  }
+  
+  .nav__widget-icons .nav__icon:hover svg {
+    transform: scale(1.1);
+  }
+  
+  /* Arrange the 4 icons in a semi-circle to the right of the blip using custom angles.
+     Adjust translateX (50px) to set how far they are from the blip.
+     Here we use angles -60°, -20°, 20°, 60°.
+  */
+  .nav__widget-icons .nav__icon--favorite {
+    transform: translate(-50%, -50%) rotate(-60deg) translateX(50px) rotate(60deg);
+  }
+  .nav__widget-icons .nav__icon--profile {
+    transform: translate(-50%, -50%) rotate(-20deg) translateX(50px) rotate(20deg);
+  }
+  .nav__widget-icons .nav__icon--messages {
+    transform: translate(-50%, -50%) rotate(20deg) translateX(50px) rotate(-20deg);
+  }
+  .nav__widget-icons .nav__icon--cart {
+    transform: translate(-50%, -50%) rotate(60deg) translateX(50px) rotate(-60deg);
+  }
+  
+  /* Icon Count Styling */
+  .nav__icon-count {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background-color: #fe5829;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  
+ /* New container to stack the search and horizontal panel vertically */
+/* New container to stack the search and horizontal panel vertically */
+.nav__search-and-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Responsive Horizontal Panel */
+.nav__horizontal-panel {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  background-color: black;
+  border: 1px solid white;
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+  padding: 5px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;  /* Centers the panel */
+  justify-content: center;
+  position:relative;
+  left: -220px;
+  width: 300px;
+}
+
+.nav__horizontal-panel:hover {
+  opacity: 1;
+}
+
+.nav__horizontal-panel .icon {
+  width: 15px;
+  fill: white;
+}
+
+/* Optional: Adjust panel width for smaller screens */
+@media (max-width: 768px) {
+  .nav__horizontal-panel {
+    max-width: 90%; /* Use 90% of available width on medium/small screens */
+    position: relative;
+    left: -35px;
+    width: 250px;
+  }
+ 
+}
+@media (max-width: 768px){
+  .nav__search {
+    position: relative;
+    left: -15px;
+  }
+}
+
+/* Horizontal Panel Items */
+.nav__horizontal-panel-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav__horizontal-panel-label {
+  display: none;
+  position: absolute;
+  bottom: -20px; // Adjust as needed for spacing
+  font-size: 14px;
+  color: white;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+.nav__horizontal-panel-item:hover .nav__horizontal-panel-label {
+  display: block;
+}

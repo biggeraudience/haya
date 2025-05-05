@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+
+
+/* Ensure body and html cover the entire viewport */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Overpass Mono', cursive; /* Set Caveat as the default font */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+/* Home Page Container */
+.home-container {
+  position: relative;
+  background-image: url('/src/assets/images/homepagebackground.webp');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh; /* Minimum height of the viewport */
+  width: 100%; /* Full screen width */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers content vertically */
+  align-items: center; /* Centers content horizontally */
+  box-sizing: border-box;
+  padding-bottom: 2rem; /* Optional: Space at the bottom to allow scroll */
+
+}
+
+/* Transparent Overlay */
+.home-container::before {
+  content: ''; /* Required for the pseudo-element */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  z-index: 1; /* Place the overlay above the background but below the content */
+}
+
+/* Main Content Box */
+.content-box {
+  width: 608px; /* Main box width */
+  height: 575px; /* Main box height */
+  border: 2px solid black; /* Black border */
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+  margin-top: 200px;
+  flex-grow: 1; /* Ensure this grows to fill available space */
+  margin-bottom: 100px;
+  z-index: 10;
+}
+
+/* Top Section: Left and Right boxes */
+.top-section {
+  display: flex;
+  width: 100%;
+  height: 375px; /* Height of the left box */
+  justify-content: space-between;
+}
+
+.left-box {
+  width: 264px; /* Left box width */
+  height: 375px; /* Left box height */
+  border: 2px solid black; /* Border around left box */
+  box-sizing: border-box;
+  background-image: url('/src/assets/images/clothingboximage.webp'); /* Path to the image */
+  background-size: cover; /* Scale image to cover the box */
+  background-position: center; /* Center the image */
+  z-index: 10;
+}
+
+
+/* Container for the Right Box and its new bottom section */
+.right-box-container {
+  display: flex;
+  flex-direction: column;
+  width: 344px; /* Right box width */
+}
+
+/* Right Box */
+.right-box {
+  height: 172px; /* Right box height */
+  border: 2px solid black; /* Border around right box */
+  box-sizing: border-box;
+  background-image: url('/src/assets/images/veilsboximage.webp'); /* Path to the image */
+  background-size: cover; /* Scale image to cover the box */
+  background-position: center; /* Center the image */
+  z-index: 10;
+}
+
+/* New section below the right box (Side by side boxes) */
+.right-box-bottom-section {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.right-box-item-1 {
+  width: 50%; /* Each box will take 50% of the right box container's width */
+  height: 202px; /* Height of each right box item */
+  border: 2px solid black; /* Border around the boxes */
+  box-sizing: border-box;
+  margin: 0; /* Remove margin between boxes */
+  background-image: url('/src/assets/images/bagsboximage.webp'); /* Path to the image */
+  background-size: cover; /* Scale image to cover the box */
+  background-position: center; /* Center the image */
+  z-index: 10;
+}
+
+.right-box-item-2 {
+  width: 50%; /* Each box will take 50% of the right box container's width */
+  height: 202px; /* Height of each right box item */
+  border: 2px solid black; /* Border around the boxes */
+  box-sizing: border-box;
+  margin: 0; /* Remove margin between boxes */
+  background-image: url('/src/assets/images/shoesboximage.webp'); /* Path to the image */
+  background-size: cover; /* Scale image to cover the box */
+  background-position: center; /* Center the image */
+  z-index: 10;
+}
+
+/* Bottom Section: Two boxes side by side */
+.bottom-section {
+  display: flex;
+  width: 100%;
+  height: 202px; /* Height of each bottom box */
+  justify-content: space-between;
+  margin-top: -2px; /* Align Bottom Box 1 and 2 to Right Box 1 and 2 */
+}
+
+.bottom-box-1 {
+  width: 50%; /* Each bottom box will now take 50% of the width */
+  height: 202px;
+  border: 2px solid black;
+  box-sizing: border-box;
+  background-image: url('/src/assets/images/jewelryboximage.webp'); /* Path to the image */
+  background-size: 340%; /* Scale image to cover the box */
+  background-position: center ; /* Center the image */
+  z-index: 10;
+}
+
+.bottom-box-2 {
+  width: 50%; /* Each bottom box will now take 50% of the width */
+  height: 202px;
+  border: 2px solid black;
+  box-sizing: border-box;
+  background-image: url('/src/assets/images/fragrancesboximage.webp'); /* Path to the image */
+  background-size: cover; /* Scale image to cover the box */
+  background-position: center; /* Center the image */
+  z-index: 10;
+}
+
+
+
+
+/* Navbar Styling */
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2; /* Ensure it's on top of the background image */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the top */
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Navbar Logo Styling */
+.navbar-logo {
+  height: 120px;
+  width: 120px;
+  background: url('/src/assets/icons/hayalogo.svg') no-repeat center center;
+  background-size: contain;
+  flex-shrink: 0; /* Prevent the logo from shrinking */
+}
+
+/* Search Bar Styling */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #FFFFF0; /* Light yellow background */
+  border: 1px solid black; /* Black border */
+  height: 30px;
+  padding: 0 8px; /* Add padding inside the search bar */
+  box-sizing: border-box;
+  border-radius: 4px; /* Optional: Add rounded corners */
+  width: 200px; /* Adjust as needed */
+  transition: box-shadow 0.3s ease; /* Add hover effect transition */
+}
+
+/* Search Bar Focus Effect */
+.search-bar input {
+  flex-grow: 1;
+  background: none;
+  border: none;
+  outline: none; /* Remove outline */
+  color: black; /* Input text color */
+  font-size: 14px;
+  font-family: inherit; /* Match the font of the rest of the site */
+  text-align: left;
+  
+}
+
+/* Search Bar Placeholder */
+.search-bar input::placeholder {
+  color: gray;
+  font-size: 12px;
+}
+
+/* Search Bar Hover and Focus */
+.search-bar:hover,
+.search-bar:focus-within {
+  box-shadow: 0 0 4px black;
+}
+
+/* Adjust Navbar Icons to Include Search Bar */
+.navbar-icons {
+  display: flex;
+  align-items: flex-start; /* Align icons to the top */
+  gap: 1rem; /* Space between icons and search bar */
+  margin-right: 30px; /* Add space to the right for search bar alignment */
+}
+
+
+/* Icon Container Styling */
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Icon Styling */
+.icon svg {
+  height: 30px; /* Icon size */
+  width: 30px;
+  fill: #FFFFF0; /* Default color (light yellow) */
+  transition: transform 0.3s ease, fill 0.3s ease; /* Transition for scaling and color change */
+}
+
+/* Hover Effect for Scaling and Color Change */
+.icon:hover svg {
+  transform: scale(1.1); /* Slight zoom on hover */
+  }
+
+
+
+/* Footer Styling */
+.footer {
+  position: absolute; /* Rooted to the bottom of the page */
+  bottom: 0; /* Stick to the bottom */
+  width: 100%; /* Full width of the viewport */
+  z-index: 2; /* Ensure it's above other elements */
+  background-color: rgba(0, 0, 0, 0.7); /* Transparent background */
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+
+
+/* Ensure consistent padding and constraints for page content */
+.page-content {
+  padding-left: 4px;
+  padding-right: 4px;
+  box-sizing: border-box;
+}

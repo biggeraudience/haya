@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Ensure no scrollbars appear */
+}
+
+.superadminregister-page {
+  position: fixed; /* Sticks to the viewport */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fffff0;
+  font-family: 'Overpass Mono';
+}
+
+.superadminregister-main-box {
+  position: relative;
+  width: 500px;
+  height: 520px;
+  background-color: #fe5829;
+  border: 2px solid black;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  margin-top: 100px !important;
+  
+  // Toggle Buttons
+  .superadminregister-toggle-buttons {
+    position: absolute;
+    top: 10px;
+    left: 105px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    font-family: 'Caveat', cursive;
+  }
+
+  .superadminregister-toggle-button {
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Caveat', cursive;
+    font-size: 15px;
+
+    &.active {
+      background-color: #fe5829;
+      color: white;
+      border-bottom: 2px solid white;
+    }
+
+    &:hover {
+      background-color: #e24f22;
+      color: white;
+    }
+  }
+
+  .superadminregister-inner-box {
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 85%;
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .superadminregister-welcome-message {
+    text-align: center;
+  }
+}
+
+.superadminregister-form-heading {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.superadminregister-login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+
+  .superadminregister-input-field {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+  }
+}
+
+.superadminregister-action-button {
+  width: 322px;
+  padding: 10px;
+  background-color: #fe5829;
+  color: white;
+  border: none;
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Options row */
+.superadminregister-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  color: black;
+  font-family: 'Caveat', cursive;
+  font-size: 14px;
+}
+
+.superadminregister-remember-me {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: black;
+}
+
+.superadminregister-forgot-password {
+  color: black;
+  text-decoration: none;
+}
+
+/* Password container */
+.superadminregister-password-container {
+  width: 320px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  
+  .superadminregister-input-field {
+    width: 100%;
+    padding-right: 40px; /* Space for the toggle icon */
+  }
+  
+  .superadminregister-password-toggle {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+}
+
+/* Google button */
+.superadminregister-google-button {
+  margin-top: 30px;
+  width: 322px;
+  padding: 10px;
+  background-color: white;
+  color: black;
+  border: 2px solid #fe5829;
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background-color: #fe5829;
+    color: white;
+    transform: scale(1.05);
+  }
+}
+
+.superadminregister-google-icon {
+  font-size: 24px;
+}
+
+/* Animation for registration form */
+.superadminregister-form-animation {
+  animation: slideIn 0.6s ease-out;
+  width: 100%;
+}
+
+/* Keyframes for sliding in the registration form */
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

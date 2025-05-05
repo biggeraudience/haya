@@ -1,0 +1,461 @@
+/* src/styles/feedsection.scss */
+.feed-section-container {
+  display: flex;
+  width: 100%;
+  height: 1100px;
+  // Added position relative to make sticky positioning within content-area work
+  position: relative;
+}
+
+.sidebarr {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fffff0;
+  border: 1px solid #000;
+  width: 10rem;
+}
+
+.sidebar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s, background 0.2s;
+  border: 1px solid black; // Corrected syntax
+
+  .icon-placeholder {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-title {
+    margin-top: 0.25rem;
+    font-size: 0.7rem;
+    color: black;
+    text-align: center;
+  }
+
+  &:hover {
+    color: #fe5829;
+    background-color: #333; // Added background hover effect
+    .icon-placeholder { color: #ffffff; }
+    .icon-title { color: #ffffff; }
+  }
+
+  &.active {
+    color: #fe5829;
+    background-color: #000; // Added background active effect
+    .icon-placeholder { color: #ffffff; }
+    .icon-title {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+  }
+}
+
+.content-area {
+  flex-grow: 1;
+  padding: 1rem;
+  background: #fff;
+  overflow-y: auto; /* Make this the scrollable area */
+  background-color: #fffff0 !important;
+  display: flex;
+  flex-direction: column; /* Stack content and sticky area */
+  // Removed justify-content: space-between; - sticky positioning handles the bottom alignment
+}
+
+/* Style for individual feed items in the DefaultFeed */
+.feed-item {
+  margin-bottom: 1.5rem; // Space between feed items
+  flex-shrink: 0; /* Prevent feed items from shrinking */
+  background-color: #ffffff !important; // Add background color for the content area
+
+}
+
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .profile-image-container {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 0.5rem;
+    border: 1px solid #ccc;
+  }
+
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    background: #eee;
+  }
+
+  /* Added container to apply gap */
+  .profile-info-gap-container {
+    display: flex;
+    flex-direction: column; // Stack name, username, timestamp vertically
+    gap: 2px; // 2px gap between items
+  }
+
+  .name {
+    font-weight: bold;
+    color: #000;
+  }
+
+  .username {
+    color: #888;
+    font-size: 0.9rem;
+  }
+
+  .timestamp {
+    color: #000;
+    font-size: 0.8rem;
+  }
+}
+
+/* Style for the content wrapper with subtle gray border */
+.feed-content-wrapper {
+ 
+  padding: 1rem; /* Add padding inside the border */
+  transition: height 0.3s ease; /* Optional: Add a transition for smoother height change */
+  overflow: hidden; /* Ensure content stays within the border */
+  background-color: #ffffff; // Add background color for the content area
+}
+
+.content-text {
+  margin-bottom: 1rem;
+  color: #000;
+  font-size: 1.15rem;
+  line-height: 1.5; // Improved readability
+
+  .see-more-button {
+    background: none;
+    border: none;
+    color: #fe5829;
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.85rem;
+    margin-left: 0.25rem; // Space after the truncated text
+  }
+}
+
+.content-media {
+  margin-bottom: 1rem;
+
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.5rem;
+
+    .media-item {
+      background: #ddd;
+      aspect-ratio: 1/1;
+      border-radius: 5px;
+    }
+  }
+}
+
+.pdf-button {
+  display: block;
+  margin-bottom: 1rem;
+  background: #f8f8f8;
+  color: #000;
+  /* Removed border: 1px solid #ccc; */
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  width: fit-content; // Make button width fit content
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.poll {
+  /* Removed border: 1px solid #eee; */
+  background-color: #ffffff !important; // Add background color for the content area
+  padding: 1rem;
+  border-radius: 8px;
+  color: #000;
+
+  .poll-question {
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  .poll-options {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    
+
+    .vote-actions {
+      display: flex;
+      gap: 1rem; // Increased gap between thumb buttons
+      width: 100%; // Allow vote actions to take full width
+      justify-content: center; // Center the thumb buttons
+      background-color: #ffffff !important; // Add background color for the content area
+
+      .thumb-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem; // Added padding to make clicking easier
+        border-radius: 5px;
+        transition: background-color 0.2s ease;
+
+
+        &:hover {
+            background-color: #eee;
+        }
+
+        &.selected {
+            background-color: #ffebe6; // Light orange background when selected
+        }
+      }
+    }
+  }
+
+  .poll-results {
+    margin-top: 1rem;
+
+    .result-bar-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+
+      .result-label {
+        width: 30px;
+        font-size: 0.9rem;
+      }
+
+      .result-bar {
+        flex-grow: 1;
+        height: 1.2rem; // Slightly taller bar
+        border-radius: 5px;
+        background: #ddd;
+        position: relative;
+        overflow: hidden; // Hide percentage text if it overflows the bar
+
+        &.yes { background: #fe5829; }
+        &.no { background: gray; }
+
+        // Positioning percentage inside the bar
+        & > span { /* Select the text element inside the bar */
+          position: absolute;
+          right: 0.5rem;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 0.8rem;
+          color: #fff; // White text for better contrast
+          font-weight: bold;
+          text-shadow: 1px 1px 2px rgba(0,0,0,0.5); // Add text shadow for readability
+          z-index: 1; // Ensure text is above the bar
+        }
+      }
+    }
+  }
+}
+
+
+.tab-content {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff; // Add background color
+  color: #000; // Ensure text is black
+}
+
+/* Sticky Input Area Styles */
+.sticky-input-area {
+  position: sticky; /* Make the container sticky */
+  bottom: 0; /* Stick to the bottom of the parent (.content-area) */
+  width: 100%; /* Take full width */
+  background-color: #f0f0f0; /* Light gray background */
+  padding: 1rem; /* Padding around the input area */
+  display: flex; /* Use flexbox for layout of input and buttons */
+  align-items: center; /* Vertically align items */
+  gap: 0.75rem; /* Space between elements */
+  border-top: 1px solid #ccc; /* Top border to separate from content */
+  box-sizing: border-box; /* Include padding in width calculation */
+  /* Removed margin-top: auto; - sticky positioning handles the bottom alignment */
+  z-index: 10; /* Ensure it stays on top of scrolling content */
+  flex-shrink: 0; /* Prevent the input area from shrinking */
+}
+
+.sticky-input-area .plus-button,
+.sticky-input-area .send-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fe5829; // Orange color for buttons
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: darken(#fe5829, 15%); // Darken color on hover
+  }
+}
+
+.sticky-input-area .comment-input {
+  flex-grow: 1; // Allow input field to take up available space
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 25px; // Rounded corners
+  font-size: 1rem;
+  outline: none; // Remove default outline
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: #fe5829; // Highlight border on focus
+  }
+}
+
+
+/* src/styles/contactcontent.scss */
+/* Keeping existing contactcontent styles as requested */
+.contact-container {
+padding: 2rem 1rem; // More padding top/bottom
+background-color: #fff; // White background
+border: 1px solid #ccc; // Light border
+color: black; // Ensure text is visible
+font-family: 'Overpass Mono', sans-serif;
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+box-sizing: border-box;
+min-height: 400px; // Give it some minimum height
+
+h2 {
+  text-align: center;
+  margin-bottom: 2rem; // More space below main heading
+  color: black;
+}
+
+.contact-section {
+  width: 100%;
+  max-width: 600px; // Limit section width
+  margin-bottom: 2rem; // Space between sections
+  text-align: center; // Center content within sections
+
+  h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem; // Space below section heading
+    color: #333; // Slightly darker color for section headings
+  }
+}
+
+.social-links {
+  display: flex;
+  justify-content: center; // Center social icons
+  flex-wrap: wrap; // Allow wrapping on smaller screens
+  gap: 1.5rem; // Space between social icons
+}
+
+.social-link-item {
+  display: flex;
+  flex-direction: column; // Stack icon and name
+  align-items: center;
+  text-decoration: none; // Remove underline from links
+  color: black; // Ensure link text is black
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #fe5829; // Orange color on hover
+  }
+
+  .icon {
+    width: 36px; // Icon size
+    height: 36px; // Icon size
+    margin-bottom: 0.5rem; // Space between icon and name
+
+    svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor; /* Use the current text color for the icon */
+    }
+  }
+
+  .name {
+    font-size: 0.9rem;
+  }
+}
+
+.direct-contact-info {
+  display: flex;
+  flex-direction: column; // Stack phone and email vertically
+  gap: 1rem; // Space between contact items
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem; // Space between icon and text
+  font-size: 1.1rem;
+
+  .icon {
+    width: 24px; // Icon size
+    height: 24px; // Icon size
+    flex-shrink: 0; // Prevent icon from shrinking
+
+     svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor; /* Use the current text color for the icon */
+    }
+  }
+
+  a {
+    color: black; // Ensure link text is black
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #fe5829; // Orange color on hover
+    }
+  }
+}
+}
+@media (max-width: 600px) {
+.contact-container {
+padding: 1.5rem 0.5rem; // Adjust padding for smaller screens
+}
+
+.contact-section {
+  max-width: 100%; // Allow sections to take full width
+}
+
+.social-links {
+  gap: 1rem; // Adjust gap for smaller screens
+}
+
+.social-link-item .icon {
+  width: 30px; // Adjust icon size
+  height: 30px; // Adjust icon size
+}
+
+.contact-item {
+  font-size: 1rem; // Adjust font size
+}
+
+.contact-item .icon {
+   width: 20px; // Adjust icon size
+   height: 20px; // Adjust icon size
+}
+}

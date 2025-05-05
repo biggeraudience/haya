@@ -1,0 +1,189 @@
+/* src/styles/productsidebar.scss */
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 250px;
+  z-index: 11000;
+  padding: 20px;
+  padding-bottom: 80px; /* Added padding at the bottom to prevent content hiding under a footer */
+  font-family: "Overpass Mono";
+  // Transparent background with blur effect
+  background-color: rgba(18, 18, 18, 0.6);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack items vertically */
+  overflow-y: auto; /* Add scrolling if content exceeds height */
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  .gender-toggle {
+    flex-shrink: 0; /* Prevent this section from shrinking */
+    display: flex;
+    justify-content: space-around;
+    margin: 45px 0 20px;
+
+    .gender-button {
+      padding: 10px 15px;
+      border: 1px solid #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      // Inactive color
+      background-color: #FE5829;
+      color: #fff;
+      font-family: "Overpass Mono";
+      font-size: 15px;
+      border-radius: 4px; /* Added border-radius */
+
+      &:hover {
+        background-color: rgb(240, 60, 10);
+      }
+
+      &.active {
+        background-color: #008000;
+        color: #fff;
+        &:hover {
+          background-color: rgb(0, 105, 0);
+        }
+      }
+    }
+  }
+
+  .categories {
+    flex-shrink: 0; /* Prevent categories from shrinking */
+     /* Remove flex-grow: 1 here if it was present */
+
+
+    .category-item {
+      border-bottom: 1px solid #fff; // Keep border for items *except* the last
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+
+      &:last-child {
+        border-bottom: none; /* Remove border from the last category item */
+         margin-bottom: 0; /* Remove margin from the last category item */
+      }
+
+      .category-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+
+        .category-text {
+          font-size: 16px;
+          transition: color 0.3s ease, text-decoration 0.3s ease;
+          // Inactive color for text
+          color: white;
+
+          &:hover {
+            text-decoration: underline;
+            text-decoration-color: #FE5829;
+          }
+
+          &.active {
+            color: #008000;
+          }
+        }
+
+        .accordion-toggle {
+          background: none; // remove background styling
+          border: none;
+          cursor: pointer;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          transition: color 0.3s ease;
+          color: white; /* Default arrow color */
+
+          &:hover {
+            color: #FE5829; /* Hover arrow color */
+          }
+        }
+      }
+
+      .subcategory-list {
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+        // When closed, max-height is 0; when open, inline style controls max-height.
+
+        .subcategory-item {
+          padding: 8px 10px;
+          cursor: pointer;
+          transition: background-color 0.3s ease, color 0.3s ease;
+          // Inactive text color
+          color: #000;
+          background-color: #fff;
+          border-top: 1px solid #fff;
+
+          &:first-child {
+            border-top: none;
+          }
+
+          &:hover {
+            background-color: #FE5829;
+            color: #fff;
+          }
+
+          &.active {
+            background-color: #008000;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  /* New styles for the navigation section */
+  .nav-gap {
+      margin-top: 20px; /* Adds margin above the navigation items */
+      /* Removed border-top and padding-top */
+      height: 0; /* Ensure the div itself doesn't add height beyond the margin */
+  }
+
+  .sidebar-nav {
+      flex-shrink: 0; /* Prevent this section from shrinking */
+      display: flex;
+      flex-direction: column;
+      list-style: none; /* Remove list bullets */
+      /* Removed margin-bottom, relying on sidebar padding-bottom */
+
+
+      .sidebar-nav-link {
+          display: block; /* Make the whole area clickable */
+          margin-bottom: 40px;
+          color: white; /* Default link color */
+          text-decoration: none; /* Remove underline */
+          transition: background-color 0.3s ease, color 0.3s ease;
+          border-radius: 4px; /* Optional: rounded corners */
+
+
+          &:hover {
+              color: #FE5829; /* Change text color on hover */
+          }
+
+          // Active state is handled by the FeedSection sidebar, but you could add one here
+          // &.active {
+          //     background-color: #FE5829;
+          //     color: #fff;
+          // }
+      }
+  }
+}

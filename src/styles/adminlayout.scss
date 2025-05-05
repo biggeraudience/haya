@@ -1,0 +1,49 @@
+// Define theme colors
+$background-color: #121212;
+$text-color: #ffffff;
+$primary-accent: #00D2FF;
+$secondary-accent: #00FFC8;
+
+// Base styles for the admin layout container
+.admin-layout {
+  background-color: $background-color;
+  min-height: 100vh;
+  padding: 1rem;
+  color: $text-color;
+  font-family: 'Roboto', sans-serif;
+
+  // Optional: style a header within the layout if needed
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    h1 {
+      font-size: 1.8rem;
+      color: $primary-accent;
+    }
+  }
+
+  // Main content area
+  .admin-content {
+    margin-top: 1rem;
+  }
+}
+
+// Override react-toastify container styles (if needed)
+.Toastify__toast-container {
+  z-index: 9999;
+}
+
+// Example toast style overrides for admin theme
+.Toastify__toast {
+  background-color: darken($background-color, 5%);
+  color: $text-color;
+  border: 1px solid $primary-accent;
+}
+
+.Toastify__progress-bar {
+  background: $secondary-accent;
+}

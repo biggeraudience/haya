@@ -1,0 +1,283 @@
+/* src/styles/categorydisplaysection.scss */
+
+.category-display-section {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  padding: 2rem;
+  overflow: hidden;
+
+  .background-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 0;
+  }
+
+  .content-wrapper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: flex-start;
+      padding: 3rem;
+    }
+
+    /* 1200px+: allocate 30% to main, 70% to subcategories */
+    @media (min-width: 1200px) {
+      .main-content {
+        width: 30%;
+      }
+      .subcategory-boxes {
+        width: 70%;
+      }
+    }
+  }
+
+  .left-image img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+    @media (min-width: 1200px) {
+      max-width: 400px;
+    }
+  }
+
+  .main-content {
+    text-align: center;
+
+    @media (min-width: 768px) {
+      text-align: left;
+      width: 40%;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    @media (min-width: 1200px) {
+      h2 {
+        font-size: 2rem;
+      }
+      p {
+        font-size: 1.2rem;
+      }
+      .shop-link {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  .shop-link {
+    color: white;
+    text-decoration: none;
+    margin-top: 0.5rem;
+    display: inline-block;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #fe5829;
+    }
+  }
+
+  .subcategory-boxes {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+
+    .box {
+      display: flex;
+      gap: 1rem;
+      border-radius: 8px;
+      padding: 1rem;
+      opacity: 0;
+      transform: translateY(-30px);
+      transition: transform 1s ease-out, opacity 1s ease-out;
+      box-sizing: border-box;
+
+      &.slide-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (min-width: 1200px) {
+        padding: 2rem;
+        gap: 2rem;
+      }
+
+      .box-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+        flex-shrink: 0;
+
+        @media (min-width: 1200px) {
+          width: 150px;
+          height: 150px;
+        }
+      }
+
+      .box-details {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+
+        h3 {
+          margin: 0 0 0.5rem;
+          font-size: 1.1rem;
+
+          @media (min-width: 1200px) {
+            font-size: 1.5rem;
+          }
+        }
+        p {
+          margin: 0 0 0.8rem;
+          font-size: 0.9rem;
+          flex-grow: 1;
+
+          @media (min-width: 1200px) {
+            font-size: 1.1rem;
+          }
+        }
+
+        .shop-button {
+          display: inline-block;
+          background: none;
+          padding: 0.5rem 1rem;
+          text-decoration: none;
+          transition: background 0.3s, color 0.3s;
+          width: fit-content;
+          align-self: flex-start;
+          font-size: 0.9rem;
+          border-radius: 4px;
+
+          @media (min-width: 1200px) {
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+          }
+
+          &:hover {
+            background: #fe5829;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  &.category-display-section--men {
+    .subcategory-boxes {
+      .box {
+        background: #ffffff;
+        border: 1px solid #000000;
+
+        .box-details {
+          color: #000000;
+
+          h3,
+          p {
+            color: #000000;
+          }
+
+          .shop-button {
+            border: 1px solid #000000;
+            color: #000000;
+
+            &:hover {
+              background: #fe5829;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.category-display-section--women {
+    .subcategory-boxes {
+      .box {
+        background: #fe5829;
+        border: 1px solid #000;
+
+        .box-details {
+          color: #ffffff;
+
+          h3 {
+            color: #000;
+          }
+          p {
+            color: #ffffff;
+          }
+
+          .shop-button {
+            border: 1px solid #000;
+            background: #ffffff;
+            color: #000;
+
+            &:hover {
+              background: #ffffff;
+              color: #fe5829;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    padding: 1rem;
+
+    .content-wrapper {
+      gap: 1rem;
+    }
+
+    .left-image img {
+      max-width: 200px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .main-content {
+      text-align: center;
+    }
+
+    .subcategory-boxes {
+      gap: 0.8rem;
+
+      .box {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        .box-image {
+          width: 80px;
+          height: 80px;
+        }
+
+        .box-details {
+          align-items: center;
+        }
+
+        .shop-button {
+          align-self: center;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,216 @@
+/* src/styles/womenslandingpage.scss */
+
+// The main container for the women's landing page.
+// This class name is changed from .mens-landing-page
+.womens-landing-page {
+    background-color: #000; // Keep the black background
+    padding-top: 1rem; // Keep the padding
+  }
+  
+  // Wrapper for the carousel section.
+  .carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: var(--carousel-height, 320px); // Use CSS variable for height, with a default
+  }
+  
+  // Wrapper for the category display section.
+  .category-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: var(--category-height, auto); // Use CSS variable for height, with auto default
+    background-color: #121212; // Keep the dark background
+  }
+  
+  // The main section containing the carousel track and arrows.
+  .carousel-section {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: black; // Keep the black background
+    display: flex;
+    align-items: center;
+    // Removed fixed-bulb styles from here, they are defined separately below
+  }
+  
+  // Styles for the fixed decorative bulbs.
+  .carousel-section .fixed-bulb {
+    position: absolute;
+    width: 200px;
+    height: 6px;
+    background: white;
+    box-shadow: 0 0 12px #fff, 0 0 24px #0ff; // White and cyan glow
+    left: 2rem; // Default left position
+    z-index: 15; // Ensure it's above the carousel track
+    pointer-events: none; // Make it non-interactive
+  }
+  
+  // Specific styles for the top fixed bulb.
+  .carousel-section .fixed-bulb.top {
+    top: 10px; // Position from the top
+    left: 40px !important; // Override left position, use !important if necessary due to specificity
+  }
+  
+  // Specific styles for the bottom fixed bulb.
+  .carousel-section .fixed-bulb.bottom {
+    top: 305px; // Position from the top
+    left: 40px !important; // Override left position
+  }
+  
+  
+  // The container for the carousel items.
+  .carousel-track {
+    display: flex;
+    align-items: center;
+    padding-left: 2rem; // Padding on the left
+    transition: transform 0.6s ease; // Smooth transition for sliding
+    height: 100%; // Take full height of the section
+  }
+  
+  // Style to disable transition for instantaneous movement if needed.
+  .carousel-track.no-transition {
+    transition: none !important;
+  }
+  
+  // Individual carousel item.
+  .carousel-item {
+    margin-right: 1rem; // Standard margin between items
+    cursor: pointer; // Indicate it's clickable
+    transition: opacity 0.6s ease; // Smooth transition for opacity
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; // Take full height of the track
+  
+    // Style for the active item (first item in the track).
+    &.active {
+      margin-right: calc(1rem + 3rem); // Add extra margin for the active item
+    }
+  }
+  
+  // Image within the carousel item.
+  .carousel-item img {
+    width: 230px; // Default image width
+    height: 260px; // Default image height
+    object-fit: cover; // Cover the container while maintaining aspect ratio
+    border-radius: 8px; // Rounded corners
+    border: 2px solid white; // White border
+  }
+  
+  // Styles for the carousel navigation arrows.
+  .carousel-arrow {
+    position: absolute;
+    top: 50%; // Position vertically in the middle
+    transform: translateY(-50%); // Adjust for vertical centering
+    background: none; // No background
+    border: none; // No border
+    color: white; // White arrow color
+    font-size: 2rem; // Arrow size
+    cursor: pointer; // Indicate it's clickable
+    z-index: 20; // Ensure it's above other elements
+    padding: 0.5rem; // Padding around the arrow
+  
+    // Hover effect for arrows.
+    &:hover {
+      color: #0ff; // Cyan color on hover
+    }
+  
+    // Specific position for the left arrow.
+    &.left {
+      left: 0.5rem;
+    }
+  
+    // Specific position for the right arrow.
+    &.right {
+      right: 0.5rem;
+    }
+  
+    // Background circle for the arrow (optional, based on original code).
+    .arrow-background {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%; // Make it a circle
+      background-color: rgba(0, 0, 0, 0.3); // Semi-transparent black background
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  
+  // Media queries for responsive adjustments
+  
+  // Styles for screens between 280px and 359px wide.
+  @media (min-width: 280px) and (max-width: 359px) {
+    .carousel-section .fixed-bulb {
+      width: 150px; // Adjust bulb width
+      left: 1rem; // Adjust bulb position
+    }
+    .carousel-item img {
+      width: 150px; // Adjust image size
+      height: 200px;
+    }
+    .carousel-item.active {
+      margin-right: calc(1rem + 2rem); // Adjust active item margin
+    }
+  }
+  
+  // Styles for screens between 360px and 767px wide.
+  @media (min-width: 360px) and (max-width: 767px) {
+    .carousel-section .fixed-bulb {
+      width: 180px; // Adjust bulb width
+      left: 1.5rem; // Adjust bulb position
+    }
+    .carousel-item img {
+      width: 180px; // Adjust image size
+      height: 240px;
+    }
+    .carousel-item.active {
+      margin-right: calc(1rem + 2.5rem); // Adjust active item margin
+    }
+  }
+  
+  // Styles for screens 768px and wider (default desktop styles).
+  @media (min-width: 768px) {
+    .carousel-section .fixed-bulb {
+      width: 200px; // Default bulb width
+      left: 2rem; // Default bulb position
+      &.top {
+        top: 22px; // Specific top position for larger screens
+      }
+      &.bottom {
+        top: 298px; // Specific bottom position for larger screens
+      }
+    }
+    .carousel-item img {
+      width: 200px; // Default image size
+      height: 260px;
+    }
+    .carousel-item.active {
+      margin-right: calc(1rem + 3rem); // Default active item margin
+    }
+  }
+  
+  // Styles for screens 1200px and wider (large desktop styles).
+  @media (min-width: 1200px) {
+    .carousel-section .fixed-bulb {
+      width: 240px; // Larger bulb width
+      left: 3rem; // Larger bulb position
+      &.top {
+         top: 10px; // Adjust top position
+         left: 12px !important; // Adjust left position
+      }
+      &.bottom {
+        top: 305px; // Adjust bottom position
+        left: 12px !important; // Adjust left position
+      }
+    }
+    .carousel-item img {
+      width: 240px; // Larger image size
+      height: 300px;
+    }
+    .carousel-item.active {
+      margin-right: calc(1rem + 4rem); // Adjust active item margin
+    }
+  }
+  

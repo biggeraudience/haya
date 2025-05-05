@@ -1,0 +1,1507 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300..700&display=swap');
+
+:root {
+  /* Global typography variables */
+  --m3-ui-family: 'Overpass Mono', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size-default: 16px;
+  --font-weight-default: 400;
+  --line-height-default: 24px;
+  --letter-spacing-default: normal;
+}
+
+/* Global typography and layout settings */
+html, body {
+  height: 100%; /* Full height of the viewport */
+  margin: 0;
+  padding: 0;
+  
+  /* Typography settings */
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: normal;
+  font-family: 'Overpass Mono'; /* Using the imported Caveat font */
+
+  display: flex;
+  flex-direction: column; /* Layout: header, content, footer */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+
+/* Home Page Container */
+.home-container {
+  flex-grow: 1; /* This makes the container fill available space */
+  position: relative;
+  background-image: url('/src/assets/images/homepagebackground.webp');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 200px;
+  .home-container.font-size-small {
+    font-size: 14px;
+  }
+  
+  .home-container.font-size-medium {
+    font-size: 16px;
+  }
+  
+  .home-container.font-size-large {
+    font-size: 18px;
+  }
+}
+
+
+
+/* Transparent Overlay */
+.home-container::before {
+  content: ''; /* Required for the pseudo-element */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  z-index: 1; /* Place the overlay above the background but below the content */
+}
+
+/* Main Content Box */
+.content-box {
+  width: 608px; /* Main box width */
+  height: 575px; /* Main box height */
+  border: 2px solid black; /* Black border */
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+  margin-top: 200px;
+  flex-grow: 1; /* Ensure this grows to fill available space */
+  margin-bottom: 300px !important;
+  z-index: 10;
+  
+}
+
+/* Top Section: Left and Right boxes */
+.top-section {
+  display: flex;
+  width: 100%;
+  height: 375px; /* Height of the left box */
+  justify-content: space-between;
+}
+
+.left-box {
+  width: 264px; /* Left box width */
+  height: 375px; /* Left box height */
+  border: 2px solid black; /* Border around left box */
+  box-sizing: border-box;
+  background-image: url('/src/assets/images/clothingboximage.webp'); /* Path to the image */
+  background-size: cover; /* Scale image to cover the box */
+  background-position: center; /* Center the image */
+  position: relative; /* Required for pseudo-element positioning */
+  z-index: 10;
+  bottom: 2px;
+}
+
+
+
+/* Container for the Right Box and its new bottom section */
+.right-box-container {
+  display: flex;
+  flex-direction: column;
+  width: 344px; /* Right box width */
+}
+
+/* Right Box */
+.right-box {
+  height: 172px; /* Right box height */
+  border: 2px solid black; /* Border around right box */
+  box-sizing: border-box;
+  background-image: url('/src/assets/images/veilsboximage.webp'); /* Path to the image */
+  background-size: cover; /* Scale image to cover the box */
+  background-position: center; /* Center the image */
+  z-index: 10;
+}
+
+/* New section below the right box (Side by side boxes) */
+.right-box-bottom-section {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.right-box-item-1 {
+  width: 50%; /* Each box will take 50% of the right box container's width */
+  height: 202px; /* Height of each right box item */
+  border: 2px solid black; /* Border around the boxes */
+  box-sizing: border-box;
+  margin: 0; /* Remove margin between boxes */
+  background-image: url('/src/assets/images/bagsboximage.webp'); /* Path to the image */
+  background-size: cover; /* Scale image to cover the box */
+  background-position: center; /* Center the image */
+  z-index: 10;
+}
+
+.right-box-item-2 {
+  width: 50%; /* Each box will take 50% of the right box container's width */
+  height: 202px; /* Height of each right box item */
+  border: 2px solid black; /* Border around the boxes */
+  box-sizing: border-box;
+  margin: 0; /* Remove margin between boxes */
+  background-image: url('/src/assets/images/shoesboximage.webp'); /* Path to the image */
+  background-size: cover; /* Scale image to cover the box */
+  background-position: center; /* Center the image */
+  z-index: 10;
+}
+
+/* Bottom Section: Two boxes side by side */
+.bottom-section {
+  display: flex;
+  width: 100%;
+  height: 202px; /* Height of each bottom box */
+  justify-content: space-between;
+  margin-top: -2px; /* Align Bottom Box 1 and 2 to Right Box 1 and 2 */
+}
+
+.bottom-box-1 {
+  width: 50%; /* Each bottom box will now take 50% of the width */
+  height: 202px;
+  border: 2px solid black;
+  box-sizing: border-box;
+  background-image: url('/src/assets/images/jewelryboximage.webp'); /* Path to the image */
+  background-size: 340%; /* Scale image to cover the box */
+  background-position: center ; /* Center the image */
+  z-index: 10;
+  position: relative; /* Add relative positioning */
+  bottom: 4px; /* Move it down by 4px */
+  
+}
+
+.bottom-box-2 {
+  width: 50%; /* Each bottom box will now take 50% of the width */
+  height: 202px;
+  border: 2px solid black;
+  box-sizing: border-box;
+  background-image: url('/src/assets/images/fragrancesboximage.webp'); /* Path to the image */
+  background-size: cover; /* Scale image to cover the box */
+  background-position: center; /* Center the image */
+  z-index: 10;
+  position: relative; /* Add relative positioning */
+  bottom: 4px; /* Move it down by 4px */
+  
+  
+}
+
+
+
+
+/* Navbar Styling */
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2; /* Ensure it's on top of the background image */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to the top */
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Navbar Logo Styling */
+.navbar-logo {
+  height: 120px;
+  width: 120px;
+  background: url('/src/assets/icons/hayalogo.svg') no-repeat center center;
+  background-size: contain;
+  flex-shrink: 0; /* Prevent the logo from shrinking */
+}
+
+/* Search Bar Styling */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #FFFFF0; /* Light yellow background */
+  border: 1px solid black; /* Black border */
+  height: 30px;
+  padding: 0 8px; /* Add padding inside the search bar */
+  box-sizing: border-box;
+  border-radius: 4px; /* Optional: Add rounded corners */
+  width: 200px; /* Adjust as needed */
+  transition: box-shadow 0.3s ease; /* Add hover effect transition */
+  position: relative;
+  left: -100px;
+}
+
+/* Search Bar Focus Effect */
+.search-bar input {
+  flex-grow: 1;
+  background: none;
+  border: none;
+  outline: none; /* Remove outline */
+  color: black; /* Input text color */
+  font-size: 14px;
+  font-family: inherit; /* Match the font of the rest of the site */
+  text-align: left;
+  
+}
+
+/* Search Bar Placeholder */
+.search-bar input::placeholder {
+  color: gray;
+  font-size: 12px;
+}
+
+/* Search Bar Hover and Focus */
+.search-bar:hover,
+.search-bar:focus-within {
+  box-shadow: 0 0 4px black;
+}
+
+/* Adjust Navbar Icons to Include Search Bar */
+.navbar-icons {
+  display: flex;
+  align-items: flex-start; /* Align icons to the top */
+  gap: 1rem; /* Space between icons and search bar */
+  margin-right: 30px; /* Add space to the right for search bar alignment */
+}
+
+
+/* Icon Container Styling */
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Icon Styling */
+.icon svg {
+  height: 40px;  
+  width: 40px;
+  padding: 1px;  
+  box-sizing: border-box;
+  background-color: #000;
+  border: 2px solid #000; 
+  border-radius: 50%;
+  fill: #fe5829;  
+  transition: transform 0.3s ease, fill 0.3s ease;
+}
+
+.icon:hover svg {
+  transform: scale(1.5);
+}
+
+
+
+  /* Ensuring the button container grows with content and is centered */
+.button-container-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ensures the container grows to fill the height of the parent */
+  width: 100%;
+  z-index: 10;
+}
+
+/* Button Styling */
+.button {
+  background-color: #FE5829; /* Initial background color */
+  color: black; /* Text color */
+  border: 2px solid black; /* Border color */
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  width: auto; /* Allow width to grow with content */
+  min-width: 100px; /* Set a minimum width for buttons */
+  text-align: center; /* Center text in button */
+  box-sizing: border-box;
+  font-family: 'Caveat', cursive;
+}
+
+/* Button Hover Effect */
+.button:hover {
+  background-color: #c94a23; /* Darker shade of #FE5829 on hover */
+}
+
+/* User Greeting Box */
+.user-greeting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border: 1px solid #FFFFF0;
+  color: #FFFFF0;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-top: 70px;
+  
+  z-index: 10;
+}
+
+/* Login Button */
+.login-button {
+  margin-left: 10px;
+  background-color: #FE5829;
+  color: black;
+  border: 1px solid black;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.login-button:hover {
+  background-color: #c94a23; /* Darker shade on hover */
+}
+
+
+.blip-container {
+  position: relative;
+  display: inline-block;
+  position: relative;
+  right: 40px;
+  top: 23px;
+}
+
+.blip-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.blip-button img {
+  height: 40px;  
+  width: 40px;
+}
+
+.widget-icons {
+  position: absolute;
+  top: 50%;
+  left: 100%;  
+  transform: translate(0, -50%);
+  pointer-events: none;  
+}
+
+.widget-icons .icon {
+  position: absolute;
+  pointer-events: auto; 
+  transition: all 0.3s ease;
+}
+
+/* Ensure all icons have a consistent size */
+.widget-icons .icon svg {
+  width: 18px;
+  height: 20px;
+}
+
+/* Arrange the 4 icons along an arc to the right of the blip.
+   We use custom angles (–60°, –20°, 20°, and 60°)
+   and a translateX value (e.g., 40px) to space them out.
+*/
+.widget-icons .favorite {
+  transform: translate(-50%, -50%) rotate(-60deg) translateX(40px) rotate(60deg);
+}
+.widget-icons .profile {
+  transform: translate(-50%, -50%) rotate(-20deg) translateX(40px) rotate(20deg);
+}
+.widget-icons .messages-icon-hp {
+  transform: translate(-50%, -50%) rotate(20deg) translateX(40px) rotate(-20deg);
+}
+.widget-icons .shopping-bag {
+  transform: translate(-50%, -50%) rotate(60deg) translateX(40px) rotate(-60deg);
+}
+
+
+
+
+
+
+/* Footer Styles */
+.footer {
+  background: rgba(0, 0, 0, 0.8);/* Black with transparency */
+  color: #fffff0; /* Light yellow text */
+  text-align: center;
+  font-family: 'Caveat', cursive;
+  padding: 20px 0; /* Space for footer content */
+  width: 100%; /* Full width */
+  position: absolute; /* Position the footer at the bottom */
+  bottom: 0; /* Stick to the bottom of the page */
+  z-index: 10; /* Ensure footer stays below newsletter */
+  font-family: 'Overpass Mono';
+
+}
+
+/* Newsletter Section */
+.footer-newsletter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100; /* Ensure it's above the footer */
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.8); /* Optional background for clarity */
+  position: absolute; /* Position it above the footer */
+  bottom: 40px; /* Set how far above the footer you want the newsletter */
+  left: 0; /* Align to the left within the footer */
+  margin-bottom: 83px;
+  font-family: 'Overpass Mono';
+  
+}
+
+.footer-newsletter-btn {
+  background-color: #fffff0; /* Accent color for button */
+  color: black; /* Light yellow text */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Overpass Mono';
+  
+}
+
+
+
+.footer-newsletter-btn:hover {
+  background-color: #fe5829; /* Hover effect for button */
+}
+
+.footer-svgs {
+  display: flex;
+  gap: 10px;
+  
+}
+
+.footer-svg {
+  width: 24px;
+  height: 24px;
+  fill: #fffff0; /* Light yellow color */
+  transition: fill 0.3s ease;
+}
+
+.footer-svg:hover {
+  fill: #ffcc00; /* Change color on hover */
+}
+
+.footer-top, .footer-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.footer-link {
+  color: #fffff0; /* Light yellow text */
+  text-decoration: none; /* Remove underline */
+  font-size: 14px;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #fe5829; /* Accent color for hover */
+  text-decoration: underline; /* Add underline on hover */
+  cursor: pointer; /* Add pointer cursor for links */
+}
+
+.footer-copy {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #fffff0; /* Keep copyright text consistent */
+  font-family: 'Overpass Mono';
+}
+
+/* Main container for the swipe layout */
+.swipe-layout-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 100vh;
+  margin: 0 auto;
+  border: 5px solid black;
+  padding: 20px;
+  box-sizing: border-box;
+  
+}
+
+/* Wrapper for the product */
+.swipe-layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px; /* Set a maximum width */
+  width: 100%;
+}
+
+
+/* Button styles */
+.swipe-prev-button,
+.swipe-next-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  margin: 10px;
+}
+
+/* Product image container */
+.swipe-product-image-container {
+  width: 500px;
+  height: 700px; /* Adjust height as needed */
+  border: 1px solid black;
+  overflow: hidden; /* Ensure content doesn't overflow */
+  position: relative;
+}
+
+/* Product image */
+.swipe-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image fully covers the container */
+}
+
+/* Product details */
+.swipe-product-details {
+  width: 506px; /* Match the image container width */
+  padding: 10px;
+  border: 3px solid black;
+  background-color: #fffff0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px; /* Space between image and details */
+}
+
+/* Price styling */
+.swipe-product-price {
+  font-weight: bold;
+}
+
+/* Actions (Buy and Favorite) */
+.swipe-product-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Favorites button */
+.swipe-favorites-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Buy button */
+.swipe-buy-button {
+  font-family: 'Caveat', cursive;
+  background-color: #fe5829;
+  color: black;
+  border: 2px solid black;
+  padding: 5px 10px;
+  font-weight: bold;
+  font-size: medium;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.swipe-buy-button:hover {
+  background-color: #c94a23;
+}
+
+/* Responsive adjustments */
+
+/* For larger screens (above 1200px) */
+@media screen and (min-width: 1201px) {
+  .filter-bar {
+    width: 98% !important; /* Increase the filter bar width slightly for larger screens */
+    margin: 0 auto; /* Center filter bar horizontally */
+  }
+
+
+  .swipe-product-details{
+    position: relative;
+    top: -10px;
+  }
+
+  .swipe-layout-container {
+    width: 91.5%; /* Ensures swipe layout container width matches filter bar */
+    margin: 0 auto; /* Center horizontally */
+  }
+
+  .active-page-menu{
+    position: relative;
+    left: 117px !important;
+    top: -39px !important;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .view-toggle-container{
+    position: relative;
+    left: 236px !important;
+    top: -20px !important;
+  }
+
+  .container{
+    width: 100% !important;
+  }
+  
+  .swipe-product-image-container{
+    height: 450px;
+  }
+}
+
+
+/* For medium screens (max-width: 1200px) */
+@media screen and (max-width: 1200px) {
+  .filter-bar {
+    width: 90%; /* Increase filter bar width for medium screens */
+    margin: 0 auto; /* Center filter bar */
+  }
+
+  .active-page-menu{
+    position: relative;
+    left: 91px !important;
+    top: -39px !important;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .swipe-product-details{
+    position: relative;
+    top: -10px;
+    width: 442px !important;
+  }
+
+  .view-toggle-container{
+    position: relative;
+    left: 118px !important;
+    top: -20.5px !important;
+  }
+
+  .swipe-layout-container {
+    width: 91.4% !important; /* Increase width of swipe layout container */
+    margin: 0 auto; /* Center the layout */
+  }
+
+  .swipe-layout-wrapper {
+    max-width: 90%; /* Allow swipe wrapper to take up more space */
+  }
+
+  .swipe-product-image-container {
+    width: 90%; /* Adjust image container width to match layout */
+    height: 600px; /* Adjust height as needed */
+  }
+
+  .swipe-product-details {
+    width: 90%; /* Match width with image container */
+  }
+
+  .swipe-buy-button {
+    font-size: large; /* Increase buy button font size */
+  }
+}
+
+/* For smaller screens (max-width: 768px) */
+@media screen and (max-width: 768px) {
+  .filter-bar {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .swipe-layout-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .swipe-layout-wrapper {
+    max-width: 90%;
+  }
+
+  .swipe-product-image-container {
+    width: 90%;
+    height: 400px;
+  }
+
+  .swipe-product-details {
+    width: 90%;
+  }
+
+  .swipe-buy-button {
+    font-size: medium;
+  }
+}
+
+/* For very small screens (max-width: 480px) */
+@media screen and (max-width: 480px) {
+  .filter-bar {
+    width: 100%;
+    padding: 10px 5px;
+  }
+
+  .swipe-layout-container {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .swipe-layout-wrapper {
+    max-width: 100%;
+  }
+
+  .swipe-product-image-container {
+    width: 100%;
+    height: 300px;
+  }
+
+  .swipe-product-details {
+    width: 100%;
+  }
+
+  .swipe-buy-button {
+    font-size: small;
+  }
+}
+
+
+
+.container {
+  width: 100%;
+  max-width: 1200px; /* Max width keeps layout consistent */
+  margin: 0 auto; /* Centers the container */
+  padding: 0 10px; /* Padding for small screens */
+  box-sizing: border-box;
+  margin-bottom: 100px;
+  
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1560px) {
+  .container {
+    width: 100%; /* Keeps container slightly smaller on medium screens */
+    
+    .grid-buy-button {
+      padding: 8px 16px; /* Slightly smaller padding */
+      font-size: 1.2rem; /* Slightly smaller font size */
+      left: 13px;
+    }
+    .grid-buy-button{
+      left: 10px;
+    }
+
+    .grid-favorites-button{
+      position: relative;
+      left: 40px ;
+    }
+
+    .grid-product-image{
+      width: 236px;
+    }
+  }
+
+  .filter-bar, .grid-products-container  {
+    width: 90% !important;  /* Ensures filter bar and grid take full width of their parent */
+  }
+  }
+
+@media screen and (max-width: 1200px) {
+  .container {
+    width: 90%; /* Keeps container slightly smaller on medium screens */
+    
+    .grid-buy-button {
+      padding: 8px 16px; /* Slightly smaller padding */
+      font-size: 1.0rem; /* Slightly smaller font size */
+      left: -17px;
+      height: 30px;
+      top: 5px;
+    }
+  }
+
+  .grid-buy-button{
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .grid-favorites-button{
+    position: relative;
+    left: 10px !important ;
+  }
+ 
+
+  .filter-bar, .grid-products-container {
+    width: 80% ; /* Ensures filter bar and grid take full width of their parent */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%; /* Full width on smaller screens */
+    padding: 0 5px; /* Adjust padding for smaller screens */
+    
+    position: relative;
+    height: auto;
+
+    .grid-buy-button {
+      padding: 6px 12px; /* Smaller padding */
+      font-size: 0.85rem; /* Smaller font size */
+      width: 80px; /* Adjust width for smaller screens */
+      margin: 0 auto; /* Center the button */
+      
+    }
+    .grid-buy-button{
+      left: -55px;
+    }
+
+    .grid-favorites-button{
+      position: relative;
+      left: -30px !important ;
+    }
+    .grid-product-image{
+      width: 164px;
+    }
+  }
+
+  .filter-bar, .grid-products-container {
+    width: 80%; /* Full width for both elements */
+  }
+
+  .grid-products-container {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust grid items */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .grid-products-container {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Even smaller grid items */
+  }
+  .grid-buy-button {
+    padding: 5px 10px; /* Minimal padding */
+    font-size: 0.75rem; /* Smaller font size */
+    width: 100%; /* Full width for very small screens */
+  }
+}
+
+
+
+
+/* Product Navbar */
+.product-navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+}
+
+.product-navbar-logo {
+  height: 120px;
+  width: 120px;
+  background: url('/src/assets/icons/hayalogo.svg') no-repeat center center;
+  background-size: contain;
+  flex-shrink: 0; /* Prevent the logo from shrinking */
+}
+
+.product-navbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.messages-icon{
+  position: relative;
+  top: 8px;
+  left: 10px;
+}
+
+.favorite-icon{
+  position: relative;
+  top: 1px;
+  left: 13px;
+}
+
+.messages-icon-hp{
+  position: relative;
+  top: -5px;
+  left: 5px;
+}
+
+.product-search-bar input {
+  display: flex;
+  align-items: center;
+  background-color: #FE5829; /* Light yellow background */
+  border: 1px solid black; /* Black border */
+  height: 30px;
+  padding: 0 8px; /* Add padding inside the search bar */
+  box-sizing: border-box;
+  border-radius: 4px; /* Optional: Add rounded corners */
+  width: 200px; /* Adjust as needed */
+  transition: box-shadow 0.3s ease; /* Add hover effect transition */
+  font-family: 'caveat' cursive;
+}
+
+.product-search-bar input::placeholder {
+  color: black; /* Set the placeholder text color to black */
+  font-family: 'caveat', cursive;
+}
+
+.icon {
+  cursor: pointer;
+  color: #FE5829;
+}
+
+.icon.favorite svg,
+.icon.profile-icon svg,
+.icon.shopping-bag svg {
+  width: 20px;
+  height: 20px;
+}
+
+.icon.shopping-bag {
+  position: relative;
+  top: 0px;
+}
+
+.item-count {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  background-color: #FE5829;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.item-count-message {
+  position: absolute;
+  bottom: 2px;
+  right: -5px;
+  background-color: #FE5829;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.cart-quantity {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #FE5829;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Product Footer */
+.product-footer {
+  background-color: black;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Overpass Mono' !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+
+.footer-content{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Overpass Mono' !important;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+
+
+/* Active Page Menu Container */
+.active-page-menu-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -1px;
+  left: 22px;
+}
+
+/* Menu Box */
+.menu-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  color: white;
+  padding: 10px 15px;
+  z-index: 1000;
+  cursor: pointer;
+  gap: 10px;
+  width: 120px; /* Adjust as needed */
+  margin-left: -10px;
+}
+
+/* Menu Title */
+.menu-title {
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Menu Icon */
+.menu-icon {
+  transition: transform 0.3s ease;
+  z-index: 100;
+}
+
+/* Rotate the arrow when menu is open */
+.menu-icon.open {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.menu-dropdown {
+  position: absolute;
+  top: 110%; /* Sits below the box */
+  left: 0;
+  background-color: white;
+  
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 10px;
+  
+  width: 150px; /* Adjust as needed */
+}
+
+.menu-dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 200;
+}
+
+.menu-dropdown li {
+  margin-bottom: 10px;
+}
+
+.menu-dropdown li:last-child {
+  margin-bottom: 0;
+}
+
+.menu-dropdown a {
+  text-decoration: none;
+  color: black;
+  font-family: 'Caveat', cursive;
+}
+
+.menu-dropdown a:hover {
+  color: #fe5829; /* Accent color */
+}
+
+.wrapper{
+  position: relative;
+}
+/* Active Page Menu */
+.active-page-menu {
+  position: absolute; /* Position relative to the wrapper */
+  top: -40px; /* Adjust this value to sit directly above the FilterBar */
+  left: 15.5%; /* Center horizontally */
+  transform: translateX(-50%); /* Offset centering by 50% of its width */
+  z-index: 20; /* Ensure it is above the FilterBar */
+}
+
+.active-menu-svg:hover {
+  background-color: #fe5829;
+  z-index: 100;
+  
+}
+
+@media screen and (max-width: 768px) {
+  .active-page-menu {
+    top: -40px; /* Adjust for smaller screen spacing */
+    left: 20.3%;
+    
+  }.grid-buy-button {
+    font-size: medium;}}
+  
+
+
+  @media screen and (max-width: 1560px) {
+    .active-page-menu {
+      top: -40px; /* Adjust for smaller screen spacing */
+      left: 16.4%;
+    }}
+
+    @media screen and (max-width: 900px) {
+      .active-page-menu {
+        top: -40px; /* Adjust for smaller screen spacing */
+        left: 21.9%;
+      }}
+
+      
+     
+
+  .next-page-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    gap: 10px;
+  }
+  
+  .page-indicator {
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    color: black;
+    padding: 8px 12px;
+    font-family: 'Caveat', cursive;
+    font-size: 18px;
+    gap: 10px;
+  }
+  
+  .page-indicator span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .next-page-button {
+    background-color: #fe5829;
+    color: black;
+    border: 2px solid black;
+    padding: 8px 12px;
+    font-family: 'Caveat', cursive;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .next-page-button:hover {
+    background-color: #c94a23;
+  }
+  
+  .next-page-button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  .next-page-button img {
+    width: 20px;
+    height: auto;
+  }
+  
+
+
+  /* Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Popup box */
+.popup-content {
+  background: #ffffff;
+  border: 3px solid black;
+  padding: 20px;
+  width: 400px;
+  max-width: 90%;
+  position: relative;
+  text-align: center;
+  animation: slideIn 0.4s ease;
+  height: 570px;
+}
+
+/* Close button */
+.popup-close-button {
+  position: absolute;
+  top: 0px;
+  right: 0;
+  background: none;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.popup-close-button:hover{
+  background-color: #fe5829;
+}
+
+/* Product image */
+.popup-product-image {
+  width: 275px;
+  height: 215px;
+  margin-bottom: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Horizontal offset, Vertical offset, Blur radius, Color */
+  border-bottom: 1px solid #FFFFF0; /* Corrected border style and color */
+}
+
+
+
+/* Price and options */
+.popup-price, .popup-options {
+  margin: 10px 0;
+}
+
+/* Actions */
+.popup-actions button {
+  margin: 0 5px; /* Add spacing between buttons */
+  padding: 10px 20px;
+  font-family: 'Caveat', cursive;
+  border: 2px solid black;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.popup-sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.popup-size-option {
+  display: flex;
+  align-items: center;
+}
+
+.popup-size-option input {
+  margin-right: 5px;
+}
+
+
+.popup-colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.popup-color-option {
+  display: flex;
+  align-items: center;
+}
+
+.popup-color-option input {
+  margin-right: 5px;
+}
+
+
+.popup-add-to-bag {
+  background-color: #fe5829;
+  
+}
+
+.popup-checkout {
+  background-color: #6fae75;
+}
+
+.popup-add-to-bag:hover {
+  background-color: #c94a23;
+}
+
+.popup-checkout:hover {
+  background-color: #559e5d;
+}
+
+.toast-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fe5829;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 99999;
+  font-size: 16px;
+  opacity: 1;
+  animation: fadeInOut 3s ease-in-out; /* Added animation */
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    top: 10px;
+  }
+  50% {
+    opacity: 1;
+    top: 20px;
+  }
+  100% {
+    opacity: 0;
+    top: 30px;
+  }
+}
+
+
+/* Quantity Selector */
+.popup-quantity-selector {
+  width: 50px;
+  margin-top: 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+
+
+
+/* Page Content */
+.page-content {
+  padding-left: 4px;
+  padding-right: 4px;
+  box-sizing: border-box;
+  padding-bottom: 20px; /* Optional: Ensure there's space below content to avoid collision with footer */
+  flex-grow: 1; /* Allow content to grow and push footer down */
+}
+
+/* Container for the swiper */
+.clothing-swiper-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  position: relative;
+  touch-action: pan-y; /* Prevent vertical scrolling while swiping horizontally */
+  overflow: hidden;
+}
+
+
+/* Wrapper for the product box, set a max height */
+.swipe-wrapper {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center;
+  overflow: hidden; /* Hide any overflowed elements */
+  position: relative;
+}
+
+.view-toggle-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;  /* Ensure it spans the full width */
+  position: absolute; /* Positioning relative to the container */
+  top: -20.1px; /* Adjust this to place it above the FilterBar */
+  left: 148px;
+}
+
+/* View toggle button */
+.view-toggle { 
+  position: absolute; /* Positioning relative to the container */
+  top: -50px; /* Adjust this to place it above the FilterBar */
+  left: 100px; /* Align to the left edge of the container */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 10; /* Ensure it's above the other elements */
+  background-color: rgba(255, 255, 255, 0.9); /* Optional, makes buttons stand out */
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional, adds shadow */
+}
+
+/* Add this to your CSS */
+.chat-container {
+  width: 300px;
+  height: 400px;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.message {
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 80%;
+  margin: 10px;
+}
+
+button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #007BFF;
+  color: white;
+}
+
+
+
