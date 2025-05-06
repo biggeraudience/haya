@@ -1,10 +1,10 @@
 {
   "routes": [
-    // 1) Proxy any /api/* to your Worker backend:
+  
     { "src": "/api/(.*)", "dest": "https://haya-api.YOUR_WORKERS_SUBDOMAIN.workers.dev/api/$1" },
-    // 2) Then serve static files from dist:
+   
     { "handle": "filesystem" },
-    // 3) Finally fall back to index.html for SPA:
+   
     { "src": "/(.*)",     "dest": "/$1" }
   ]
 }
