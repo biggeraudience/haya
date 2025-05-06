@@ -1,119 +1,92 @@
-// ../haya-backend/server.js
+// ~/haya-backend/server.js
 
-// Remove require("dotenv").config(); - Worker handles env
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
-// Remove http = require("http");
+// Pure Express app factory for Cloudflare Workers
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
-// Import middleware factory functions using import.
-// Ensure these import paths and names match your actual refactored files.
+// Import your middleware factories
 import configureProfileMulter from './middlewares/profileMulter.js';
-// Corrected import for productMulter.js
 import configureMulter from './middlewares/multer.js';
-// Corrected import for adsMulter.js
 import configureUpload from './middlewares/upload.js';
 
-
-// Import route modules. Refactored ones will be factory functions.
+// Import routes (refactor to factories if they need multer)
 import createProfileRoutes from "./routes/profileRoutes.js";
-// Assuming other route files still use require/module.exports for now
-const adminRoutes = require("./routes/adminRoutes");
-const superAdminRoutes = require("./routes/superAdminRoutes");
-const productRoutes = require("./routes/productRoutes"); // Likely needs refactoring
-const orderRoutes = require("./routes/orderRoutes");
-const messageRoutes = require("./routes/messageRoutes");
-const adRoutes = require("./routes/adRoutes"); // Likely needs refactoring
-const inviteCodeRoutes = require("./routes/inviteCodeRoutes");
-const adminLogsRoutes = require("./routes/adminLogsRoutes");
-const superadminUserRoutes = require("./routes/superadminUserRoutes");
-const superadminOrderRoutes = require("./routes/superadminOrderRoutes");
-const analyticsRoutes = require("./routes/analyticsRoutes");
-const predictionRoutes = require('./routes/predictionRoutes');
-const reportRoutes = require("./routes/reportRoutes");
-const chatbotRoutes = require("./routes/chatbotRoutes");
-const feedbackRoutes = require("./routes/feedbackRoutes");
-const measurementConfigRoute = require('./routes/measurementConfigRoute');
-const bespokeOrderRoutes = require("./routes/bespokeOrderRoutes");
+import adminRoutes from "./routes/adminRoutes.js";
+import superAdminRoutes from "./routes/superAdminRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
+import adRoutes from "./routes/adRoutes.js";
+import inviteCodeRoutes from "./routes/inviteCodeRoutes.js";
+import adminLogsRoutes from "./routes/adminLogsRoutes.js";
+import superadminUserRoutes from "./routes/superadminUserRoutes.js";
+import superadminOrderRoutes from "./routes/superadminOrderRoutes.js";
+import analyticsRoutes from "./routes/analyticsRoutes.js";
+import predictionRoutes from './routes/predictionRoutes.js';
+import reportRoutes from "./routes/reportRoutes.js";
+import chatbotRoutes from "./routes/chatbotRoutes.js";
+import feedbackRoutes from "./routes/feedbackRoutes.js";
+import measurementConfigRoute from './routes/measurementConfigRoute.js';
+import bespokeOrderRoutes from "./routes/bespokeOrderRoutes.js";
 
-
-// Remove WebSocket, background job, RabbitMQ, Kafka, and server listening code
-// as they are not part of the Worker environment.
-
-// Export a function that takes the env object and returns the configured app
-export default (env) => {
-  // Connect to MongoDB inside the factory function where env is available
-   mongoose.connect(env.MONGODB_URI || "mongodb://localhost:27017/ecommerce-analytics", {
-     // Options like useNewUrlParser, useUnifiedTopology might not be needed
-   })
-   .then(() => {
-     console.log("✅ Connected to MongoDB");
-   })
-   .catch(err => {
-     console.error("❌ MongoDB connection error:", err.message);
-     throw new Error("MongoDB connection failed");
-   });
+// Export a factory that receives env and returns an Express app
+export default function createApp(env) {
+  // Connect to MongoDB
+  mongoose.connect(env.MONGODB_URI, {
+    // any options as needed
+  })
+  .then(() => console.log("✅ Connected to MongoDB"))
+  .catch(err => {
+    console.error("❌ MongoDB connection error:", err);
+    throw err;
+  });
 
   const app = express();
 
-  // Middleware
   app.use(express.json());
   app.use(cookieParser());
   app.use(cors({
-    origin: env.CLIENT_URL || "http://localhost:5173",
+    origin: env.CLIENT_URL,
     credentials: true,
   }));
 
-  // **Configure and get the middleware instances here, INSIDE this function, using the 'env' object**
-  // Call the correct middleware factory functions with env
-  const { uploadPhoto } = configureProfileMulter(env); // Correct
-  const uploadProduct = configureMulter(env); // Corrected call name
-  const uploadAds = configureUpload(env); // Corrected call name
+  // Instantiate Multer-based middleware with env
+  const { uploadPhoto } = configureProfileMulter(env);
+  const uploadProduct = configureMulter(env);
+  const uploadAds = configureUpload(env);
 
-
-  // API Routes
-  // Mount refactored profile routes, passing the configured uploadPhoto middleware
-  app.use("/api", createProfileRoutes(uploadPhoto));
-
-
-  // Mount other routes. If they use Multer middleware, they will also need refactoring
-  // similar to profileRoutes.js to accept the middleware as an argument, and you'll
-  // call their factory functions here, passing the configured middleware.
-  app.use("/api/ads", adRoutes); // If adRoutes uses uploadAds, refactor and pass uploadAds here
+  // Mount routes
+  app.use("/api/profile", createProfileRoutes(uploadPhoto));
+  app.use("/api/ads", adRoutes);
   app.use("/api/invitecodes", inviteCodeRoutes);
-  app.use("/api/products", productRoutes); // If productRoutes uses uploadProduct, refactor and pass uploadProduct here
+  app.use("/api/products", productRoutes);
   app.use("/api/orders", orderRoutes);
   app.use("/api/messages", messageRoutes);
 
-  app.use("/api/superadmin", superAdminRoutes);
+  app.use("/api/admin", adminRoutes);
   app.use("/api/admin/logs", adminLogsRoutes);
+  app.use("/api/superadmin", superAdminRoutes);
   app.use("/api/superadmin/users", superadminUserRoutes);
   app.use("/api/superadmin/orders", superadminOrderRoutes);
+
   app.use("/api/analytics", analyticsRoutes);
   app.use('/api/predictions', predictionRoutes);
   app.use('/api/reports', reportRoutes);
   app.use("/api/chatbot", chatbotRoutes);
-  app.use("/api", feedbackRoutes);
+  app.use("/api/feedback", feedbackRoutes);
   app.use('/api/bespoke-orders', bespokeOrderRoutes);
   app.use('/api/measurementConfig', measurementConfigRoute);
-  app.use("/api/admin", adminRoutes);
 
-
-  // 404 Handler
+  // 404
   app.use((req, res) => res.status(404).json({ message: "Route not found" }));
 
-  // Error Handler
+  // Error handler
   app.use((err, req, res, next) => {
     console.error("❌ Server Error:", err);
     res.status(500).json({ message: "Internal Server Error" });
   });
 
-  return app; // Export the configured app instance
-};
-
-// Remove the old CommonJS export:
-// module.exports = app;
-
-// Remove the dev server/websocket/etc. startup code
-// if (process.env.NODE_ENV !== 'production') { ... }
+  return app;
+}
