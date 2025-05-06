@@ -1,5 +1,5 @@
 import serverless from "serverless-http";
-// from api/worker.js up one level into haya-backend/
+// since worker.js now lives under /api, go up one level:
 import createApp from "../haya-backend/server.js";
 
 let handlerPromise = null;
@@ -7,7 +7,6 @@ let handlerPromise = null;
 export default {
   async fetch(request, env, ctx) {
     if (!handlerPromise) {
-      // instantiate your Express app exactly once
       handlerPromise = (async () => {
         const app = createApp(env);
         return serverless(app);
