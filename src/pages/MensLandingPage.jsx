@@ -60,20 +60,20 @@ const categoriesData = [
         title: 'Kaftan',
         content:
           'Elegant and modern kaftans crafted from premium fabric.',
-        shopLink: '/clothing/kaftans', // Original link
+        shopLink: '/clothing', // Original link
       },
       {
         image: imgKandoor,
         title: 'Kandoor',
         content:
           'Traditional Kandooras with a contemporary twist.',
-        shopLink: '/clothing/kandooras', // Original link
+        shopLink: '/clothing', // Original link
       },
       {
         image: imgAgbada,
         title: 'Agbada',
         content: 'Majestic Agbadas for your most special ceremonies.',
-        shopLink: '/clothing/agbadas', // Original link
+        shopLink: '/clothing', // Original link
       },
     ],
   },
@@ -89,13 +89,13 @@ const categoriesData = [
         image: imgLuxury,
         title: 'Luxury Bags',
         content: 'Handcrafted leather bags for the discerning gentleman.',
-        shopLink: '/bags/luxury', // Original link
+        shopLink: '/bags', // Original link
       },
       {
         image: imgTravel,
         title: 'Travel Bags',
         content: 'Spacious, durable travel bags for every adventure.',
-        shopLink: '/bags/travel', // Original link
+        shopLink: '/bags', // Original link
       },
     ],
   },
@@ -110,13 +110,13 @@ const categoriesData = [
         image: imgFormal,
         title: 'Formal Shoes',
         content: 'Polished leather oxfords and loafers.',
-        shopLink: '/shoes/formal', // Original link
+        shopLink: '/shoes', // Original link
       },
       {
         image: imgCasual,
         title: 'Casual Shoes',
         content: 'Comfort meets style in our casual collection.',
-        shopLink: '/shoes/casual', // Original link
+        shopLink: '/shoes', // Original link
       },
     ],
   },
@@ -131,13 +131,13 @@ const categoriesData = [
         image: imgOriental,
         title: 'Oriental Scents',
         content: 'Rich, spicy, and long-lasting.',
-        shopLink: '/perfumes/oriental', // Original link
+        shopLink: '/perfumes', // Original link
       },
       {
         image: imgWoody,
         title: 'Woody Notes',
         content: 'Earthy, warm, and sophisticated.',
-        shopLink: '/perfumes/woody', // Original link
+        shopLink: '/perfumes', // Original link
       },
     ],
   },
@@ -153,13 +153,13 @@ const categoriesData = [
         image: imgCufflinks,
         title: 'Cufflinks',
         content: 'Distinctive designs in sterling silver and enamel.',
-        shopLink: '/accessories/cufflinks', // Original link
+        shopLink: '/accessories', // Original link
       },
       {
         image: imgWatches,
         title: 'Watches',
         content: 'Stand out in our eye-catching time pieces',
-        shopLink: '/accessories/watches', // Original link
+        shopLink: '/accessories', // Original link
       },
     ],
   },
@@ -174,13 +174,13 @@ const categoriesData = [
         image: imgTraditional,
         title: 'Traditional Caps',
         content: 'Classic embroidered designs.',
-        shopLink: '/caps/traditional', // Original link
+        shopLink: '/caps', // Original link
       },
       {
         image: imgModern,
         title: 'Modern Caps',
         content: 'Sleek silhouettes in contemporary fabrics.',
-        shopLink: '/caps/modern', // Original link
+        shopLink: '/caps', // Original link
       },
     ],
   },
@@ -197,14 +197,14 @@ const categoriesData = [
         title: 'Plain Wool & Cotton',
         content:
           'Sumptuous pure-wool serges, crisp Egyptian cottons, and breathable linens in timeless solids.',
-        shopLink: '/fabrics/plain', // Original link
+        shopLink: '/fabrics', // Original link
       },
       {
         image: imgPattern,
         title: 'Patterned Weaves',
         content:
           'From herringbone and checks to pinstripes and jacquards—bring a dash of character to every suit or shirt.',
-        shopLink: '/fabrics/pattern', // Original link
+        shopLink: '/fabrics', // Original link
       },
     ],
   },
@@ -328,3 +328,4 @@ export default function MensLandingPage() {
       <ProductFooter />
     </>
   );
+}
