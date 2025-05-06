@@ -6,7 +6,11 @@ compatibility_flags = ["nodejs_compat"]
 main               = "api/worker.js"
 
 [build]
-command = "npm ci"
+  command = "npm ci"
+
+# Tell Rollup to leave `ws` imports unresolved
+[build.rollupOptions]
+  external = ["ws"]
 
 [vars]
   CLOUDINARY_URL         = "cloudinary://995673441211498:N-EuJC-I7BNexpB7toFMfoBQ9SM@dwk5eorvm"
