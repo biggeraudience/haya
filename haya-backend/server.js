@@ -28,23 +28,23 @@ import feedbackRoutes           from "./routes/feedbackRoutes.js";
 import measurementConfigRoute   from "./routes/measurementConfigRoute.js";
 import bespokeOrderRoutes       from "./routes/bespokeOrderRoutes.js";
 
-export default function createApp(env) {
-  // MongoDB
-  mongoose.connect(env.MONGODB_URI, {})
-    .then(() => console.log("✅ Connected to MongoDB"))
-    .catch(err => { console.error(err); throw err; });
+// Export an async factory so we can await DB connect before handling requests
+export default async function createApp(env) {
+  // Connect to MongoDB once
+  await mongoose.connect(env.MONGODB_URI, {});
+  console.log("✅ Connected to MongoDB");
 
   const app = express();
   app.use(express.json());
   app.use(cookieParser());
   app.use(cors({ origin: env.CLIENT_URL, credentials: true }));
 
-  // Multer middleware instances
+  // Instantiate Multer middleware with runtime env
   const { uploadPhoto } = configureProfileMulter(env);
   const uploadProduct   = configureMulter(env);
   const uploadAds       = configureUpload(env);
 
-  // Routes
+  // Mount routes
   app.use("/api/profile", createProfileRoutes(uploadPhoto));
   app.use("/api/ads", adRoutes);
   app.use("/api/invitecodes", inviteCodeRoutes);
@@ -64,13 +64,13 @@ export default function createApp(env) {
   app.use("/api/bespoke-orders", bespokeOrderRoutes);
   app.use("/api/measurementConfig", measurementConfigRoute);
 
-  // 404
+  // 404 handler
   app.use((req, res) => res.status(404).json({ message: "Route not found" }));
 
-  // Error handler
+  // Global error handler
   app.use((err, req, res, next) => {
     console.error("❌ Server Error:", err);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: err.message || "Internal Server Error" });
   });
 
   return app;
