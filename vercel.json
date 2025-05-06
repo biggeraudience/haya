@@ -1,12 +1,11 @@
 {
-    "version": 2,
-    "builds": [
-      { "src": "api/server.js", "use": "@vercel/node" },
-      { "src": "vite.config.js",  "use": "@vercel/static-build" }
-    ],
-    "routes": [
-      { "src": "/api/(.*)", "dest": "/api/server.js" },
-      { "src": "/(.*)",      "dest": "/dist/$1" }
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    { "src": "api/server.js", "use": "@vercel/node" },
+    { "src": "package.json",  "use": "@vercel/static-build" } // Corrected src to package.json
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/server.js" },
+    { "src": "/(.*)",      "dest": "/dist/$1" }
+  ]
+}
