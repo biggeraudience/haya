@@ -9,8 +9,8 @@ const cookieParser = require("cookie-parser"); // Keep require
 
 // Import middleware factory functions using import
 import configureProfileMulter from './middlewares/profileMulter.js';
-import configureProductMulter from './middlewares/productMulter.js';
-import configureAdsMulter from './middlewares/adsMulter.js'; // Import the ads middleware factory
+import configureMulter from './middlewares/Multer.js';
+import configureUpload from './middlewares/Upload.js'; // Import the ads middleware factory
 
 // Import route modules. Refactored ones will be factory functions.
 import createProfileRoutes from "./routes/profileRoutes.js"; // Import profileRoutes as a factory
@@ -65,8 +65,8 @@ export default (env) => {
 
   // Configure and get the middleware instances using the factory functions and the 'env' object
   const { uploadPhoto } = configureProfileMulter(env); // Call profileMulter factory with env
-  const uploadProduct = configureProductMulter(env); // Call productMulter factory with env
-  const uploadAds = configureAdsMulter(env); // Call adsMulter factory with env
+  const uploadProduct = configureMulter(env); // Call productMulter factory with env
+  const uploadAds = configureUpload(env); // Call adsMulter factory with env
 
 
   // API Routes
