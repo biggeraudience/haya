@@ -1,14 +1,14 @@
 import multer from 'multer';
 import path from 'path';
+import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
-export default function configureProfileMulter(env) {
-  const { v2: cloudinary } = require('cloudinary');
-
+// Export a function that takes the Worker `env`
+export default (env) => {
   cloudinary.config({
-    cloud_name: env.CLOUDINARY_CLOUD_NAME,
-    api_key:    env.CLOUDINARY_API_KEY,
-    api_secret: env.CLOUDINARY_API_SECRET,
+    cloud_name:  env.CLOUDINARY_CLOUD_NAME,
+    api_key:     env.CLOUDINARY_API_KEY,
+    api_secret:  env.CLOUDINARY_API_SECRET,
   });
 
   const storage = new CloudinaryStorage({
@@ -20,14 +20,13 @@ export default function configureProfileMulter(env) {
     },
   });
 
-  // single file under field name "photo"
+  // single-file middleware under field name "photo"
   const uploadPhoto = multer({
     storage,
     fileFilter: (req, file, cb) => {
       const fileTypes  = /jpeg|jpg|png|webp|gif|avif/;
       const extname    = fileTypes.test(path.extname(file.originalname).toLowerCase());
       const mimetype   = fileTypes.test(file.mimetype);
-
       if (extname && mimetype) {
         cb(null, true);
       } else {
@@ -37,4 +36,4 @@ export default function configureProfileMulter(env) {
   }).single('photo');
 
   return { uploadPhoto };
-}
+};
