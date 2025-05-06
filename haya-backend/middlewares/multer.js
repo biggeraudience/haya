@@ -1,4 +1,4 @@
-// ../haya-backend/middlewares/productMulter.js
+// ../haya-backend/middlewares/multer.js
 
 import multer from 'multer';
 import path from 'path';
@@ -15,16 +15,15 @@ export default (env) => {
       api_secret: env.CLOUDINARY_API_SECRET,
     });
   } catch (e) {
-      console.error("Cloudinary config failed in productMulter factory:", e);
+      console.error("Cloudinary config failed in product multer factory:", e);
       throw new Error("Failed to configure Cloudinary product middleware");
   }
-
 
   // Cloudinary Storage now uses the configured cloudinary instance
   const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-      folder: 'products',
+      folder: 'products', // Matches the original file's purpose
       allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif','mp4'],
       transformation: [{ quality: 'auto', fetch_format: 'auto' }],
     },
