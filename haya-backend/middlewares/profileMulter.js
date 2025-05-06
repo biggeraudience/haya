@@ -1,10 +1,11 @@
-import multer from 'multer';
-import path from 'path';
-import { v2 as cloudinary } from 'cloudinary';
-import { CloudinaryStorage } from 'multer-storage-cloudinary';
-
-// Export a function that takes the Worker `env`
+// ~/haya-backend/middlewares/profileMulter.js
 export default (env) => {
+  const multer  = require('multer');
+  const path    = require('path');
+  const cloudinaryModule = require('cloudinary');
+  const cloudinary = cloudinaryModule.v2;
+  const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
   cloudinary.config({
     cloud_name:  env.CLOUDINARY_CLOUD_NAME,
     api_key:     env.CLOUDINARY_API_KEY,
@@ -20,20 +21,17 @@ export default (env) => {
     },
   });
 
-  // single-file middleware under field name "photo"
-  const uploadPhoto = multer({
+  const upload = multer({
     storage,
     fileFilter: (req, file, cb) => {
-      const fileTypes  = /jpeg|jpg|png|webp|gif|avif/;
-      const extname    = fileTypes.test(path.extname(file.originalname).toLowerCase());
-      const mimetype   = fileTypes.test(file.mimetype);
-      if (extname && mimetype) {
+      const types = /jpeg|jpg|png|webp|gif|avif/;
+      if (types.test(path.extname(file.originalname).toLowerCase()) && types.test(file.mimetype)) {
         cb(null, true);
       } else {
-        cb(new Error('Only image files are allowed.'));
+        cb(new Error('Only images allowed.'));
       }
     },
   }).single('photo');
 
-  return { uploadPhoto };
+  return { uploadPhoto: upload };
 };
