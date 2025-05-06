@@ -1,0 +1,7 @@
+name               = "haya-api"
+compatibility_date = "2025-05-06"
+main               = "../api/server.js"    # relative to this file
+workers_dev        = true
+
+[build]
+command = "npm ci"                         # install backend deps cleanly
