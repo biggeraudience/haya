@@ -6,6 +6,4 @@ workers_dev = true
 [build]
 command = "npm ci"
 
-
-[compatibility_flags]
-nodejs_compat = true
+compatibility_flags = ["nodejs_compat"]
