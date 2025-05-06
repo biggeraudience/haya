@@ -1,17 +1,16 @@
-name = "haya-api"  
-compatibility_date = "2025-05-06"  
-workers_dev = true  
+name = "haya-api"
+compatibility_date = "2025-05-06"
+workers_dev = true
 
-main = "../api/server.js"   # relative path from haya-backend/ to your wrapper
+# Path is relative from your project root into the worker wrapper
+main = "api/worker.js"
 
 [build]
 command = "npm ci"
 
-# Enable Node-builtins (http, url, crypto, etc.) polyfills—
-# only if you truly need them (adds bundle size):
+# If you really need Node built-ins (http, url, crypto, etc.)
 compatibility_flags = ["nodejs_compat"]
 
-# (Optional) If you want to hard-code Cloudinary in your repo.
-# Better: use `wrangler secret` instead!
 [vars]
+# It’s more secure to set this via `wrangler secret put CLOUDINARY_URL`
 CLOUDINARY_URL = "cloudinary://<API_KEY>:<API_SECRET>@<CLOUD_NAME>"
