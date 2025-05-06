@@ -1,9 +1,10 @@
-import multer from 'multer';
-import { v2 as cloudinary } from 'cloudinary';
-import { CloudinaryStorage } from 'multer-storage-cloudinary';
-
-// Export a function that takes the Worker `env`
+// ~/haya-backend/middlewares/upload.js
 export default (env) => {
+  const multer  = require('multer');
+  const cloudinaryModule = require('cloudinary');
+  const cloudinary = cloudinaryModule.v2;
+  const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
   cloudinary.config({
     cloud_name:  env.CLOUDINARY_CLOUD_NAME,
     api_key:     env.CLOUDINARY_API_KEY,
@@ -19,6 +20,5 @@ export default (env) => {
     },
   });
 
-  const upload = multer({ storage });
-  return upload;
+  return multer({ storage });
 };
