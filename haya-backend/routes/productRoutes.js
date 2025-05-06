@@ -1,28 +1,36 @@
-const express = require('express');
-const router = express.Router();
-const upload = require('../middlewares/upload'); // Ensure multer is properly configured and exported
-const { 
-  getPublicProducts, 
-  getAdminProducts, 
-  createProduct, 
-  updateProduct, 
-  deleteProduct,
-  getFilterOptions
-} = require('../controllers/productController');
-const { protect } = require('../middlewares/authMiddleware');
+// ../haya-backend/routes/productRoutes.js
 
-// Public route: Get all products (for universal products page)
-router.get('/public', getPublicProducts);
+// Do NOT require upload middleware here at the top level
+// const upload = require('../middlewares/upload'); // This was likely importing the wrong middleware anyway
 
-// Admin routes: Only accessible when logged in as an admin
-router.get('/', protect, getAdminProducts);
+// Export a function that takes the configured uploadProduct middleware as an argument
+export default (uploadProduct) => { // Accepts the product upload middleware
+  const express = require('express'); // Require express inside the factory function
+  const router = express.Router();
 
-// Attach multer middleware to process images
-router.post('/', protect, upload.array('images'), createProduct);
-router.put('/:id', protect, upload.array('images'), updateProduct);
-router.delete('/:id', protect, deleteProduct);
+  const {
+    getPublicProducts,
+    getAdminProducts,
+    createProduct,
+    updateProduct,
+    deleteProduct,
+    getFilterOptions
+  } = require('../controllers/productController');
+  const { protect } = require('../middlewares/authMiddleware');
 
-// NEW: Route for dynamic filter options
-router.get('/filters', getFilterOptions);
+  // Public route: Get all products (for universal products page)
+  router.get('/public', getPublicProducts);
 
-module.exports = router;
+  // Admin routes: Only accessible when logged in as an admin
+  router.get('/', protect, getAdminProducts);
+
+  // Attach multer middleware to process images - Use the uploadProduct middleware passed as an argument
+  router.post('/', protect, uploadProduct.array('images'), createProduct);
+  router.put('/:id', protect, uploadProduct.array('images'), updateProduct);
+  router.delete('/:id', protect, deleteProduct);
+
+  // NEW: Route for dynamic filter options
+  router.get('/filters', getFilterOptions);
+
+  return router; // Export the configured router
+};
