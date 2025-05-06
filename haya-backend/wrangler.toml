@@ -1,14 +1,12 @@
-# haya-backend/wrangler.toml
-
 name               = "haya-api"
 compatibility_date = "2025-05-06"
 workers_dev        = true
 
-# ← HERE:
+# Top‐level flag to enable Node builtins at runtime
 compatibility_flags = ["nodejs_compat"]
 
-# ← point to your wrapper file:
+# Point to our Worker wrapper
 main               = "worker.js"
 
 [build]
-command = "npm ci"
+  command = "npm ci"
