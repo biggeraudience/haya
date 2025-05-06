@@ -2,23 +2,21 @@ name               = "haya-api"
 compatibility_date = "2025-05-06"
 workers_dev        = true
 
-# enable Node built-ins (http, url, crypto, etc.)
 compatibility_flags = ["nodejs_compat"]
 
-# Worker entrypoint is now in api/
+# now points into the api/ folder
 main = "api/worker.js"
 
 [build]
-  command = "npm ci"
+command = "npm ci"
 
 [vars]
-  # hard-coded for now; swap to `wrangler secret put` later
-  CLOUDINARY_URL         = "cloudinary://995673441211498:N-EuJC-I7BNexpB7toFMfoBQ9SM@dwk5eorvm"
-  CLOUDINARY_CLOUD_NAME  = "dwk5eorvm"
-  CLOUDINARY_API_KEY     = "995673441211498"
-  CLOUDINARY_API_SECRET  = "N-EuJC-I7BNexpB7toFMfoBQ9SM"
-  MONGODB_URI            = "mongodb://hayaAdmin:coins225@localhost:27017/haya"
-  CLIENT_URL             = "http://localhost:5173"
-  JWT_SECRET             = "8d89cd31faf25adb3c21901b0abed0efac4ec8bd3355510f42b051a4c9d76d58943ae026550f34ccc4be6e80e68aa09baa26a978905634cc2969e46850ce90e2"
-  NODE_ENV               = "production"
-  PORT                   = "5000"
+CLOUDINARY_URL         = "cloudinary://995673441211498:N-EuJC-I7BNexpB7toFMfoBQ9SM@dwk5eorvm"
+CLOUDINARY_CLOUD_NAME  = "dwk5eorvm"
+CLOUDINARY_API_KEY     = "995673441211498"
+CLOUDINARY_API_SECRET  = "N-EuJC-I7BNexpB7toFMfoBQ9SM"
+MONGODB_URI            = "mongodb://hayaAdmin:coins225@localhost:27017/haya"
+CLIENT_URL             = "http://localhost:5173"
+JWT_SECRET             = "8d89cd31faf25adb3c21901b0abed0efac4ec8bd3355510f42b051a4c9d76d58943ae026550f34ccc4be6e80e68aa09baa26a978905634cc2969e46850ce90e2"
+NODE_ENV               = "production"
+PORT                   = "5000"
