@@ -1,6 +1,5 @@
-// api/worker.js
 import serverless from "serverless-http";
-// worker.js lives in /api, so go up to pick up your Express factory
+// worker.js lives under /api, so go up one level into haya-backend
 import createApp from "../haya-backend/server.js";
 
 let handlerPromise = null;
@@ -9,13 +8,13 @@ export default {
   async fetch(request, env, ctx) {
     if (!handlerPromise) {
       handlerPromise = (async () => {
-        // initialize your Express app with the Worker env
+        // createApp reads all env vars (incl. CLOUDINARY_*, MONGODB_URI, etc.)
         const app = createApp(env);
         return serverless(app);
       })();
     }
     const handler = await handlerPromise;
-    // serverless-http expects (event, context)
+    // serverless-http expects signature (event, context)
     return handler(request, { event: request, context: ctx });
   },
 };
