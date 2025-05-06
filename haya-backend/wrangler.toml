@@ -1,7 +1,11 @@
 name = "haya-api"
 compatibility_date = "2025-05-06"
-main = "../api/server.js"    
+main = "../api/server.js"
 workers_dev = true
 
 [build]
-command = "npm ci"          
+command = "npm ci"
+
+
+[compatibility_flags]
+nodejs_compat = true
