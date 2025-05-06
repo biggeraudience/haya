@@ -1,24 +1,37 @@
-const multer = require('multer');
-const { v2: cloudinary } = require('cloudinary');
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
+// Assuming this file is located at something like ../haya-backend/middlewares/adsMulter.js
 
-// Cloudinary Configuration
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+import multer from 'multer';
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
-// Multer Cloudinary Storage
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'ads',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
-    transformation: [{ quality: 'auto', fetch_format: 'auto' }],
-  },
-});
+// Export a function that takes the 'env' object
+export default (env) => {
+  try {
+    // Configure Cloudinary using the 'env' object passed to this function
+    cloudinary.config({
+      cloud_name: env.CLOUDINARY_CLOUD_NAME,
+      api_key: env.CLOUDINARY_API_KEY,
+      api_secret: env.CLOUDINARY_API_SECRET,
+    });
+  } catch (e) {
+      console.error("Cloudinary config failed in adsMulter factory:", e);
+      throw new Error("Failed to configure Cloudinary ads middleware");
+  }
 
-const upload = multer({ storage });
 
-module.exports = upload;
+  // Cloudinary Storage now uses the configured cloudinary instance
+  const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+      folder: 'ads',
+      allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+      transformation: [{ quality: 'auto', fetch_format: 'auto' }],
+    },
+  });
+
+  // Multer middleware setup
+  const upload = multer({ storage });
+
+  // Return the configured middleware
+  return upload;
+};
