@@ -3,7 +3,7 @@ compatibility_date = "2025-05-06"
 main = "../api/server.js"
 workers_dev = true
 
+compatibility_flags = ["nodejs_compat"]
+
 [build]
 command = "npm ci"
-
-compatibility_flags = ["nodejs_compat"]
