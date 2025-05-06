@@ -1,16 +1,19 @@
+// api/worker.js
+
 import serverless from "serverless-http";
-import createApp from "./server.js";
+import createApp from "../haya-backend/server.js";
 
 let handler = null;
 
 export default {
   async fetch(request, env, ctx) {
     if (!handler) {
-      // Pass the Worker env so your Express app can read env.MONGODB_URI, env.CLOUDINARY_*, etc.
+      // Initialize your Express app with Cloudflare Worker env
       const app = createApp(env);
       handler = serverless(app);
     }
-    // serverless-http expects (event, context)
+
+    // serverless-http wants (event, context)
     return handler(request, { event: request, context: ctx });
   },
 };
