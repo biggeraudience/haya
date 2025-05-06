@@ -1,10 +1,11 @@
 import multer from 'multer';
 import path from 'path';
-import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
-// Export a function that takes the Worker `env`
-export default (env) => {
+export default function configureProductMulter(env) {
+  // Defer loading the SDK until runtime
+  const { v2: cloudinary } = require('cloudinary');
+
   cloudinary.config({
     cloud_name: env.CLOUDINARY_CLOUD_NAME,
     api_key:    env.CLOUDINARY_API_KEY,
@@ -23,9 +24,10 @@ export default (env) => {
   const upload = multer({
     storage,
     fileFilter: (req, file, cb) => {
-      const fileTypes = /jpeg|jpg|png|webp|avif|mp4|mov|avi/;
-      const extname  = fileTypes.test(path.extname(file.originalname).toLowerCase());
-      const mimetype = fileTypes.test(file.mimetype);
+      const fileTypes  = /jpeg|jpg|png|webp|avif|mp4|mov|avi/;
+      const extname    = fileTypes.test(path.extname(file.originalname).toLowerCase());
+      const mimetype   = fileTypes.test(file.mimetype);
+
       if (extname && mimetype) {
         cb(null, true);
       } else {
@@ -36,4 +38,4 @@ export default (env) => {
   });
 
   return upload;
-};
+}
