@@ -1,5 +1,6 @@
 // src/components/CategoryDisplaySection.jsx
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/categorydisplaysection.scss';
 
 // Accept backgroundImage and a new 'gender' prop
@@ -28,15 +29,13 @@ const CategoryDisplaySection = ({ categoryData, backgroundImage, gender }) => {
 
   return (
     <section
-      // Add the gender-specific class to the section element
       className={`category-display-section ${genderClass}`}
       style={{
-        // Use the backgroundImage prop here
         backgroundImage: `url(${backgroundImage})`,
-        backgroundAttachment: 'fixed',       // fixes it in place
-        backgroundPosition: 'center center', // center it
-        backgroundRepeat: 'no-repeat',       // don't tile
-        backgroundSize: 'cover'              // fill the area
+        backgroundAttachment: 'fixed',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover'
       }}
     >
       {/* black semi-transparent overlay */}
@@ -53,17 +52,17 @@ const CategoryDisplaySection = ({ categoryData, backgroundImage, gender }) => {
           <h2>{categoryData.heading}</h2>
           <p>{categoryData.content}</p>
           {/* Link to the main shop page for the category */}
-          <a href={categoryData.shopLink} className="shop-link">
+          <Link to={categoryData.shopLink} className="shop-link">
             <u>SHOP</u>
-          </a>
+          </Link>
         </div>
 
         <div className="subcategory-boxes">
           {/* Map through sub-category items and render them */}
           {categoryData.boxItems.map((box, idx) => (
             <div
-              key={idx} // Using index as key is okay here as the list order is stable
-              className={`box ${animateBoxes[idx] ? 'slide-in' : ''}`} // Apply slide-in class for animation
+              key={idx}
+              className={`box ${animateBoxes[idx] ? 'slide-in' : ''}`}
             >
               {/* Display sub-category image */}
               <img src={box.image} alt={box.title} className="box-image" />
@@ -74,9 +73,9 @@ const CategoryDisplaySection = ({ categoryData, backgroundImage, gender }) => {
                   <h3>{box.title}</h3>
                   <p>{box.content}</p>
                   {/* Link to the sub-category shop page */}
-                  <a href={box.shopLink} className="shop-button">
+                  <Link to={box.shopLink} className="shop-button">
                     SHOP
-                  </a>
+                  </Link>
                 </div>
               )}
             </div>
