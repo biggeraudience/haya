@@ -1,13 +1,11 @@
 {
   "routes": [
     {
-      // Proxy any /api/* on your Pages site to the Worker
       "src": "/api/(.*)",
       "dest": "https://haya-api.YOUR_WORKERS_SUBDOMAIN.workers.dev/api/$1"
     },
     { "handle": "filesystem" },
     {
-      // Everything else is served from dist/
       "src": "/(.*)",
       "dest": "/$1"
     }
