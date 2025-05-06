@@ -1,26 +1,30 @@
 // ../haya-backend/server.js
 
 // Remove require("dotenv").config(); - Worker handles env
-const express = require("express"); // Keep require for Express itself
-const cors = require("cors"); // Keep require
-const mongoose = require("mongoose"); // Keep require
-const cookieParser = require("cookie-parser"); // Keep require
-// Remove http = require("http"); - Not used in Worker
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+// Remove http = require("http");
 
-// Import middleware factory functions using import
+// Import middleware factory functions using import.
+// Ensure these import paths and names match your actual refactored files.
 import configureProfileMulter from './middlewares/profileMulter.js';
+// Corrected import for productMulter.js
 import configureMulter from './middlewares/multer.js';
-import configureUpload from './middlewares/upload.js'; // Import the ads middleware factory
+// Corrected import for adsMulter.js
+import configureUpload from './middlewares/upload.js';
+
 
 // Import route modules. Refactored ones will be factory functions.
-import createProfileRoutes from "./routes/profileRoutes.js"; // Import profileRoutes as a factory
+import createProfileRoutes from "./routes/profileRoutes.js";
 // Assuming other route files still use require/module.exports for now
 const adminRoutes = require("./routes/adminRoutes");
 const superAdminRoutes = require("./routes/superAdminRoutes");
-const productRoutes = require("./routes/productRoutes"); // *** This likely needs refactoring too ***
+const productRoutes = require("./routes/productRoutes"); // Likely needs refactoring
 const orderRoutes = require("./routes/orderRoutes");
 const messageRoutes = require("./routes/messageRoutes");
-const adRoutes = require("./routes/adRoutes"); // *** This likely needs refactoring too ***
+const adRoutes = require("./routes/adRoutes"); // Likely needs refactoring
 const inviteCodeRoutes = require("./routes/inviteCodeRoutes");
 const adminLogsRoutes = require("./routes/adminLogsRoutes");
 const superadminUserRoutes = require("./routes/superadminUserRoutes");
@@ -33,6 +37,7 @@ const feedbackRoutes = require("./routes/feedbackRoutes");
 const measurementConfigRoute = require('./routes/measurementConfigRoute');
 const bespokeOrderRoutes = require("./routes/bespokeOrderRoutes");
 
+
 // Remove WebSocket, background job, RabbitMQ, Kafka, and server listening code
 // as they are not part of the Worker environment.
 
@@ -40,18 +45,15 @@ const bespokeOrderRoutes = require("./routes/bespokeOrderRoutes");
 export default (env) => {
   // Connect to MongoDB inside the factory function where env is available
    mongoose.connect(env.MONGODB_URI || "mongodb://localhost:27017/ecommerce-analytics", {
-     // Options like useNewUrlParser, useUnifiedTopology might not be needed/supported in latest Mongoose/Workers
+     // Options like useNewUrlParser, useUnifiedTopology might not be needed
    })
    .then(() => {
-     console.log("✅ Connected to MongoDB"); // This log will appear during Worker initialization
+     console.log("✅ Connected to MongoDB");
    })
    .catch(err => {
      console.error("❌ MongoDB connection error:", err.message);
-     // In a Worker, throwing here will stop the Worker from starting.
-     // You might need better error handling for failed DB connections.
      throw new Error("MongoDB connection failed");
    });
-
 
   const app = express();
 
@@ -59,26 +61,28 @@ export default (env) => {
   app.use(express.json());
   app.use(cookieParser());
   app.use(cors({
-    origin: env.CLIENT_URL || "http://localhost:5173", // Use env.CLIENT_URL
+    origin: env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
   }));
 
-  // Configure and get the middleware instances using the factory functions and the 'env' object
-  const { uploadPhoto } = configureProfileMulter(env); // Call profileMulter factory with env
-  const uploadProduct = configureMulter(env); // Call productMulter factory with env
-  const uploadAds = configureUpload(env); // Call adsMulter factory with env
+  // **Configure and get the middleware instances here, INSIDE this function, using the 'env' object**
+  // Call the correct middleware factory functions with env
+  const { uploadPhoto } = configureProfileMulter(env); // Correct
+  const uploadProduct = configureMulter(env); // Corrected call name
+  const uploadAds = configureUpload(env); // Corrected call name
 
 
   // API Routes
   // Mount refactored profile routes, passing the configured uploadPhoto middleware
-  app.use("/api", createProfileRoutes(uploadPhoto)); // Call profileRoutes factory, passing uploadPhoto
+  app.use("/api", createProfileRoutes(uploadPhoto));
 
 
   // Mount other routes. If they use Multer middleware, they will also need refactoring
-  // similar to profileRoutes.js to accept the middleware as an argument.
-  app.use("/api/ads", adRoutes); // *** If adRoutes uses uploadAds, refactor and pass uploadAds here ***
+  // similar to profileRoutes.js to accept the middleware as an argument, and you'll
+  // call their factory functions here, passing the configured middleware.
+  app.use("/api/ads", adRoutes); // If adRoutes uses uploadAds, refactor and pass uploadAds here
   app.use("/api/invitecodes", inviteCodeRoutes);
-  app.use("/api/products", productRoutes); // *** If productRoutes uses uploadProduct, refactor and pass uploadProduct here ***
+  app.use("/api/products", productRoutes); // If productRoutes uses uploadProduct, refactor and pass uploadProduct here
   app.use("/api/orders", orderRoutes);
   app.use("/api/messages", messageRoutes);
 
