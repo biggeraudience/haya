@@ -1,65 +1,64 @@
-// ../haya-backend/routes/profileRoutes.js
-
 const express = require("express");
-// REMOVE the line that imports the middleware factory directly
-// const { uploadPhoto } = require("../middlewares/profileMulter");
+const mongoose = require("mongoose");
+const asyncHandler = require("express-async-handler");
+const jwt = require("jsonwebtoken");
+const User = require("../models/userModel");
+const { protect, autoGenerateToken } = require("../middlewares/authMiddleware");
+const { isCloudflareWorker } = require("../utils/runtimeCheck");
 
-// Export a function that ACCEPTS the configured uploadPhoto middleware instance
-export default (uploadPhoto) => { // This line defines the start of the exported function
-  const router = express.Router(); // This is likely line 14 in your file.
+const router = express.Router();
 
-  const {
-    registerUser,
-    loginUser,
-    logoutUser,
-    getUserProfile,
-    updateUserProfile,
-    deleteUserProfile,
-    refreshToken,
-    getUserAddress,
-    updateUserAddress,
-    deleteUserAddress,
-    updateUserCards,
-    getAllUsers,
-    deleteAllUsers,
-    uploadProfilePhotoController,
-  } = require("../controllers/profileController");
-  const { protect, autoGenerateToken, adminOnly } = require("../middlewares/authMiddleware");
+// Message Schema & Model (unchanged)…
+const messageSchema = new mongoose.Schema({ /* … */ });
+const Message = mongoose.model("Message", messageSchema);
 
+// … your existing REST endpoints here …
 
-  // Authentication routes
-  router.post("/auth/register", registerUser);
-  router.post("/auth/login", loginUser);
-  router.post("/auth/logout", logoutUser);
-  router.post("/auth/refresh-token", refreshToken);
+// ------------------------------
+// Real-time Chat (only in Node)
+// ------------------------------
+let wss;
+if (!isCloudflareWorker()) {
+  const { Server: WebSocketServer } = require("ws");
+  wss = new WebSocketServer({ port: 3000 });
 
-  // User profile routes
-  router.get("/auth/profile", protect, autoGenerateToken, getUserProfile);
-  router.put("/auth/profile", protect, autoGenerateToken, updateUserProfile);
-  router.delete("/auth/profile", protect, autoGenerateToken, deleteUserProfile);
+  wss.on("connection", (ws) => {
+    console.log("WebSocket client connected");
 
-  // Profile photo upload route - USE the uploadPhoto passed as an argument
-  router.put(
-    "/auth/profile/photo",
-    protect,
-    autoGenerateToken,
-    uploadPhoto.single("profilePhoto"), // Use the instance passed to this function
-    uploadProfilePhotoController
-  );
+    ws.on("message", async (data) => {
+      try {
+        const messageData = JSON.parse(data);
+        if (messageData.type === "chat") {
+          const chatMessage = new Message({
+            subject:   messageData.subject || "",
+            body:      messageData.text,
+            type:      "chat",
+            userId:    messageData.userId,
+            senderId:  messageData.senderId || messageData.userId,
+            timestamp: new Date(),
+          });
+          await chatMessage.save();
 
-  // Address routes
-  router.get("/user/addresses/:userId", protect, autoGenerateToken, getUserAddress);
-  router.put("/user/addresses/:userId", protect, autoGenerateToken, updateUserAddress);
-  router.delete("/user/addresses/:userId", protect, autoGenerateToken, deleteUserAddress);
+          // broadcast to all connected clients
+          wss.clients.forEach((client) => {
+            if (client.readyState === client.OPEN) {
+              client.send(JSON.stringify(messageData));
+            }
+          });
+        }
+      } catch (err) {
+        console.error("Error processing WebSocket message:", err);
+      }
+    });
 
-  // Cards route
-  router.put("/profile/cards", protect, autoGenerateToken, updateUserCards);
+    ws.on("close", () => {
+      console.log("WebSocket client disconnected");
+    });
+  });
 
-  // *** New route for fetching all users (Admin-only) ***
-  router.get("/users", protect, adminOnly, getAllUsers);
+  console.log("WebSocket server running on ws://localhost:3000");
+} else {
+  console.log("⚡️ Skipping WebSocket.Server setup in Worker");
+}
 
-  return router; // Export the configured router
-};
-
-// Remove the old CommonJS export if it exists
-// module.exports = router;
+module.exports = router;
