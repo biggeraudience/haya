@@ -2,17 +2,17 @@ name               = "haya-api"
 compatibility_date = "2025-05-06"
 workers_dev        = true
 
-# Top‐level flag to enable Node builtins at runtime
+# enable Node built-ins (http, url, crypto, etc.)
 compatibility_flags = ["nodejs_compat"]
 
-# Point to our Worker wrapper
-main               = "worker.js"
+# Worker entrypoint is now in api/
+main = "api/worker.js"
 
 [build]
   command = "npm ci"
 
 [vars]
-  # Hard-coded here for now—will override with `wrangler secret put` later
+  # hard-coded for now; swap to `wrangler secret put` later
   CLOUDINARY_URL         = "cloudinary://995673441211498:N-EuJC-I7BNexpB7toFMfoBQ9SM@dwk5eorvm"
   CLOUDINARY_CLOUD_NAME  = "dwk5eorvm"
   CLOUDINARY_API_KEY     = "995673441211498"
