@@ -1,11 +1,23 @@
-// api/server.js
+// ../api/server.js
 
-import serverless from 'serverless-http';
+import serverless from "serverless-http";
 
-import createApp from '../haya-backend/server.js';
+import createApp from "../haya-backend/server.js";
 
-const app = createApp(process.env);
 
-const handler = serverless(app);
+let handler = null;
 
-export default handler;
+export default {
+  async fetch(request, env, ctx) {
+    
+    if (!handler) {
+     
+      const app = createApp(env); // Pass the Cloudflare Worker's env object
+
+      handler = serverless(app);
+    }
+    const response = await handler(request, { env, ctx });
+
+    return response;
+  },
+};
