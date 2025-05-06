@@ -2,15 +2,21 @@
 
 import serverless from "serverless-http";
 
-import app from "../haya-backend/server.js";
 
-const handler = serverless(app);
+import createApp from "../haya-backend/server.js";
+
+let handler = null;
 
 export default {
   async fetch(request, env, ctx) {
-    
-    const response = await handler(request, { env, ctx });
+    if (!handler) {
+     
+      const app = createApp(env);
+     
+      handler = serverless(app);
+    }
 
+    const response = await handler(request, { env, ctx });
 
     return response;
   },
