@@ -5,8 +5,10 @@ import path from 'path';
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
+// Export a function that takes the 'env' object
 export default (env) => {
   try {
+    // Configure Cloudinary using the 'env' object passed to this function
     cloudinary.config({
       cloud_name: env.CLOUDINARY_CLOUD_NAME,
       api_key: env.CLOUDINARY_API_KEY,
@@ -17,6 +19,7 @@ export default (env) => {
       throw new Error("Failed to configure Cloudinary profile middleware");
   }
 
+  // Cloudinary Storage now uses the configured cloudinary instance
   const profilePhotoStorage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
@@ -26,6 +29,7 @@ export default (env) => {
     },
   });
 
+  // Multer middleware setup
   const uploadPhoto = multer({
     storage: profilePhotoStorage,
     fileFilter: (req, file, cb) => {
@@ -35,10 +39,11 @@ export default (env) => {
       if (extname && mimetype) {
         return cb(null, true);
       } else {
-        cb(cb(new Error('Invalid file type. Only jpeg, jpg, png, webp, gif, and avif files are allowed.'))); // Corrected this line's callback usage
+        cb(new Error('Invalid file type. Only jpeg, jpg, png, webp, gif, and avif files are allowed.'));
       }
     },
   });
 
+  // Return the configured middleware
   return { uploadPhoto };
 };
