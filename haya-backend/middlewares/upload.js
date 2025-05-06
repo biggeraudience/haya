@@ -1,13 +1,13 @@
 import multer from 'multer';
+import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
-export default function configureAdsMulter(env) {
-  const { v2: cloudinary } = require('cloudinary');
-
+// Export a function that takes the Worker `env`
+export default (env) => {
   cloudinary.config({
-    cloud_name: env.CLOUDINARY_CLOUD_NAME,
-    api_key:    env.CLOUDINARY_API_KEY,
-    api_secret: env.CLOUDINARY_API_SECRET,
+    cloud_name:  env.CLOUDINARY_CLOUD_NAME,
+    api_key:     env.CLOUDINARY_API_KEY,
+    api_secret:  env.CLOUDINARY_API_SECRET,
   });
 
   const storage = new CloudinaryStorage({
@@ -21,4 +21,4 @@ export default function configureAdsMulter(env) {
 
   const upload = multer({ storage });
   return upload;
-}
+};
