@@ -1,5 +1,16 @@
-// simple duck-typing for Workers vs Node
-export function isCloudflareWorker() {
-  // Workers global fetch is `self.fetch`, Node doesn't have that
-  return typeof self === "object" && typeof self.fetch === "function";
+// utils/runtimeCheck.js
+
+function isCloudflareWorker() {
+  try {
+    return (
+      typeof WebSocketPair === "function" &&
+      typeof self === "object" &&
+      typeof self.fetch === "function" &&
+      typeof process === "undefined"
+    );
+  } catch {
+    return false;
+  }
 }
+
+module.exports = { isCloudflareWorker };
