@@ -9,8 +9,8 @@ const cookieParser = require("cookie-parser"); // Keep require
 
 // Import middleware factory functions using import
 import configureProfileMulter from './middlewares/profileMulter.js';
-import configureMulter from './middlewares/Multer.js';
-import configureUpload from './middlewares/Upload.js'; // Import the ads middleware factory
+import configureMulter from './middlewares/multer.js';
+import configureUpload from './middlewares/upload.js'; // Import the ads middleware factory
 
 // Import route modules. Refactored ones will be factory functions.
 import createProfileRoutes from "./routes/profileRoutes.js"; // Import profileRoutes as a factory
