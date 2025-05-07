@@ -4,21 +4,20 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ProductNavbar from "../components/ProductNavbar";
 import ProductFooter from "../components/ProductFooter";
-import "../styles/adminapproval.scss"; // Create and style this file as needed
+import "../styles/adminapproval.scss";
 
 const AdminApproval = () => {
   const [pendingAdmins, setPendingAdmins] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Fetch all admins then filter the ones not approved
   const fetchPendingAdmins = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/admin/all", {
+      const BASE_API_URL = import.meta.env.VITE_API_URL;
+      const response = await axios.get(`${BASE_API_URL}/admin/all`, {
         withCredentials: true,
       });
-      // Filter out admins that are not approved
       const pending = response.data.filter(admin => !admin.isApproved);
       setPendingAdmins(pending);
     } catch (error) {
@@ -34,13 +33,13 @@ const AdminApproval = () => {
 
   const handleApprove = async (adminId) => {
     try {
+      const BASE_API_URL = import.meta.env.VITE_API_URL;
       const response = await axios.put(
-        `http://localhost:5000/api/admin/approve/${adminId}`,
+        `${BASE_API_URL}/admin/approve/${adminId}`,
         {},
         { withCredentials: true }
       );
       alert(`Admin ${response.data.name} approved successfully!`);
-      // Refresh the list after approval
       setPendingAdmins(prev => prev.filter(admin => admin._id !== adminId));
     } catch (error) {
       console.error("Approval error:", error);
