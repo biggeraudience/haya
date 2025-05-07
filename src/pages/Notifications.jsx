@@ -11,10 +11,11 @@ const Notifications = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/messages", {
-          params: { type: "notification" }  // Filter by type: "notification"
+        const BASE_API_URL = import.meta.env.VITE_API_URL;
+        const response = await axios.get(`${BASE_API_URL}/messages`, {
+          params: { type: "notification" }
         });
-        
+
         setNotifications(response.data);
       } catch (error) {
         console.error("Error fetching notifications:", error);
@@ -31,12 +32,13 @@ const Notifications = () => {
       )
     );
     try {
-      await axios.put(`/api/notifications/${id}/mark-as-read`);
+      const BASE_API_URL = import.meta.env.VITE_API_URL;
+      await axios.put(`${BASE_API_URL}/api/notifications/${id}/mark-as-read`);
     } catch (error) {
       console.error("Error marking notification as read:", error);
     }
   };
-  
+
 
   return (
     <>
