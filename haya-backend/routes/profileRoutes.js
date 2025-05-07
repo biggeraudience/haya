@@ -2,8 +2,6 @@
 
 const express = require("express");
 
-
-// Export a function that ACCEPTS the configured uploadPhoto middleware instance
 export default (uploadPhoto) => {
   const router = express.Router();
 
@@ -46,7 +44,7 @@ export default (uploadPhoto) => {
     uploadProfilePhotoController
   );
 
-
+  // Address routes
   router.get("/user/addresses/:userId", protect, autoGenerateToken, getUserAddress);
   router.put("/user/addresses/:userId", protect, autoGenerateToken, updateUserAddress);
   router.delete("/user/addresses/:userId", protect, autoGenerateToken, deleteUserAddress);
@@ -54,23 +52,24 @@ export default (uploadPhoto) => {
   // Cards route
   router.put("/profile/cards", protect, autoGenerateToken, updateUserCards);
 
+  // *** New route for fetching all users (Admin-only) ***
   router.get("/users", protect, adminOnly, getAllUsers);
+
 
   let wss;
   if (!isCloudflareWorker()) { // Conditional check is now irrelevant as block is removed
-    const { Server: WebSocketServer } = require("ws"); // This is the problematic line
+    // const { Server: WebSocketServer } = require("ws"); // <--- THIS LINE IS DELETED
     wss = new WebSocketServer({ port: 3000 });
 
     wss.on("connection", (ws) => {
       console.log("WebSocket client connected");
-    
+      // ... WebSocket server logic ...
     });
 
     console.log("WebSocket server running on ws://localhost:3000");
   } else { // This else block is also removed
     console.log("⚡️ Skipping WebSocket.Server setup in Worker");
   }
-
 
   return router;
 };
