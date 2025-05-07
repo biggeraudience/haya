@@ -1,4 +1,3 @@
-// src/pages/adminorderspage.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/globaladmin.scss";
@@ -42,11 +41,11 @@ const AdminOrdersPage = () => {
   const [activeTab, setActiveTab] = useState("currentOrders");
   const [expandedOrderId, setExpandedOrderId] = useState(null);
 
-  // Fetch all orders for admin using the /api/orders/all endpoint
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const { data } = await axios.get("/api/orders/all");
+        const BASE_API_URL = import.meta.env.VITE_API_URL;
+        const { data } = await axios.get(`${BASE_API_URL}/api/orders/all`);
         setOrders(data);
         setLoading(false);
       } catch (error) {
@@ -57,25 +56,22 @@ const AdminOrdersPage = () => {
     fetchOrders();
   }, []);
 
-  // "Current" orders are those that are NOT delivered or returned
   const currentOrders = orders.filter(
     (order) => order.orderStatus !== "DELIVERED" && order.orderStatus !== "RETURNED"
   );
 
-  // "History" orders are those that are delivered or returned
   const orderHistory = orders.filter(
     (order) => order.orderStatus === "DELIVERED" || order.orderStatus === "RETURNED"
   );
 
-  // Toggle expanded details view for an order
   const toggleOrderDetails = (orderId) => {
     setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
   };
 
-  // Handle status update via dropdown
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      await axios.put(`/api/orders/${orderId}`, { orderStatus: newStatus });
+      const BASE_API_URL = import.meta.env.VITE_API_URL;
+      await axios.put(`${BASE_API_URL}/api/orders/${orderId}`, { orderStatus: newStatus });
       setOrders((prev) =>
         prev.map((order) =>
           order.orderId === orderId ? { ...order, orderStatus: newStatus } : order
@@ -95,7 +91,6 @@ const AdminOrdersPage = () => {
           <div className="admin-content-wrapper">
             <div className="admin-orders-page">
               <div className="admin-main-box">
-                {/* Tabs for Current Orders and Order History */}
                 <div className="admin-toggle-buttons">
                   <button
                     className={`admin-toggle-button ${activeTab === "currentOrders" ? "active" : ""}`}
@@ -111,7 +106,6 @@ const AdminOrdersPage = () => {
                   </button>
                 </div>
 
-                {/* Orders Content */}
                 <div className="admin-inner-box">
                   {(activeTab === "currentOrders" ? currentOrders : orderHistory).map((order) => (
                     <div key={order.orderId} className="admin-order-tab">
