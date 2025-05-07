@@ -1,4 +1,3 @@
-// src/context/FilterContext.js
 import React, { createContext, useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -23,7 +22,7 @@ export const FilterProvider = ({ children }) => {
           if (currentFilterKey.category && currentFilterKey.category !== "all") {
             params.category = currentFilterKey.category;
           }
-          const response = await axios.get("/products/filters", { params });
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/filters`, { params });
           setDynamicFilterOptions(response.data);
         } catch (error) {
           console.error("Error fetching dynamic filter options:", error);
@@ -56,7 +55,7 @@ export const FilterProvider = ({ children }) => {
         }
       });
       try {
-        const response = await axios.get(`/products/public?${query.toString()}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/public?${query.toString()}`);
         setFilterProducts(response.data);
       } catch (error) {
         console.error("Error fetching filtered products:", error);
