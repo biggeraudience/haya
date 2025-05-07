@@ -4,10 +4,8 @@ import { FaEdit, FaUndo, FaArrowLeft, FaArrowRight, FaInfoCircle } from "react-i
 import "../styles/globaladmin.scss";
 
 const AdminAdsPage = () => {
-  // Backend ads state
   const [ads, setAds] = useState([]);
 
-  // Carousel state for each category
   const [currentIndices, setCurrentIndices] = useState({
     top: 0,
     men: 0,
@@ -25,11 +23,10 @@ const AdminAdsPage = () => {
   const [editModal, setEditModal] = useState({ visible: false, section: null });
   const [selectedImage, setSelectedImage] = useState(null);
 
-  // Fetch ads from backend on mount
   useEffect(() => {
-    axios.get("/ads")
+    const BASE_API_URL = import.meta.env.VITE_API_URL;
+    axios.get(`${BASE_API_URL}/ads`)
       .then((response) => {
-        // Sort ads by creation date
         const sortedAds = response.data.sort(
           (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
         );
@@ -41,14 +38,12 @@ const AdminAdsPage = () => {
       });
   }, []);
 
-  // Filter ads by category
   const topAds = ads.filter((ad) => ad.category === "Ads");
   const menAds = ads.filter((ad) => ad.category === "Men");
   const womenAds = ads.filter((ad) => ad.category === "Women");
   const brandsAds = ads.filter((ad) => ad.category === "Brands");
   const productsAds = ads.filter((ad) => ad.category === "Products");
 
-  // Handlers to cycle carousel items
   const handleNext = (section, adsArray) => {
     setCurrentIndices((prev) => ({
       ...prev,
@@ -63,7 +58,6 @@ const AdminAdsPage = () => {
     }));
   };
 
-  // Toggle details overlay visibility
   const toggleDetails = (section) => {
     setDetailsVisible((prev) => ({
       ...prev,
@@ -71,7 +65,6 @@ const AdminAdsPage = () => {
     }));
   };
 
-  // Open/close edit modal overlay
   const openEditModal = (section) => {
     setEditModal({ visible: true, section });
     setSelectedImage(null);
@@ -81,24 +74,20 @@ const AdminAdsPage = () => {
     setEditModal({ visible: false, section: null });
   };
 
-  // Handle file selection
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setSelectedImage(URL.createObjectURL(e.target.files[0]));
     }
   };
 
-  // Clear selected image
   const clearSelectedImage = () => {
     setSelectedImage(null);
   };
 
-  // Placeholder reset function
   const handleReset = (section) => {
     console.log(`Reset: ${section}`);
   };
 
-  // Render details overlay for a given ad
   const renderDetailsOverlay = (section, ad) => (
     <div className="details-overlay">
       <h3>{ad.adTitle || "Ad Details"}</h3>
@@ -109,7 +98,6 @@ const AdminAdsPage = () => {
     </div>
   );
 
-  // Render edit modal overlay
   const renderEditModal = () => {
     const section = editModal.section;
     return (
@@ -165,7 +153,6 @@ const AdminAdsPage = () => {
     <div className="main-container">
       <div className="admin-container">
         <div className="admin-content-wrapper">
-          {/* Top Ads Carousel */}
           <div className="admin-ad-box carousel">
             <button className="carousel-arrow left-arrow" onClick={() => handlePrev("top", topAds)}>
               <FaArrowLeft />
@@ -200,9 +187,7 @@ const AdminAdsPage = () => {
             {detailsVisible.top && renderDetailsOverlay("top", topAds[currentIndices.top])}
           </div>
 
-          {/* Main Content Section */}
           <div className="admin-content">
-            {/* Left Column: Men & Women */}
             <div className="admin-left-column">
               <div className="admin-merged-box">
                 <div className="admin-half admin-men carousel">
@@ -274,7 +259,6 @@ const AdminAdsPage = () => {
               </div>
             </div>
 
-            {/* Right Column: Brands & Products */}
             <div className="admin-right-column">
               <div className="admin-square admin-brands carousel">
                 <button className="carousel-arrow left-arrow" onClick={() => handlePrev("brands", brandsAds)}>
