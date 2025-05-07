@@ -6,17 +6,14 @@ import { IoIosColorPalette } from "react-icons/io";
 import Navbar from "../components/Navbar"
 import ProductFooter from "../components/ProductFooter"
 
-axios.defaults.baseURL = 'http://localhost:5000/api';
+// REMOVED: axios.defaults.baseURL = 'http://localhost:5000/api';
 axios.defaults.withCredentials = true;
 
-// Updated CustomColorPicker using forwardRef.
-// It debounces the onChange event so sliding the slider does not pick up multiple colors.
 const CustomColorPicker = forwardRef(({ onColorSelect, disabled, initialColor = null }, ref) => {
   const inputRef = useRef(null);
   const [tempColor, setTempColor] = useState(initialColor);
   const debounceTimer = useRef(null);
 
-  // Expose a method to open the picker programmatically.
   useImperativeHandle(ref, () => ({
     openPicker: () => {
       if (!disabled && inputRef.current) {
@@ -25,13 +22,11 @@ const CustomColorPicker = forwardRef(({ onColorSelect, disabled, initialColor = 
     }
   }));
 
-  // When the input changes, update tempColor and debounce the selection.
   const handleChange = (e) => {
     const selectedColor = e.target.value;
     setTempColor(selectedColor);
   };
 
-  // Debounce effect: once the user stops sliding for 300ms, call onColorSelect.
   useEffect(() => {
     if (tempColor) {
       if (debounceTimer.current) {
@@ -39,7 +34,6 @@ const CustomColorPicker = forwardRef(({ onColorSelect, disabled, initialColor = 
       }
       debounceTimer.current = setTimeout(() => {
         onColorSelect(tempColor);
-        // Reset tempColor after selection so that subsequent changes work.
         setTempColor(null);
       }, 300);
     }
@@ -59,7 +53,7 @@ const CustomColorPicker = forwardRef(({ onColorSelect, disabled, initialColor = 
   disabled={disabled}
 >
 <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#fff"><path d="M480-144q-125 0-212.5-86.5T180-440q0-60 22.5-112.5T264-645l216-219 217 220q38 40 60.5 92T780-440q0 123-87.5 209.5T480-144ZM253-432h454q0-48-13.5-87T646-593L480-761 315-594q-35 35-48.5 74.5T253-432Z"/></svg>
- Color
+Color
 </button>
 
       <input
@@ -95,9 +89,7 @@ const AdminProductsPage = () => {
   const [categoryFields, setCategoryFields] = useState([]);
   const [products, setProducts] = useState([]);
   const [activeOverlayProductId, setActiveOverlayProductId] = useState(null);
-  // Maintain colors as an array of hex strings (max 7)
   const [colors, setColors] = useState([]);
-  // Track index of color being edited; if null, then new color addition.
   const [editingColorIndex, setEditingColorIndex] = useState(null);
   const colorPickerRef = useRef(null);
   const { user } = useUser();
@@ -106,17 +98,17 @@ const AdminProductsPage = () => {
     if (activeTab === "products") {
       fetchProducts();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab]);
 
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
+      const BASE_API_URL = import.meta.env.VITE_API_URL;
       const params = {};
       if (newProduct.category && newProduct.category !== 'all') {
         params.category = newProduct.category;
       }
-      const response = await axios.get('/products', { params });
+      const response = await axios.get(`${BASE_API_URL}/products`, { params });
       setProducts(response.data || []);
     } catch (err) {
       console.error('Error fetching products:', err);
@@ -177,7 +169,6 @@ const AdminProductsPage = () => {
 
   const standardizeCategory = (gender, category) => {
     if (gender && gender.toLowerCase() === 'men') {
-      // If the category contains "accessory" (catches "accessories", "men's accessories", etc.)
       if (category.toLowerCase().includes('accessori')) {
         return 'mensaccessories';
       }
@@ -189,34 +180,28 @@ const AdminProductsPage = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Clean up attributes: only include non‑empty values.
     const cleanedAttributes = {};
     Object.entries(newProduct.attributes).forEach(([key, value]) => {
       if (value.trim()) cleanedAttributes[key] = value;
     });
 
-    // Create a copy of the product data.
     const productData = { ...newProduct, attributes: cleanedAttributes };
-
-    // Standardize the category value for men's accessories using the helper.
     productData.category = standardizeCategory(newProduct.gender, productData.category);
 
     const formData = new FormData();
-    // Append productData values to formData.
     Object.entries(productData).forEach(([key, value]) => {
       formData.append(key, key === "attributes" ? JSON.stringify(value) : value);
     });
-    // Append selected images.
     selectedFiles.forEach((file) => formData.append("images", file));
-    // Append colors as a comma separated string.
     formData.append("colors", colors.join(','));
 
     try {
+      const BASE_API_URL = import.meta.env.VITE_API_URL;
       if (editMode && currentProductId) {
-        await axios.put(`/products/${currentProductId}`, formData);
+        await axios.put(`${BASE_API_URL}/products/${currentProductId}`, formData);
         alert("Product updated successfully!");
       } else {
-        await axios.post("/products", formData);
+        await axios.post(`${BASE_API_URL}/products`, formData);
         alert("Product created successfully!");
       }
       fetchProducts();
@@ -230,9 +215,8 @@ const AdminProductsPage = () => {
   };
 
 
-
   const handleEdit = (product) => {
-    setActiveTab("upload"); // Switch to the upload/edit form
+    setActiveTab("upload");
     setEditMode(true);
     setCurrentProductId(product._id);
     setNewProduct({
@@ -250,7 +234,6 @@ const AdminProductsPage = () => {
     setSelectedFiles([]);
     setCategoryFields(getCategoryFields(product.category));
     if (product.colors) {
-      // Convert product.colors array of objects into an array of hex strings.
       setColors(product.colors.map(c => c.name));
     } else {
       setColors([]);
@@ -260,7 +243,8 @@ const AdminProductsPage = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        await axios.delete(`/products/${id}`);
+        const BASE_API_URL = import.meta.env.VITE_API_URL;
+        await axios.delete(`${BASE_API_URL}/products/${id}`);
         fetchProducts();
         alert('Product deleted successfully.');
       } catch (err) {
@@ -291,7 +275,6 @@ const AdminProductsPage = () => {
     setEditingColorIndex(null);
   };
 
-  // Handle color selection: if editingColorIndex is set, update that index; otherwise add new color.
   const handleColorSelect = (selectedColor) => {
     if (editingColorIndex !== null) {
       setColors(prev => prev.map((col, idx) => idx === editingColorIndex ? selectedColor : col));
@@ -305,18 +288,15 @@ const AdminProductsPage = () => {
     }
   };
 
-  // When a color box is clicked, open the color picker to update that color.
   const handleEditColor = (index) => {
     setEditingColorIndex(index);
-    // Open the picker programmatically.
     if (colorPickerRef.current) {
       colorPickerRef.current.openPicker();
     }
   };
 
-  // Delete a color box.
   const handleDeleteColor = (index, e) => {
-    e.stopPropagation(); // Prevent triggering edit on the color box.
+    e.stopPropagation();
     setColors(prev => prev.filter((_, idx) => idx !== index));
   };
 
@@ -460,7 +440,6 @@ const AdminProductsPage = () => {
                       />
                     </div>
                   ))}
-                  {/* Colors Section: color picker and color boxes are on one line */}
                   <div className="form-group">
                     <label>Colors:</label>
                     <div className="color-picker-section" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
