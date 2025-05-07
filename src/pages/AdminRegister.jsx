@@ -11,7 +11,6 @@ const AdminRegister = () => {
   const { user, login, register, loginWithGoogle } = useUser();
   const navigate = useNavigate();
 
-  // Redirect based on user role
   useEffect(() => {
     if (!user) {
       navigate("/adminregister");
@@ -24,7 +23,6 @@ const AdminRegister = () => {
     }
   }, [user, navigate]);
 
-  // State variables for toggle forms and fields
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,20 +30,17 @@ const AdminRegister = () => {
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [justRegistered, setJustRegistered] = useState(false);
-  const [consentGiven, setConsentGiven] = useState(false); // Track consent state
+  const [consentGiven, setConsentGiven] = useState(false);
 
-  // Extra states for login functionality
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  // Auto-redirect if logged in and not just registered
   useEffect(() => {
     if (user && !justRegistered) {
       navigate("/adminpanel");
     }
   }, [user, justRegistered, navigate]);
 
-  // Auto-redirect after registration delay
   useEffect(() => {
     if (user && justRegistered) {
       const timer = setTimeout(() => {
@@ -55,12 +50,10 @@ const AdminRegister = () => {
     }
   }, [user, justRegistered, navigate]);
 
-  // Toggle the password visibility for login form
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
 
-  // Handle login submission with remember me and role admin
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -74,7 +67,6 @@ const AdminRegister = () => {
     setIsLoading(false);
   };
 
-  // Handle registration submission with password confirmation
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -92,7 +84,6 @@ const AdminRegister = () => {
     setIsLoading(false);
   };
 
-  // Handle Google login
   const handleGoogleLogin = async () => {
     setIsLoading(true);
     try {
@@ -180,13 +171,13 @@ const AdminRegister = () => {
                         {isLoading ? "Logging in..." : "LOGIN"}
                       </button>
                     </form>
-                    
+
                     <button
                       className="adminregister-google-button"
                       onClick={handleGoogleLogin}
                       disabled={isLoading}
                     >
-                      <FcGoogle className="adminregister-google-icon" 
+                      <FcGoogle className="adminregister-google-icon"
                       />
                       Sign in with Google
                     </button>
@@ -201,9 +192,9 @@ const AdminRegister = () => {
                         </div>
                         <div className="terms-container">
                           <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel consectetur interdum, 
-                            nisi elit consequat urna, vitae convallis neque odio nec sapien. Donec interdum, risus non commodo 
-                            sollicitudin, massa metus tincidunt mauris, eget fermentum elit nulla eu erat. Vestibulum eget imperdiet sapien. 
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel consectetur interdum,
+                            nisi elit consequat urna, vitae convallis neque odio nec sapien. Donec interdum, risus non commodo
+                            sollicitudin, massa metus tincidunt mauris, eget fermentum elit nulla eu erat. Vestibulum eget imperdiet sapien.
                             Phasellus non pulvinar neque. Vivamus malesuada tincidunt diam.
                           </p>
                         </div>
