@@ -8,7 +8,7 @@ main               = "api/worker.js"
 [build]
   command = "npm ci"
 
-# Tell Rollup to leave `ws` imports unresolved
+# Tell Rollup to leave `ws` import unresolved
 [build.rollupOptions]
   external = ["ws"]
 
