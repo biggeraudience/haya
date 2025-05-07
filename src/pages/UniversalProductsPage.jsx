@@ -9,12 +9,11 @@ import Chat from "../components/Chat";
 import { toast } from "react-toastify";
 import useAnalytics from "../hooks/useAnalytics";
 import { useSettings } from "../context/SettingsContext";
-import ProductSideBar from "../components/ProductSideBar"; // Ensure correct import path
-import FilterBar from "../modals/FilterBar"; // Ensure correct import path
-import { useFilterContext } from "../context/FilterContext"; // Ensure correct import path
-import "../styles/universalproductspage.scss"; // Ensure correct import path
+import ProductSideBar from "../components/ProductSideBar";
+import FilterBar from "../modals/FilterBar";
+import { useFilterContext } from "../context/FilterContext";
+import "../styles/universalproductspage.scss";
 
-// Helper functions.
 const normalizeGender = (gender) => {
   if (!gender) return "";
   const lower = gender.toLowerCase();
@@ -31,7 +30,7 @@ const mapCategoryKey = (gender, category) => {
     switch (category) {
       case "clothing":
         return "mensclothing";
-      case "bags": // <-- New case for men's bags
+      case "bags":
         return "mensbags";
       case "caps":
         return "menscaps";
@@ -70,31 +69,32 @@ const UniversalProductsPage = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState("all");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Fetch products using the correct query parameters
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Use the helper to ensure the correct query parameter is sent
         const queryCategory = getQueryCategory(selectedGender, selectedCategory);
-        console.log("Querying with category:", queryCategory); // Debug log
-        const response = await axios.get("/products/public", {
+        console.log("Querying with category:", queryCategory);
+
+        const BASE_API_URL = import.meta.env.VITE_API_URL;
+
+        const response = await axios.get(`${BASE_API_URL}/products/public`, {
           params: {
             gender: selectedGender,
             category: queryCategory
           }
         });
+
         setAllProducts(response.data);
       } catch (error) {
         console.error("Error fetching public products:", error);
       }
     };
     fetchProducts();
-  }, [selectedGender, selectedCategory]); // Added dependencies
+  }, [selectedGender, selectedCategory]);
 
-  // Update the filter context with the current gender and category.
   useEffect(() => {
     setCurrentFilterKey({ gender: selectedGender, category: selectedCategory });
-  }, [selectedGender, selectedCategory, setCurrentFilterKey]); // Added dependencies
+  }, [selectedGender, selectedCategory, setCurrentFilterKey]);
 
   const { min, max } = settings.productLimits || { min: 0, max: 10000000 };
   const filteredProducts = allProducts
@@ -165,12 +165,10 @@ const UniversalProductsPage = () => {
         setSelectedGender={setSelectedGender}
         setSelectedCategory={setSelectedCategory}
         setSelectedSubcategory={setSelectedSubcategory}
-        // Pass sidebarOpen state to show/hide the navigation items section
         showNavItems={sidebarOpen}
       />
       <div className="universal-page-container">
         <main className="universal-main-content">
-          {/* FilterBar now uses dynamic filter options fetched in context */}
           <FilterBar classname='filterbar' category={currentFilterKey} />
           <div className="products-display-wrapper">
             <div className="products-display">
