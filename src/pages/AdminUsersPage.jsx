@@ -5,7 +5,7 @@ import { TiUserDelete } from "react-icons/ti";
 import { CgUnblock } from "react-icons/cg";
 import { MdBlock } from "react-icons/md";
 
-const BASE_URL = "http://localhost:5000/api";
+// REMOVED or Replaced: const BASE_URL = "http://localhost:5000/api";
 
 const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);
@@ -17,7 +17,8 @@ const AdminUsersPage = () => {
     if (activeTab === "registered") {
       const fetchUsers = async () => {
         try {
-          const response = await axios.get(`${BASE_URL}/users`, {
+          const BASE_API_URL = import.meta.env.VITE_API_URL;
+          const response = await axios.get(`${BASE_API_URL}/users`, {
             withCredentials: true,
           });
           setUsers(response.data);
@@ -29,20 +30,19 @@ const AdminUsersPage = () => {
       };
       fetchUsers();
     } else {
-      // For guests, simulate loading or use guest data as needed.
       setLoading(false);
     }
   }, [activeTab]);
 
   const toggleExpand = (e, id) => {
-    // Prevent triggering parent click events.
     e.stopPropagation();
     setExpandedUser(expandedUser === id ? null : id);
   };
 
   const handleDeleteUser = async (id) => {
     try {
-      await axios.delete(`${BASE_URL}/users/${id}`, { withCredentials: true });
+      const BASE_API_URL = import.meta.env.VITE_API_URL;
+      await axios.delete(`${BASE_API_URL}/users/${id}`, { withCredentials: true });
       setUsers(users.filter((user) => user._id !== id));
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -51,8 +51,9 @@ const AdminUsersPage = () => {
 
   const handleToggleSuspend = async (id) => {
     try {
+      const BASE_API_URL = import.meta.env.VITE_API_URL;
       const response = await axios.patch(
-        `${BASE_URL}/users/${id}/suspend`,
+        `${BASE_API_URL}/users/${id}/suspend`,
         {},
         { withCredentials: true }
       );
