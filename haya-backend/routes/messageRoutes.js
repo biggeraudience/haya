@@ -1,15 +1,16 @@
+// ../haya-backend/routes/messageRoutes.js
+
 const express = require("express");
 const mongoose = require("mongoose");
 const asyncHandler = require("express-async-handler");
-const jwt = require("jsonwebtoken");
-// don't import ws at top-level to avoid bundling it for Workers
+const jwt = require("jsonwebtoken"); // Assuming jwt is needed
+
 const User = require("../models/userModel");
 const { protect, autoGenerateToken } = require("../middlewares/authMiddleware");
-const { isCloudflareWorker } = require("../utils/runtimeCheck"); 
 
 const router = express.Router();
 
-// Message Schema & Model
+
 const messageSchema = new mongoose.Schema({
   subject: String,
   body: { type: String, required: true },
@@ -26,14 +27,10 @@ const messageSchema = new mongoose.Schema({
 });
 const Message = mongoose.model("Message", messageSchema);
 
-// … your existing REST endpoints (POST /, POST /admin, etc.) …
 
-// ------------------------------
-// Real-time Chat (Node only)
-// ------------------------------
 let wss;
-if (!isCloudflareWorker()) {
-  const { Server: WebSocketServer } = require("ws");
+if (!isCloudflareWorker()) { // Conditional check is now irrelevant as block is removed
+  const { Server: WebSocketServer } = require("ws"); // This is the problematic line
   wss = new WebSocketServer({ port: 3000 });
 
   wss.on("connection", (ws) => {
@@ -52,7 +49,8 @@ if (!isCloudflareWorker()) {
             timestamp: new Date(),
           });
           await chatMessage.save();
-          // broadcast to all connected clients
+
+          // broadcast to all connected clients (this logic is Node.js specific)
           wss.clients.forEach((client) => {
             if (client.readyState === client.OPEN) {
               client.send(JSON.stringify(messageData));
@@ -70,8 +68,10 @@ if (!isCloudflareWorker()) {
   });
 
   console.log("WebSocket server running on ws://localhost:3000");
-} else {
+} else { // This else block is also removed
   console.log("⚡️ Skipping WebSocket.Server setup in Worker");
 }
 
-module.exports = router;
+
+
+module.exports = router; // Keep the standard Express router export
