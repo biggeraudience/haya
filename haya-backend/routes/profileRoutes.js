@@ -1,64 +1,76 @@
+// ../haya-backend/routes/profileRoutes.js
+
 const express = require("express");
-const mongoose = require("mongoose");
-const asyncHandler = require("express-async-handler");
-const jwt = require("jsonwebtoken");
-const User = require("../models/userModel");
-const { protect, autoGenerateToken } = require("../middlewares/authMiddleware");
-const { isCloudflareWorker } = require("../utils/runtimeCheck");
 
-const router = express.Router();
 
-// Message Schema & Model (unchanged)…
-const messageSchema = new mongoose.Schema({ /* … */ });
-const Message = mongoose.model("Message", messageSchema);
+// Export a function that ACCEPTS the configured uploadPhoto middleware instance
+export default (uploadPhoto) => {
+  const router = express.Router();
 
-// … your existing REST endpoints here …
+  const {
+    registerUser,
+    loginUser,
+    logoutUser,
+    getUserProfile,
+    updateUserProfile,
+    deleteUserProfile,
+    refreshToken,
+    getUserAddress,
+    updateUserAddress,
+    deleteUserAddress,
+    updateUserCards,
+    getAllUsers,
+    deleteAllUsers,
+    uploadProfilePhotoController,
+  } = require("../controllers/profileController");
+  const { protect, autoGenerateToken, adminOnly } = require("../middlewares/authMiddleware");
 
-// ------------------------------
-// Real-time Chat (only in Node)
-// ------------------------------
-let wss;
-if (!isCloudflareWorker()) {
-  const { Server: WebSocketServer } = require("ws");
-  wss = new WebSocketServer({ port: 3000 });
 
-  wss.on("connection", (ws) => {
-    console.log("WebSocket client connected");
+  // Authentication routes
+  router.post("/auth/register", registerUser);
+  router.post("/auth/login", loginUser);
+  router.post("/auth/logout", logoutUser);
+  router.post("/auth/refresh-token", refreshToken);
 
-    ws.on("message", async (data) => {
-      try {
-        const messageData = JSON.parse(data);
-        if (messageData.type === "chat") {
-          const chatMessage = new Message({
-            subject:   messageData.subject || "",
-            body:      messageData.text,
-            type:      "chat",
-            userId:    messageData.userId,
-            senderId:  messageData.senderId || messageData.userId,
-            timestamp: new Date(),
-          });
-          await chatMessage.save();
+  // User profile routes
+  router.get("/auth/profile", protect, autoGenerateToken, getUserProfile);
+  router.put("/auth/profile", protect, autoGenerateToken, updateUserProfile);
+  router.delete("/auth/profile", protect, autoGenerateToken, deleteUserProfile);
 
-          // broadcast to all connected clients
-          wss.clients.forEach((client) => {
-            if (client.readyState === client.OPEN) {
-              client.send(JSON.stringify(messageData));
-            }
-          });
-        }
-      } catch (err) {
-        console.error("Error processing WebSocket message:", err);
-      }
+  // Profile photo upload route - USE the uploadPhoto passed as an argument
+  router.put(
+    "/auth/profile/photo",
+    protect,
+    autoGenerateToken,
+    uploadPhoto.single("profilePhoto"),
+    uploadProfilePhotoController
+  );
+
+
+  router.get("/user/addresses/:userId", protect, autoGenerateToken, getUserAddress);
+  router.put("/user/addresses/:userId", protect, autoGenerateToken, updateUserAddress);
+  router.delete("/user/addresses/:userId", protect, autoGenerateToken, deleteUserAddress);
+
+  // Cards route
+  router.put("/profile/cards", protect, autoGenerateToken, updateUserCards);
+
+  router.get("/users", protect, adminOnly, getAllUsers);
+
+  let wss;
+  if (!isCloudflareWorker()) { // Conditional check is now irrelevant as block is removed
+    const { Server: WebSocketServer } = require("ws"); // This is the problematic line
+    wss = new WebSocketServer({ port: 3000 });
+
+    wss.on("connection", (ws) => {
+      console.log("WebSocket client connected");
+    
     });
 
-    ws.on("close", () => {
-      console.log("WebSocket client disconnected");
-    });
-  });
+    console.log("WebSocket server running on ws://localhost:3000");
+  } else { // This else block is also removed
+    console.log("⚡️ Skipping WebSocket.Server setup in Worker");
+  }
 
-  console.log("WebSocket server running on ws://localhost:3000");
-} else {
-  console.log("⚡️ Skipping WebSocket.Server setup in Worker");
-}
 
-module.exports = router;
+  return router;
+};
