@@ -1,4 +1,4 @@
-name               = "haya-api"
+name = "hayaa"
 compatibility_date = "2025-05-06"
 workers_dev        = true
 
