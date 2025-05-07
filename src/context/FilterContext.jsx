@@ -13,7 +13,7 @@ export const FilterProvider = ({ children }) => {
   const [currentFilterKey, setCurrentFilterKey] = useState({ gender: "", category: "" });
 
   // Fetch dynamic filter options from the backend when currentFilterKey changes.
-  // Updated to fetch options when a gender is selected—even if category is "all".
+  // Updated to fetch the options when a gender is selected—even if category is "all".
   useEffect(() => {
     const fetchFilterOptions = async () => {
       if (currentFilterKey.gender) {
