@@ -1,15 +1,13 @@
-// src/pages/ProductDetail.jsx (Your existing ProductDetail page file)
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom"; // Import useLocation
-import PropTypes from "prop-types"; // Keep PropTypes
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 import axios from "axios";
 import namer from "color-namer";
 import { toast } from "react-toastify";
 
-axios.defaults.baseURL = "http://localhost:5000/api";
+// REMOVED: axios.defaults.baseURL = "http://localhost:5000/api";
 axios.defaults.withCredentials = true;
 
-// Import necessary contexts (adjust paths if needed)
 import { ClothingShopContext } from "../context/ClothingShopContext";
 import { useShoesShop } from "../context/ShoesShopContext";
 import { useBagsShop } from "../context/BagsShopContext";
@@ -18,7 +16,6 @@ import { useJewelryShop } from "../context/JewelryShopContext";
 import { useVeilsShop } from "../context/VeilsShopContext";
 import { useWomensFabricsShop } from "../context/WomensFabricsShopContext";
 
-// Men's shop contexts
 import { useMensAccessoriesShop } from "../context/MensAccessoriesShopContext";
 import { useMensCapsShop } from "../context/MensCapsShopContext";
 import { useMensClothingShop } from "../context/MensClothingShopContext";
@@ -28,12 +25,11 @@ import { useMensShoesShop } from "../context/MensShoesShopContext";
 import { useMensBagsShop } from "../context/MensBagsShopContext";
 import { useCartContext } from "../context/CartContextContext";
 
-import "../styles/products.scss"; // Keep existing styles for the page
-import Navbar from "../components/Navbar"; // Keep Navbar
-import useAnalytics, { trackEvent } from "../hooks/useAnalytics"; // Keep Analytics
-import ProductFooter from "../components/ProductFooter"; // Keep Footer
+import "../styles/products.scss";
+import Navbar from "../components/Navbar";
+import useAnalytics, { trackEvent } from "../hooks/useAnalytics";
+import ProductFooter from "../components/ProductFooter";
 
-// Helper function (kept)
 const getFriendlyName = (hex) => {
   if (!hex || typeof hex !== "string" || hex.trim() === "") return "unknown";
   try {
@@ -45,7 +41,6 @@ const getFriendlyName = (hex) => {
   }
 };
 
-// CollapsibleSection component (kept, ensure its styles are in products.scss)
 const CollapsibleSection = ({ title, children, defaultExpanded = false, icon }) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
   const contentRef = useRef(null);
@@ -93,11 +88,10 @@ CollapsibleSection.propTypes = {
 
 const ProductDetail = () => {
   useAnalytics();
-  const { productId } = useParams(); // Keep useParams
-  const navigate = useNavigate(); // Keep useNavigate for checkout
-  const location = useLocation(); // Get location object
+  const { productId } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // Access shop contexts
   const { products: clothingProducts } = useContext(ClothingShopContext);
   const { products: shoesProducts } = useShoesShop();
   const { products: bagsProducts } = useBagsShop();
@@ -107,7 +101,6 @@ const ProductDetail = () => {
   const { products: veilsProducts } = useVeilsShop();
   const { products: womensFabrics } = useWomensFabricsShop();
 
-  // Men's shop contexts
   const { products: mensAccessories } = useMensAccessoriesShop();
   const { products: mensCaps } = useMensCapsShop();
   const { products: mensClothing } = useMensClothingShop();
@@ -116,7 +109,6 @@ const ProductDetail = () => {
   const { products: mensShoes } = useMensShoesShop();
   const { addItemToCart } = useCartContext();
 
-  // Combine arrays from all contexts
   const allProductsFromContext = [
     ...clothingProducts,
     ...shoesProducts,
@@ -134,19 +126,16 @@ const ProductDetail = () => {
     ...mensShoes,
   ];
 
-  // Initialize product state - try finding in combined context first
   const [product, setProduct] = useState(
     allProductsFromContext.find((p) => p._id === productId) || null
   );
 
-  // Track product view event
   useEffect(() => {
     if (product) {
       trackEvent("PRODUCT_VIEWED", { productName: product.name });
     }
   }, [product]);
 
-  // Standard product details state.
   const [selectedColor, setSelectedColor] = useState(product?.colors?.[0]?.name || "");
   const [selectedSize, setSelectedSize] = useState(
     product?.attributes?.size ? product.attributes.size.split(",")[0].trim() : ""
@@ -159,7 +148,6 @@ const ProductDetail = () => {
   );
 
 
-  // Bespoke order state.
   const [showBespokeForm, setShowBespokeForm] = useState(false);
   const [bespokeMeasurements, setBespokeMeasurements] = useState({});
   const [bespokeNote, setBespokeNote] = useState("");
@@ -172,123 +160,101 @@ const ProductDetail = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isFavorite, setIsFavorite] = useState(product?.isFavorite || false);
 
-  // State for measurement configuration fetched from backend.
   const [measurementConfig, setMeasurementConfig] = useState(null);
 
   const [loading, setLoading] = useState(!product);
 
-  // Effect to fetch product if not found in context or if productId changes
   useEffect(() => {
       const fetchProduct = async () => {
           if (!productId) {
-              // Handle case where productId is missing (e.g., redirect to 404)
               setLoading(false);
               return;
           }
-          if (!product || product._id !== productId) { // Only fetch if product not in state or ID mismatch
+          if (!product || product._id !== productId) {
               setLoading(true);
               try {
-                  const res = await axios.get(`/products/public?id=${productId}`);
+                  const BASE_API_URL = import.meta.env.VITE_API_URL;
+                  const res = await axios.get(`${BASE_API_URL}/products/public?id=${productId}`);
                   setProduct(res.data);
                   setLoading(false);
               } catch (err) {
                   console.error("Error fetching product:", err);
                   setLoading(false);
-                  // Handle error (e.g., set an error state to display a message)
               }
           }
       };
 
       fetchProduct();
 
-  }, [productId, product]); // Depend on productId and the product state itself
+  }, [productId, product]);
 
 
-  // Effect to fetch measurement configuration
   useEffect(() => {
     async function fetchMeasurementConfig() {
       try {
-        const res = await axios.get("/measurementConfig", { cache: "no-store" });
+        const BASE_API_URL = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${BASE_API_URL}/measurementConfig`, { cache: "no-store" });
         setMeasurementConfig(res.data);
       } catch (error) {
         console.error("Failed to fetch measurement config:", error);
       }
     }
-     // Fetch config only if product is loaded and is a fabric
-     if (product && product.category?.toLowerCase().includes("fabric")) {
-         fetchMeasurementConfig();
-     }
-  }, [product]); // Depend on product loading
+      if (product && product.category?.toLowerCase().includes("fabric")) {
+          fetchMeasurementConfig();
+      }
+  }, [product]);
 
 
-  // NEW Effect to check navigation state and trigger bespoke form
   useEffect(() => {
-    // Check if state exists and if triggerBespokeForm is true
     if (location.state?.triggerBespokeForm && product && product.category?.toLowerCase().includes("fabric")) {
         setShowBespokeForm(true);
-        // Optionally, clear the state so the form doesn't reappear on refresh
-        // This requires replacing the current history state
         navigate(location.pathname, { replace: true });
     }
-  }, [location.state, product, navigate, location.pathname]); // Depend on location.state, product, and navigate
+  }, [location.state, product, navigate, location.pathname]);
 
 
   const handleRightColScroll = (e) => {
       if (detailsRef.current) {
-         setIsScrolled(detailsRef.current.scrollTop > 10);
+          setIsScrolled(detailsRef.current.scrollTop > 10);
       }
-   }
+    }
 
   const handleWheelLeftCol = (event) => {
-    // Keep your existing wheel handling logic
     if (!product?.images || product.images.length === 0 || !leftColRef.current || !detailsRef.current) return;
 
-     event.preventDefault(); // Prevent default browser scroll
+      event.preventDefault();
 
-     const isResponsive = window.innerWidth < 1200; // Keep responsive check
+      const isResponsive = window.innerWidth < 1200;
 
-     if (isResponsive) {
-         if (event.deltaY > 0) {
-             // Scroll down
-             if (activeImage < product.images.length - 1) {
-                 const newIndex = activeImage + 1;
-                 setActiveImage(newIndex);
-                 // Scroll by the height of the image container
-                 leftColRef.current.scrollTo({ top: newIndex * leftColRef.current.offsetHeight, behavior: "smooth" });
-             } else {
-                 // If at the last image, scroll the right column into view
-                 detailsRef.current.scrollIntoView({ behavior: "smooth" });
-             }
-         } else if (event.deltaY < 0) {
-             // Scroll up
-             if (activeImage > 0) {
-                 const newIndex = activeImage - 1;
-                 setActiveImage(newIndex);
-                 // Scroll by the height of the image container
-                 leftColRef.current.scrollTo({ top: newIndex * leftColRef.current.offsetHeight, behavior: "smooth" });
-             } else {
-                 // If at the first image, optionally scroll to the very top of the page
-                 // window.scrollTo({ top: 0, behavior: 'smooth' });
-             }
-         }
-     } else {
-         // Desktop behavior
-         if (event.deltaY > 0 && activeImage < product.images.length - 1) {
-             const newIndex = activeImage + 1;
-             setActiveImage(newIndex);
-             // Scroll by the height of the image container
-             leftColRef.current.scrollTo({ top: newIndex * leftColRef.current.offsetHeight, behavior: "smooth" });
-         } else if (event.deltaY < 0 && activeImage > 0) {
-             const newIndex = activeImage - 1;
-             setActiveImage(newIndex);
-             // Scroll by the height of the image container
-             leftColRef.current.scrollTo({ top: newIndex * leftColRef.current.offsetHeight, behavior: "smooth" });
-         }
-     }
+      if (isResponsive) {
+          if (event.deltaY > 0) {
+              if (activeImage < product.images.length - 1) {
+                  const newIndex = activeImage + 1;
+                  setActiveImage(newIndex);
+                  leftColRef.current.scrollTo({ top: newIndex * leftColRef.current.offsetHeight, behavior: "smooth" });
+              } else {
+                  detailsRef.current.scrollIntoView({ behavior: "smooth" });
+              }
+          } else if (event.deltaY < 0 && activeImage > 0) {
+              const newIndex = activeImage - 1;
+              setActiveImage(newIndex);
+              leftColRef.current.scrollTo({ top: newIndex * leftColRef.current.offsetHeight, behavior: "smooth" });
+          }
+      } else {
+          if (event.deltaY > 0 && activeImage < product.images.length - 1) {
+              const newIndex = activeImage + 1;
+              setActiveImage(newIndex);
+              leftColRef.current.scrollTo({ top: newIndex * leftColRef.current.offsetHeight, behavior: "smooth" });
+          } else if (event.deltaY < 0 && activeImage > 0) {
+              const newIndex = activeImage - 1;
+              setActiveImage(newIndex);
+              leftColRef.current.scrollTo({ top: newIndex * leftColRef.current.offsetHeight, behavior: "smooth" });
+          }
+      }
   };
 
   if (loading) return <div>Loading product...</div>;
-  if (!product) return <div>Product not found!</div>; // Handle not found case
+  if (!product) return <div>Product not found!</div>;
 
 
   const generateOptions = (attrValue) =>
@@ -301,7 +267,7 @@ const ProductDetail = () => {
       selectedColor,
       selectedSize,
       selectedLength,
-      selectedSleeveLength, // Include sleeve length
+      selectedSleeveLength,
       quantity: 1,
     };
     addItemToCart(cartItem);
@@ -311,13 +277,12 @@ const ProductDetail = () => {
   const handleBespokeAddToCart = () => {
     const bespokeOrder = {
       ...product,
-      // Merge the measurements with the global fit option
       bespokeMeasurements: {
         ...bespokeMeasurements,
         fit: globalFit,
       },
       bespokeNote,
-      bespokeMedia: bespokeFiles, // This might need actual file upload logic
+      bespokeMedia: bespokeFiles,
       isBespoke: true,
       gender: product.gender,
       quantity: 1,
@@ -326,7 +291,6 @@ const ProductDetail = () => {
     toast.success(`${product.name} bespoke order added to your bag!`);
   };
 
-  // Render measurement fields (kept)
   const renderMeasurementFields = () => {
     if (!measurementConfig) return <div>Loading measurements...</div>;
     const genderKey = product.gender?.toLowerCase();
@@ -374,7 +338,7 @@ const ProductDetail = () => {
     );
   };
 
-  const isFabricProduct = product.category?.toLowerCase().includes("fabric"); // Use optional chaining
+  const isFabricProduct = product.category?.toLowerCase().includes("fabric");
 
 
   return (
@@ -383,7 +347,7 @@ const ProductDetail = () => {
         <Navbar />
         <div className="main-content">
           <div className="left-col" ref={leftColRef} onWheel={handleWheelLeftCol}>
-            {product.images?.length > 0 ? ( // Use optional chaining
+            {product.images?.length > 0 ? (
               product.images.map((img, index) => (
                 <div key={index} className="full-image" style={{ position: "relative" }}>
                   <img src={img} alt={`${product.name} ${index + 1}`} />
@@ -409,7 +373,6 @@ const ProductDetail = () => {
                         </svg>
                       </span>
                     </div>
-                    {/* Attribute selectors */}
                     <div className="attribute-selectors" style={{ marginBottom: "20px" }}>
                       {product.colors && product.colors.length > 0 && (
                         <div className="color-selector" style={{ marginBottom: "10px" }}>
@@ -420,7 +383,7 @@ const ProductDetail = () => {
                                 key={index}
                                 className={`color-box ${selectedColor === color.name ? "selected" : ""}`}
                                 style={{
-                                  backgroundColor: color.name, // Use the 'name' property as hex code
+                                  backgroundColor: color.name,
                                   width: "24px",
                                   height: "24px",
                                   marginRight: "5px",
@@ -466,7 +429,7 @@ const ProductDetail = () => {
                           </select>
                         </div>
                       )}
-                      {product.attributes?.SleeveLength && ( // Added SleeveLength selector
+                      {product.attributes?.SleeveLength && (
                         <div className="sleeve-length-selector">
                           <label htmlFor="sleeve-length-select" style={{ fontSize: "16px", marginRight: "10px" }}>Sleeve Length:</label>
                           <select
@@ -559,7 +522,7 @@ const ProductDetail = () => {
                 )}
                 {showBespokeForm && isFabricProduct && (
                   <div className="bespoke-form">
-                    <h3>Bespoke Order Details</h3> {/* Added heading */}
+                    <h3>Bespoke Order Details</h3>
                     <div className="form-content">
                       {renderMeasurementFields()}
                       <div style={{ marginBottom: "10px" }}>
@@ -575,7 +538,7 @@ const ProductDetail = () => {
                         <input
                           type="file"
                           accept="image/*,video/*"
-                         multiple // Allow multiple file selection
+                          multiple
                           onChange={(e) => setBespokeFiles(e.target.files)}
                           style={{ width: "100%" }}
                         />
@@ -583,7 +546,7 @@ const ProductDetail = () => {
                     </div>
                     <div className="form-actions">
                       <button className="buy-button" onClick={handleBespokeAddToCart}>Add to bag</button>
-                      <button className="checkout-button">Checkout</button> {/* Keep checkout button */}
+                      <button className="checkout-button">Checkout</button>
                       <button className="inline-close-button" onClick={() => setShowBespokeForm(false)}>X</button>
                     </div>
                   </div>
@@ -595,7 +558,7 @@ const ProductDetail = () => {
         <div className="you-may-be-interested">
           <h2>You may be interested</h2>
           <div className="interested-grid">
-            {product.similar?.length > 0 ? ( // Use optional chaining
+            {product.similar?.length > 0 ? (
               product.similar.map((similar, index) => (
                 <div key={index} className="interested-item">
                   <img src={similar.image} alt={similar.name} />
@@ -614,8 +577,6 @@ const ProductDetail = () => {
 };
 
 ProductDetail.propTypes = {
-  // Keep or adjust propTypes if ProductDetail is ever rendered with props directly
-  // Currently relies on route params and context
 };
 
 
