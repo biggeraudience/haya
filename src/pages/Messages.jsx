@@ -7,18 +7,17 @@ import axios from "axios";
 import "../styles/messages.scss";
 
 const Messages = () => {
-  const { id } = useParams(); // For example, the conversation or thread ID
+  const { id } = useParams();
   const [messages, setMessages] = useState([]);
   const [refreshFlag, setRefreshFlag] = useState(false);
   const [showCompose, setShowCompose] = useState(false);
 
-  // Function to fetch the message thread
   const fetchMessages = async () => {
     try {
-      const response = await axios.get(`/api/messages/${id}`, {
+      const BASE_API_URL = import.meta.env.VITE_API_URL;
+      const response = await axios.get(`${BASE_API_URL}/api/messages/${id}`, {
         withCredentials: true,
       });
-      // Adapt based on your API response structure. Here we assume either a 'conversation' or a flat array.
       setMessages(response.data.conversation || response.data);
     } catch (error) {
       console.error("Error fetching messages:", error);
@@ -29,7 +28,6 @@ const Messages = () => {
     fetchMessages();
   }, [id, refreshFlag]);
 
-  // When a new message is sent, refresh the messages list
   const handleRefresh = () => {
     setRefreshFlag((prev) => !prev);
   };
@@ -67,6 +65,7 @@ const Messages = () => {
               )}
             </div>
             <div className="compose-container">
+              {/* The ComposeBox component likely also makes an API call */}
               <ComposeBox onMessageSent={handleRefresh} />
             </div>
           </div>
