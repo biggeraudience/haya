@@ -22,7 +22,6 @@ import {
 const AdminMessagesPage = () => {
   const { user } = useUser();
   const [activeTile, setActiveTile] = useState("Primary");
-  // Using primaryFilter to switch sub-tabs in Primary tab
   const [primaryFilter, setPrimaryFilter] = useState("message");
   const [messages, setMessages] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -31,13 +30,13 @@ const AdminMessagesPage = () => {
   const [showReply, setShowReply] = useState(false);
   const [conversationReplies, setConversationReplies] = useState([]);
 
-  // Fetch messages
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        let url = "http://localhost:5000/api/messages/admin";
+        const BASE_API_URL = import.meta.env.VITE_API_URL;
+        let url = `${BASE_API_URL}/messages/admin`;
         if (user && (user.role === "admin" || user.role === "superadmin")) {
-          url = `http://localhost:5000/api/messages/admin?adminId=${user._id}`;
+          url = `${BASE_API_URL}/messages/admin?adminId=${user._id}`;
         }
         const response = await fetch(url, { credentials: "include" });
         const data = await response.json();
@@ -57,11 +56,11 @@ const AdminMessagesPage = () => {
     if (user) fetchMessages();
   }, [user]);
 
-  // Fetch orders
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/orders/all", {
+        const BASE_API_URL = import.meta.env.VITE_API_URL;
+        const response = await fetch(`${BASE_API_URL}/orders/all`, {
           credentials: "include",
         });
         const data = await response.json();
@@ -73,7 +72,6 @@ const AdminMessagesPage = () => {
     if (user) fetchOrders();
   }, [user]);
 
-  // Reset conversation thread and reply form when a new message is selected
   useEffect(() => {
     setConversationReplies([]);
     setShowReply(false);
@@ -84,7 +82,6 @@ const AdminMessagesPage = () => {
     if (tile === "Primary") {
       setPrimaryFilter("message");
     }
-    // Reset inline details and conversation when switching tabs
     setSelectedOrder(null);
     setSelectedMessage(null);
     setShowReply(false);
@@ -94,7 +91,8 @@ const AdminMessagesPage = () => {
     const updatedMessages = messages.map((msg) => {
       if (msg._id === messageId) {
         const updatedMsg = { ...msg, isStarred: !msg.isStarred };
-        fetch(`http://localhost:5000/api/messages/${messageId}`, {
+        const BASE_API_URL = import.meta.env.VITE_API_URL;
+        fetch(`${BASE_API_URL}/messages/${messageId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -111,7 +109,8 @@ const AdminMessagesPage = () => {
     const updatedMessages = messages.map((msg) => {
       if (msg._id === messageId) {
         const updatedMsg = { ...msg, isDeleted: true };
-        fetch(`http://localhost:5000/api/messages/${messageId}`, {
+        const BASE_API_URL = import.meta.env.VITE_API_URL;
+        fetch(`${BASE_API_URL}/messages/${messageId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -126,7 +125,8 @@ const AdminMessagesPage = () => {
 
   const deleteOrder = async (orderId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
+      const BASE_API_URL = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${BASE_API_URL}/orders/${orderId}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -139,15 +139,11 @@ const AdminMessagesPage = () => {
   };
 
   const handleMessageSent = (newMessage) => {
-    // Append the new reply to the conversation thread
     setConversationReplies((prev) => [...prev, newMessage]);
-    // Optionally update the global messages list if needed
     setMessages([newMessage, ...messages]);
-    // Close the reply form
     setShowReply(false);
   };
 
-  // Determine display items based on active tab and primary filter
   let displayItems = [];
   if (activeTile === "Primary") {
     if (primaryFilter === "order") {
@@ -179,7 +175,6 @@ const AdminMessagesPage = () => {
         <div className="admin-container">
           <div className="admin-messages-page">
             <div className="admin-messages-container">
-              {/* Sidebar – compose button removed */}
               <aside className="admin-sidebar">
                 <ul className="sidebar-menu">
                   <li
@@ -227,9 +222,7 @@ const AdminMessagesPage = () => {
                 </ul>
               </aside>
 
-              {/* Main Content */}
               <main className="messages-content">
-                {/* Header Sub-Tabs using provided toggle button styles */}
                 {activeTile === "Primary" && (
                   <header className="admin-toggle-buttons">
                     <button
@@ -262,13 +255,11 @@ const AdminMessagesPage = () => {
                   <MessagesSettings />
                 ) : (
                   <section className="messages-list-container">
-                    {/* Inline details for orders */}
                     {primaryFilter === "order" && selectedOrder ? (
                       <div className="order-wrapper">
                         <InlineOrderDetails
                           order={selectedOrder}
                           onClose={() => setSelectedOrder(null)}
-                          // onStatusUpdate handler should be defined if needed
                         />
                       </div>
                     ) : selectedMessage ? (
@@ -285,7 +276,6 @@ const AdminMessagesPage = () => {
                             onReply={() => setShowReply(true)}
                           />
                         </div>
-                        {/* Render conversation replies */}
                         {conversationReplies.map((reply, index) => (
                           <div key={reply._id || index} className="reply-item">
                             <div className="reply-message-box">
@@ -380,7 +370,6 @@ const AdminMessagesPage = () => {
           </div>
         </div>
       </div>
-      {/* Mobile compose FAB removed */}
     </>
   );
 };
