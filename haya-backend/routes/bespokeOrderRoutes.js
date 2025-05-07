@@ -1,12 +1,18 @@
+// ../haya-backend/routes/bespokeOrderRoutes.js
+
 const express = require('express');
-const router = express.Router();
-const upload = require('../middlewares/upload'); // Reuse the multer configuration for file uploads
-const { createBespokeOrder } = require('../controllers/bespokeOrderController');
-const { protect } = require('../middlewares/authMiddleware');
+// Remove the direct require of middleware
+// const upload = require('../middlewares/upload');
 
-// Route to create a new bespoke fabric order.
-// This route expects form data including measurements, fabric details,
-// any additional notes, and an optional media file (photo/video).
-router.post('/', protect, upload.array('media'), createBespokeOrder);
+// Export a factory function that accepts the configured upload middleware
+export default (uploadMiddleware) => {
+  const router = express.Router();
+  const { createBespokeOrder } = require('../controllers/bespokeOrderController');
+  const { protect } = require('../middlewares/authMiddleware');
 
-module.exports = router;
+  // Route to create a new bespoke fabric order.
+  // Use the uploadMiddleware passed as an argument
+  router.post('/', protect, uploadMiddleware.array('media'), createBespokeOrder);
+
+  return router;
+};
