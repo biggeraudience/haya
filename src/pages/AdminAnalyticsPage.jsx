@@ -1,6 +1,6 @@
 // src/pages/AdminAnalyticsPage.jsx
 import React, { useState, useEffect } from 'react';
-import '../styles/globaladmin.scss'; // Updated import
+import '../styles/globaladmin.scss';
 import axios from 'axios';
 import {
   ResponsiveContainer,
@@ -24,7 +24,6 @@ import SalesComponent from '../components/SalesComponent';
 import MapSlider from '../components/MapSlider';
 import ChatBot from '../components/ChatBot';
 
-// Dummy data for demonstration
 const revenueData = [
   { date: '2025-01-01', revenue: 400 },
   { date: '2025-01-02', revenue: 300 },
@@ -130,8 +129,9 @@ const AdminAnalyticsPage = () => {
   const [showChatBot, setShowChatBot] = useState(false);
 
   useEffect(() => {
+    const BASE_API_URL = import.meta.env.VITE_API_URL;
     axios
-      .get('/analytics', { withCredentials: true })
+      .get(`${BASE_API_URL}/analytics`, { withCredentials: true })
       .then((response) => {
         setAnalyticsData(response.data);
         setLoading(false);
@@ -162,7 +162,6 @@ const AdminAnalyticsPage = () => {
               Revenue Over Time
               <div className="date-picker">Last 7 days</div>
             </div>
-            {/* Example using SalesForecastChart */}
             <SalesForecastChart />
           </div>
           <div className="card chart-card">
@@ -255,7 +254,7 @@ const AdminAnalyticsPage = () => {
       <div className="admin-container">
         <div className="admin-analytics-page">
           <header className="top-bar">
-           
+
             <div className="admin-toggle-buttons">
               {tabs.map((tab) => (
                 <button
