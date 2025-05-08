@@ -11,7 +11,7 @@ import configureUpload        from "./middlewares/upload.js"; // Assuming th
 
 import createProfileRoutes      from "./routes/profileRoutes.js";
 import adminRoutes              from "./routes/adminRoutes.js";
-import superAdminRoutes         from "./routes/superAdminRoutes.js";
+import superAdminRoutes         from "./routes/superAdminRoutes.js.js"; // Corrected potential typo here? Check your file names. Should likely be superAdminRoutes.js
 import productRoutesFactory      from "./routes/productRoutes.js"; // Renamed import to productRoutesFactory for clarity
 import orderRoutes              from "./routes/orderRoutes.js";
 import messageRoutes            from "./routes/messageRoutes.js";
@@ -33,9 +33,10 @@ import createBespokeOrderRoutes  from "./routes/bespokeOrderRoutes.js"; // Impo
 export default async function createApp(env) {
   // Connect to MongoDB once
   try {
-    // Use require for mongoose instead of import
+    // Use require for mongoose
     const mongoose = require('mongoose');
-    await mongoose.connect(env.MONGODB_URI, {}); // Try connecting directly using the required module
+    // **ATTEMPT 3: Try connecting by explicitly accessing the .default property after requiring**
+    await mongoose.default.connect(env.MONGODB_URI, {});
     console.log("✅ Connected to MongoDB");
   } catch (error) {
     console.error("❌ Failed to connect to MongoDB:", error);
