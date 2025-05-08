@@ -2,7 +2,7 @@
 
 import express from "express";
 import cors from "cors";
-// import mongoose from "mongoose"; // <-- REMOVE THIS STATIC IMPORT
+// import mongoose from "mongoose"; // <-- KEEP THIS STATIC IMPORT REMOVED or COMMENTED OUT
 import cookieParser from "cookie-parser";
 
 import configureProfileMulter from "./middlewares/profileMulter.js";
@@ -31,11 +31,11 @@ import createBespokeOrderRoutes  from "./routes/bespokeOrderRoutes.js"; // Impo
 
 // Export an async factory
 export default async function createApp(env) {
-  // Connect to MongoDB once using dynamic import
+  // Connect to MongoDB once
   try {
-    // Use dynamic import for mongoose
-    const mongoose = await import('mongoose');
-    await mongoose.default.connect(env.MONGODB_URI, {}); // Explicitly access the default export and connect
+    // Use require for mongoose instead of import
+    const mongoose = require('mongoose');
+    await mongoose.connect(env.MONGODB_URI, {}); // Try connecting directly using the required module
     console.log("✅ Connected to MongoDB");
   } catch (error) {
     console.error("❌ Failed to connect to MongoDB:", error);
