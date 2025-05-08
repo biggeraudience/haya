@@ -1,9 +1,5 @@
 {
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "https://haya-api.YOUR_WORKERS_SUBDOMAIN.workers.dev/api/$1"
-    },
     { "handle": "filesystem" },
     {
       "src": "/(.*)",
