@@ -2,7 +2,7 @@
 
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
+// import mongoose from "mongoose"; // <-- REMOVE THIS STATIC IMPORT
 import cookieParser from "cookie-parser";
 
 import configureProfileMulter from "./middlewares/profileMulter.js";
@@ -31,16 +31,16 @@ import createBespokeOrderRoutes  from "./routes/bespokeOrderRoutes.js"; // Impo
 
 // Export an async factory
 export default async function createApp(env) {
-  // Connect to MongoDB once
+  // Connect to MongoDB once using dynamic import
   try {
-    await mongoose.connect(env.MONGODB_URI, {});
+    // Use dynamic import for mongoose
+    const mongoose = await import('mongoose');
+    await mongoose.default.connect(env.MONGODB_URI, {}); // Explicitly access the default export and connect
     console.log("✅ Connected to MongoDB");
   } catch (error) {
     console.error("❌ Failed to connect to MongoDB:", error);
-    // Consider exiting or handling this critical error appropriately
-    // For a Worker, this might throw an unhandled exception if not caught later.
-    // Adding a re-throw might be useful for debugging Pages build logs.
-    throw error;
+    // Re-throw the error so it's visible in the build logs if it happens during initialization
+    throw error;
   }
 
 
@@ -82,10 +82,10 @@ export default async function createApp(env) {
   // Global error handler
   app.use((err, req, res, next) => {
     console.error("❌ Server Error:", err);
-    // Check if headers have already been sent before trying to send a response
-    if (res.headersSent) {
-        return next(err); // Delegate to default error handler if headers sent
-    }
+    // Check if headers have already been sent before trying to send a response
+    if (res.headersSent) {
+        return next(err); // Delegate to default error handler if headers sent
+    }
     res.status(err.status || 500).json({ message: err.message || "Internal Server Error" });
   });
 
