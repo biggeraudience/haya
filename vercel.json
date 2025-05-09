@@ -1,10 +1,10 @@
 {
   "version": 2,
   "builds": [
-    // 1) Compile your Node API from root/server.js
+   
     { "src": "server.js",      "use": "@vercel/node" },
 
-    // 2) Build your Vite frontend into /dist
+   
     {
       "src": "package.json",
       "use": "@vercel/static-build",
@@ -15,10 +15,10 @@
     }
   ],
   "routes": [
-    // Route all /api/* traffic to your Express entrypoint at root/server.js
+   
     { "src": "/api/(.*)", "dest": "/server.js" },
 
-    // Everything else is your static frontend
+   
     { "src": "/(.*)",     "dest": "/dist/$1" }
   ]
 }
