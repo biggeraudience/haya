@@ -1,11 +1,22 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/server.js", "use": "@vercel/node" },
-    { "src": "package.json", "use": "@vercel/static-build" }
+    // 1) Build your Node API
+    { "src": "api/server.js",    "use": "@vercel/node" },
+    // 2) Build your Vite frontend into /dist
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist",
+        "buildCommand": "npm run build"
+      }
+    }
   ],
   "routes": [
+    // Proxy /api/* to your Node API
     { "src": "/api/(.*)", "dest": "/api/server.js" },
-    { "src": "/(.*)", "dest": "/dist/$1" }
+    // Everything else → static files under /dist
+    { "src": "/(.*)",     "dest": "/dist/$1" }
   ]
 }
